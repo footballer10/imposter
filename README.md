@@ -42,8 +42,13 @@ and 3,300+ words keep the game fresh.
 - Ties are broken by most imposter escapes, then fewest wrongful
   accusations, then name.
 
+In setup you can also set **Play to points** (1–100) or **Play to
+time** (1–60 min) — the round in progress always finishes, then a
+popup offers to continue or head to the podium.
+
 Hit **Finish Game** after any round for the podium, final leaderboard,
-awards, and full round history.
+awards (ties split them, and mods used for only part of the game earn
+their own awards, like Speed Demon for Blitz), and full round history.
 
 ## Mods
 
@@ -56,9 +61,13 @@ Open the **Mods** panel in setup and stack as many as you like
 - **Jester** — a secret third role that wins only by getting voted out.
 - **Accomplices** — imposters learn each other's names (needs 2+).
 - **Blackout** — the imposter sees nothing, not even the category.
-- **Written Clues** — everyone types a secret clue; all reveal at once.
+- **Written Clues** — each player types a one-line clue right when they
+  see their word; all clues reveal at once on the discussion screen.
 - **Blitz** — 5 seconds each, then straight to the vote.
 - **Scramble Order** — the whole speaking order gets shuffled.
+- **Secret Voting** — the phone goes around and everyone votes
+  privately (you never see your own name). Ties hang the jury; with
+  multiple imposters there must be a clear top group.
 
 ## Tips
 

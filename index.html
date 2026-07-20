@@ -530,6 +530,22 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 .bottombar{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
 #app{position:fixed; inset:0}
 
+/* ---- secret voting ---- */
+.sv-bigname{font-family:var(--font-display); font-weight:var(--display-weight); text-transform:var(--display-case);
+  letter-spacing:var(--display-track); font-size:clamp(30px,9vw,44px); text-align:center; max-width:100%; overflow-wrap:anywhere}
+.tally-row{display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--elev);
+  border:var(--bw,1px) var(--bstyle) var(--line); border-radius:var(--radius); margin-bottom:8px}
+.tally-row .tn{flex:none; width:34%; font-weight:650; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14.5px}
+.tally-row .tbwrap{flex:1; height:14px; background:var(--sunken); border-radius:999px; overflow:hidden}
+.tally-row .tbar{height:100%; width:0%; background:var(--accent); border-radius:999px; transition:width .7s var(--ease)}
+.tally-row .tc{flex:none; width:26px; text-align:right; font-family:var(--font-display); font-weight:800}
+/* ---- reveal clue input ---- */
+#revClueWrap{display:none; width:100%; max-width:320px; margin-top:12px}
+#revClueWrap.on{display:block}
+#revClueWrap .sub{margin-bottom:6px; text-align:center}
+
+#ptsField,#timeField{display:none}
+#ptsField.open,#timeField.open{display:block}
 /* ---- noscript ---- */
 noscript .ns{
   position:fixed; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
@@ -627,6 +643,28 @@ noscript .ns{
       </div>
 
       <div class="field rise" style="--i:3">
+        <div class="frow">
+          <div><div class="label">Play to points</div><div class="sub">First to the target ends the game</div></div>
+          <label class="switch"><input type="checkbox" id="ptsSwitch"><span class="track"></span><span class="thumb"></span></label>
+        </div>
+        <div class="durwrap" id="ptsField">
+          <input type="range" id="ptsRange" min="1" max="100" step="1" value="15" aria-label="Point target">
+          <div class="durrow"><span class="sub">Target</span><span class="durval" id="ptsLabel">15 pts</span></div>
+        </div>
+      </div>
+
+      <div class="field rise" style="--i:4">
+        <div class="frow">
+          <div><div class="label">Play to time</div><div class="sub">Game clock &mdash; finish after the round</div></div>
+          <label class="switch"><input type="checkbox" id="timeSwitch"><span class="track"></span><span class="thumb"></span></label>
+        </div>
+        <div class="durwrap" id="timeField">
+          <input type="range" id="timeRange" min="1" max="60" step="1" value="20" aria-label="Time target">
+          <div class="durrow"><span class="sub">Length</span><span class="durval" id="timeLabel">20 min</span></div>
+        </div>
+      </div>
+
+      <div class="field rise" style="--i:5">
         <button class="frow mods-head" id="modsHead" type="button" aria-expanded="false">
           <div><div class="label">Mods</div><div class="sub" id="modsSub">Tap to open</div></div>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
@@ -637,9 +675,10 @@ noscript .ns{
           <div class="mod-row" id="row_jester"><div><div class="mlab">Jester</div><div class="msub">One player wins only by getting voted out</div></div><label class="switch"><input type="checkbox" id="mod_jester"><span class="track"></span><span class="thumb"></span></label></div>
           <div class="mod-row" id="row_accomplices"><div><div class="mlab">Accomplices</div><div class="msub">Impostors know each other (needs 2+)</div></div><label class="switch"><input type="checkbox" id="mod_accomplices"><span class="track"></span><span class="thumb"></span></label></div>
           <div class="mod-row" id="row_blackout"><div><div class="mlab">Blackout</div><div class="msub">Impostor gets nothing &mdash; not even the category</div></div><label class="switch"><input type="checkbox" id="mod_blackout"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_written"><div><div class="mlab">Written Clues</div><div class="msub">Type clues in secret, reveal all at once</div></div><label class="switch"><input type="checkbox" id="mod_written"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_written"><div><div class="mlab">Written Clues</div><div class="msub">Type your clue at reveal &mdash; all shown at once</div></div><label class="switch"><input type="checkbox" id="mod_written"><span class="track"></span><span class="thumb"></span></label></div>
           <div class="mod-row" id="row_blitz"><div><div class="mlab">Blitz</div><div class="msub">5 seconds each, then straight to the vote</div></div><label class="switch"><input type="checkbox" id="mod_blitz"><span class="track"></span><span class="thumb"></span></label></div>
           <div class="mod-row" id="row_scramble"><div><div class="mlab">Scramble Order</div><div class="msub">Whole speaking order gets shuffled</div></div><label class="switch"><input type="checkbox" id="mod_scramble"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_secret"><div><div class="mlab">Secret Voting</div><div class="msub">Everyone votes privately &mdash; ties hang the jury</div></div><label class="switch"><input type="checkbox" id="mod_secret"><span class="track"></span><span class="thumb"></span></label></div>
         </div>
       </div>
     </div>
@@ -696,6 +735,10 @@ noscript .ns{
         </div>
       </div>
       <div id="revChip" class="chip rise" style="--i:3"></div>
+      <div id="revClueWrap">
+        <div class="sub">Type your clue &mdash; one word:</div>
+        <input id="revClue" class="input" type="text" maxlength="30" autocomplete="off" autocapitalize="none" placeholder="Your clue&hellip;">
+      </div>
     </div>
     <div class="bottombar">
       <button id="revContinue" class="btn primary lg cta-hide">Got It &mdash; Pass It On</button>
@@ -773,6 +816,40 @@ noscript .ns{
   </section>
 
 
+
+  <!-- ═══════════ SECRET VOTE · hand off ═══════════ -->
+  <section class="screen" id="s-svhand">
+    <div class="scrollarea pt center-col">
+      <div class="eyes rise" style="--i:0">Secret ballot</div>
+      <p class="sub-lead rise" style="--i:1">Pass the phone to</p>
+      <h2 class="sv-bigname rise" id="svHandName" style="--i:2"></h2>
+    </div>
+    <div class="bottombar">
+      <button id="svHandBtn" class="btn primary lg">That&rsquo;s Me &mdash; Vote</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ SECRET VOTE · ballot ═══════════ -->
+  <section class="screen" id="s-svote">
+    <div class="scrollarea pt">
+      <h2 class="h-display rise" style="--i:0" id="svTitle"></h2>
+      <p class="sub-lead rise" style="--i:1" id="svSub"></p>
+      <div id="svList"></div>
+    </div>
+    <div class="bottombar">
+      <div class="hint" id="svCount"></div>
+      <button id="svLock" class="btn primary lg" disabled>Lock My Votes</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ SECRET VOTE · tally ═══════════ -->
+  <section class="screen" id="s-svreveal">
+    <div class="scrollarea pt">
+      <h2 class="h-display rise" style="--i:0">The ballots&hellip;</h2>
+      <div id="svTallyList" style="margin-top:10px"></div>
+    </div>
+  </section>
+
   <!-- ═══════════ STANDINGS ═══════════ -->
   <section class="screen" id="s-standings">
     <header class="topbar"><span class="tb-spacer"></span><span class="wordmark sm">Impostor</span><span class="mini-chip" id="standChip"></span></header>
@@ -848,32 +925,6 @@ noscript .ns{
     </div>
   </section>
 
-  <!-- ═══════════ WRITTEN CLUES · pick ═══════════ -->
-  <section class="screen" id="s-clues">
-    <header class="topbar"><span class="tb-spacer"></span><span class="wordmark sm">Impostor</span><span class="mini-chip">Clues</span></header>
-    <div class="scrollarea">
-      <h2 class="h-display rise" style="--i:0">Write your clues</h2>
-      <p class="sub-lead rise" style="--i:1">Tap your name. Type one word. Keep it secret.</p>
-      <div id="clueGrid" class="grid-names"></div>
-    </div>
-    <div class="bottombar">
-      <button id="clueCTA" class="btn primary lg cta-hide">Reveal All Clues</button>
-    </div>
-  </section>
-
-  <!-- ═══════════ WRITTEN CLUES · entry ═══════════ -->
-  <section class="screen" id="s-clueentry">
-    <div class="scrollarea pt center-col">
-      <div class="eyes rise" style="--i:0">Eyes only</div>
-      <h2 id="clueName" class="h-display rise" style="--i:1"></h2>
-      <p class="sub-lead rise" style="--i:2">One word (or a very short phrase) that hints at your word.</p>
-      <input id="clueInput" class="input rise" style="--i:3; max-width:320px" type="text" maxlength="30" autocomplete="off" autocapitalize="none" placeholder="Your clue&hellip;">
-    </div>
-    <div class="bottombar">
-      <button id="clueSave" class="btn primary lg">Hide My Clue</button>
-      <button id="clueBack" class="btn quiet">Not you? Go back</button>
-    </div>
-  </section>
 
   <button id="gearBtn" class="icon-btn" aria-label="Back to setup" hidden>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.4"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.08A1.7 1.7 0 0 0 10.1 3.6V3.5a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.08a1.7 1.7 0 0 0 1.56 1.03h.1a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03Z"/></svg>
@@ -912,10 +963,13 @@ noscript .ns{
         <li><b>Jester</b> &mdash; one extra secret role. The jester knows the word but only wins by getting voted out (+2). House rule: the jester may never point the vote at themselves. Needs at least 2 more players than impostors.</li>
         <li><b>Accomplices</b> &mdash; impostors learn each other&rsquo;s names. Needs 2+ impostors.</li>
         <li><b>Blackout</b> &mdash; the impostor sees nothing, not even the category. Pure bluff.</li>
-        <li><b>Written Clues</b> &mdash; everyone types their clue in secret; all clues reveal at once, so going last is no advantage. Can&rsquo;t combine with Blitz.</li>
+        <li><b>Written Clues</b> &mdash; each player types a one-line clue right when they see their word; all clues reveal at once on the discussion screen, so going last is no advantage. Can&rsquo;t combine with Blitz or Scramble Order.</li>
         <li><b>Blitz</b> &mdash; each player gets 5 seconds to say one word, in order, then straight to the vote. No discussion, ignores the timer setting.</li>
         <li><b>Scramble Order</b> &mdash; instead of clockwise-from-a-random-start, the entire speaking order is shuffled and shown.</li>
+        <li><b>Secret Voting</b> &mdash; the phone goes around and everyone votes privately (as many votes as there are impostors; you never see your own name). One impostor: most votes is accused, a tie hangs the jury. Multiple: there must be a clear top group of exactly that size &mdash; 5-4-4 with two impostors hangs, 5-5-4 convicts both 5s. The jester physically can&rsquo;t vote for themselves.</li>
       </ul>
+      <h3>Game Targets</h3>
+      <p>In setup you can set <b>Play to points</b> (1&ndash;100) and/or <b>Play to time</b> (1&ndash;60 min). The round in progress always finishes; when the standings show the target has been hit, a popup offers to continue or head to the podium.</p>
       <h3>Sound</h3>
       <p>If you hear nothing, flip your phone&rsquo;s ring/silent switch &mdash; iPhones mute game audio in silent mode. You can also toggle sound off in the theme menu.</p>
     </div>
@@ -1641,8 +1695,9 @@ const KID_HARD = new Set(['Acai Bowl', 'Accountant', 'Algebra', 'Ambidextrous', 
 /* ---------- state ---------- */
 const state = {
   themeId: 'parlor', mode: 'auto', screen: 'intro', sound: true,
-  cfg: { players: 4, names: ['', '', '', ''], impostors: 1, timerOn: true, dur: 180 },
-  mods: { decoy: false, kid: false, jester: false, accomplices: false, blackout: false, written: false, blitz: false, scramble: false },
+  cfg: { players: 4, names: ['', '', '', ''], impostors: 1, timerOn: true, dur: 180, toPointsOn: false, toPoints: 15, toTimeOn: false, toTime: 20 },
+  mods: { decoy: false, kid: false, jester: false, accomplices: false, blackout: false, written: false, blitz: false, scramble: false, secret: false },
+  modPts: {}, sv: null, gameStart: null, targetShown: { pts: false, time: false },
   session: null,
   round: null,        // { cat, word, decoy, imp:Set, jester, order[], viewed:Set, clues, outcome, deltas, accused }
   roundNo: 0,
@@ -1650,9 +1705,12 @@ const state = {
   used: new Set(), lastKey: null,
   cur: 0, sel: new Set(),
 };
-const INCOMPAT = { decoy: ['blackout', 'accomplices'], blackout: ['decoy'], accomplices: ['decoy'], written: ['blitz'], blitz: ['written'] };
+const INCOMPAT = { decoy: ['blackout', 'accomplices'], blackout: ['decoy'], accomplices: ['decoy'],
+  written: ['blitz', 'scramble'], blitz: ['written'], scramble: ['written'] };
+const MOD_NAME = { decoy: 'Decoy Words', kid: 'Kid Mode', jester: 'Jester', accomplices: 'Accomplices',
+  blackout: 'Blackout', written: 'Written Clues', blitz: 'Blitz', scramble: 'Scramble Order', secret: 'Secret Voting' };
 const SCREENS = ['intro', 'setup', 'roster', 'reveal', 'discussion', 'voting', 'results',
-  'standings', 'podium', 'final', 'awards', 'history', 'blitz', 'clues', 'clueentry'];
+  'standings', 'podium', 'final', 'awards', 'history', 'blitz', 'svhand', 'svote', 'svreveal'];
 const RING_C = 2 * Math.PI * 104;
 
 /* ---------- audio & haptics ---------- */
@@ -1734,7 +1792,7 @@ function show(name) {
   SCREENS.forEach(n => $('s-' + n).classList.toggle('active', n === name));
   const sa = $('s-' + name).querySelector('.scrollarea, .stage');
   if (sa) sa.scrollTop = 0;
-  $('gearBtn').hidden = !(state.round && ['roster', 'reveal', 'discussion', 'voting', 'blitz', 'clues', 'clueentry'].includes(name));
+  $('gearBtn').hidden = !(state.round && ['roster', 'reveal', 'discussion', 'voting', 'blitz', 'svhand', 'svote'].includes(name));
   closePop();
 }
 
@@ -1763,6 +1821,8 @@ function renderNames() {
       x.addEventListener('click', () => {
         const nm = (state.cfg.names[i] || '').trim() || ('Player ' + (i + 1));
         confirmDlg('Remove ' + nm + '?', 'Their score goes with them. Everyone else keeps theirs.', 'Remove', () => {
+          for (let k2 = 0; k2 < state.cfg.players; k2++)
+            if (!(state.cfg.names[k2] || '').trim()) state.cfg.names[k2] = 'Player ' + (k2 + 1);
           state.cfg.names.splice(i, 1);
           state.scores.splice(i, 1);
           state.stats.splice(i, 1);
@@ -1783,7 +1843,7 @@ function renderNames() {
 function ensurePlayers() {
   const P = state.cfg.players;
   while (state.scores.length < P) state.scores.push(0);
-  while (state.stats.length < P) state.stats.push({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0 });
+  while (state.stats.length < P) state.stats.push({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0, svCorrect: 0, svWrong: 0 });
 }
 function saveRoster() {
   try { localStorage.setItem('impostor.roster', JSON.stringify(state.cfg.names.slice(0, state.cfg.players))); } catch (e) {}
@@ -1909,6 +1969,8 @@ function renderRoster() {
 
 /* ---------- reveal (eyes only) ---------- */
 function openReveal(i) {
+  $('revClueWrap').classList.remove('on');
+  $('revClue').value = '';
   state.cur = i;
   $('revName').textContent = state.session.names[i];
   const K = state.session.K;
@@ -1959,9 +2021,12 @@ $('flipCard').addEventListener('click', () => {
   card.classList.add('revealed');
   state.round.viewed.add(state.cur);
   sndTick(); buzz(12);
-  setTimeout(() => { $('revContinue').classList.add('show'); $('revBack').hidden = true; }, 430);
+  setTimeout(() => { $('revContinue').classList.add('show'); $('revBack').hidden = true; if (state.round.clues) { $('revClueWrap').classList.add('on'); } }, 430);
 });
-$('revContinue').addEventListener('click', () => { renderRoster(); show('roster'); });
+$('revContinue').addEventListener('click', () => {
+  if (state.round.clues) state.round.clues[state.cur] = $('revClue').value.trim() || '\u2014';
+  renderRoster(); show('roster');
+});
 $('revBack').addEventListener('click', () => show('roster'));
 
 /* ---------- discussion & timer ---------- */
@@ -2032,7 +2097,7 @@ $('pauseBtn').addEventListener('click', () => {
     $('pauseBtn').setAttribute('aria-label', 'Pause timer');
   }
 });
-$('voteBtn').addEventListener('click', () => { stopTimer(); enterVoting(); });
+$('voteBtn').addEventListener('click', () => { stopTimer(); startVotePhase(); });
 
 /* ---------- blitz ---------- */
 let blitzT = [];
@@ -2045,7 +2110,7 @@ function runBlitz() {
   let idx = 0;
   const step = () => {
     if (state.screen !== 'blitz') return;
-    if (idx >= ord.length) { enterVoting(); return; }
+    if (idx >= ord.length) { startVotePhase(); return; }
     $('blitzName').textContent = state.session.names[ord[idx]];
     let n = 5;
     $('blitzCount').textContent = n;
@@ -2069,34 +2134,6 @@ $('blitzAbort').addEventListener('click', () => {
   });
 });
 
-/* ---------- written clues ---------- */
-function enterClues() {
-  const grid = $('clueGrid');
-  grid.innerHTML = '';
-  state.session.names.forEach((name, i) => {
-    const b = document.createElement('button');
-    b.className = 'pbtn' + (state.round.clues[i] != null ? ' done' : '');
-    b.innerHTML = `<span class="tick">${ICON.check}</span>${esc(name)}`;
-    b.addEventListener('click', () => {
-      state.cur = i;
-      $('clueName').textContent = name;
-      $('clueInput').value = state.round.clues[i] || '';
-      show('clueentry');
-      setTimeout(() => $('clueInput').focus(), 120);
-    });
-    grid.appendChild(b);
-  });
-  $('clueCTA').classList.toggle('show', state.round.clues.every(c => c != null));
-  show('clues');
-}
-$('clueSave').addEventListener('click', () => {
-  state.round.clues[state.cur] = $('clueInput').value.trim() || '\u2014';
-  sndTick(); enterClues();
-});
-$('clueBack').addEventListener('click', () => enterClues());
-$('clueCTA').addEventListener('click', () => {
-  if (state.mods.blitz) runBlitz(); else enterDiscussion();
-});
 $('scrapBtn1').addEventListener('click', () => {
   confirmDlg('Scrap this round?', 'No points. A fresh word is dealt to the same players.', 'Scrap It', () => {
     stopTimer(); state.roundNo--; newRound();
@@ -2148,6 +2185,85 @@ function updateVote() {
   $('voteCount').textContent = `${state.sel.size} of ${K} selected`;
   $('voteSubmit').disabled = state.sel.size !== K;
 }
+function startVotePhase() {
+  if (state.mods.secret) svStart(); else enterVoting();
+}
+function svStart() {
+  const N = state.session.names.length;
+  state.sv = { i: 0, ballots: Array(N).fill(null), sel: new Set() };
+  svHand();
+}
+function svHand() {
+  $('svHandName').textContent = state.session.names[state.sv.i];
+  show('svhand');
+}
+$('svHandBtn').addEventListener('click', () => { sndTick(); svBallot(); });
+function svBallot() {
+  const K = state.session.K, me = state.sv.i, names = state.session.names;
+  state.sv.sel = new Set();
+  $('svTitle').textContent = names[me] + ', your vote';
+  $('svSub').textContent = (K > 1 ? 'Pick ' + K + ' suspects.' : 'Pick your suspect.') + ' Your own name isn\u2019t on the list.';
+  const list = $('svList');
+  list.innerHTML = '';
+  names.forEach((nm, i2) => {
+    if (i2 === me) return;
+    const b = document.createElement('button');
+    b.className = 'vote-item';
+    b.innerHTML = `<span class="vname">${esc(nm)}</span><span class="vcheck">${ICON.check}</span>`;
+    b.addEventListener('click', () => {
+      const sel = state.sv.sel;
+      if (sel.has(i2)) sel.delete(i2);
+      else if (K === 1) { sel.clear(); sel.add(i2); list.querySelectorAll('.vote-item').forEach(el => el.classList.remove('sel')); sndTick(); }
+      else if (sel.size < K) { sel.add(i2); sndTick(); }
+      else { b.classList.add('shake'); setTimeout(() => b.classList.remove('shake'), 480); buzz(50); return; }
+      b.classList.toggle('sel', sel.has(i2));
+      svUpdate();
+    });
+    list.appendChild(b);
+  });
+  svUpdate();
+  show('svote');
+}
+function svUpdate() {
+  const K = state.session.K, n = state.sv.sel.size;
+  $('svCount').textContent = n + ' / ' + K + ' selected';
+  $('svLock').disabled = n !== K;
+}
+$('svLock').addEventListener('click', () => {
+  state.sv.ballots[state.sv.i] = [...state.sv.sel];
+  sndTick(); buzz(20);
+  state.sv.i++;
+  if (state.sv.i < state.session.names.length) svHand();
+  else svReveal();
+});
+function svReveal() {
+  const N = state.session.names.length, K = state.session.K, imp = state.round.imp;
+  const tally = Array(N).fill(0);
+  state.sv.ballots.forEach((b2, voter) => (b2 || []).forEach(v => {
+    tally[v]++;
+    if (imp.has(v)) state.stats[voter].svCorrect++; else state.stats[voter].svWrong++;
+  }));
+  const idxs = [...Array(N).keys()].sort((a, b) => tally[b] - tally[a] || a - b);
+  const clear = K >= N ? true : tally[idxs[K - 1]] > (idxs[K] !== undefined ? tally[idxs[K]] : -1);
+  const accused = clear ? idxs.slice(0, K).sort((a, b) => a - b) : [];
+  const list = $('svTallyList');
+  list.innerHTML = '';
+  const mx = Math.max(1, tally[idxs[0]]);
+  idxs.forEach((pi2, pos) => {
+    const row = document.createElement('div');
+    row.className = 'tally-row';
+    row.innerHTML = `<span class="tn">${esc(state.session.names[pi2])}</span><span class="tbwrap"><span class="tbar"></span></span><span class="tc">${tally[pi2]}</span>`;
+    list.appendChild(row);
+    rT(() => { row.querySelector('.tbar').style.width = (tally[pi2] / mx * 100) + '%'; sndTick(); }, 350 + pos * 220);
+  });
+  show('svreveal');
+  rT(() => {
+    if (state.screen !== 'svreveal') return;
+    applyOutcome(accused, !clear);
+    show('results');
+    playResults(accused);
+  }, 350 + idxs.length * 220 + 1500);
+}
 function applyOutcome(accused, hung = false) {
   const r = state.round, imp = r.imp, N = state.session.names.length;
   ensurePlayers();
@@ -2174,9 +2290,14 @@ function applyOutcome(accused, hung = false) {
   if (jCaught) state.stats[r.jester].jester++;
   deltas.forEach((d, i) => { state.scores[i] += d; });
   r.outcome = outcome; r.deltas = deltas; r.accused = accused.slice();
+  const act = Object.keys(state.mods).filter(m2 => state.mods[m2]);
+  act.forEach(m2 => {
+    const a2 = state.modPts[m2] || (state.modPts[m2] = []);
+    deltas.forEach((d2, i2) => { a2[i2] = (a2[i2] || 0) + d2; });
+  });
   state.history.push({ no: state.roundNo, cat: r.cat, word: r.word, decoy: r.decoy,
     imp: [...imp].sort((a, b) => a - b), jester: r.jester, accused: accused.slice(),
-    outcome, names: state.session.names.slice() });
+    outcome, names: state.session.names.slice(), deltas: deltas.slice(), mods: act });
 }
 $('voteSubmit').addEventListener('click', () => {
   const accused = [...state.sel].sort((a, b) => a - b);
@@ -2352,6 +2473,27 @@ function enterStandings() {
     sndWhoosh();
   }
   state.prevRank = ord;
+  setTimeout(checkTargets, 900);
+}
+function checkTargets() {
+  if (state.screen !== 'standings') return;
+  const c = state.cfg;
+  if (c.toPointsOn && !state.targetShown.pts) {
+    const mx = Math.max(...state.session.names.map((_, i) => state.scores[i] || 0));
+    if (mx >= c.toPoints) {
+      state.targetShown.pts = true;
+      const who = state.session.names.filter((_, i) => (state.scores[i] || 0) === mx).join(' & ');
+      confirmDlg('Point target hit!', who + ' reached ' + c.toPoints + ' points.', 'Finish Game', () => startPodium(), 'Continue Game');
+      return;
+    }
+  }
+  if (c.toTimeOn && !state.targetShown.time && state.gameStart) {
+    const mins = (Date.now() - state.gameStart) / 60000;
+    if (mins >= c.toTime) {
+      state.targetShown.time = true;
+      confirmDlg('Time!', 'You\u2019ve been playing ' + Math.round(mins) + ' minutes.', 'Finish Game', () => startPodium(), 'Continue Game');
+    }
+  }
 }
 $('nextRoundBtn').addEventListener('click', () => { sndTick(); newRound(); });
 $('stSetupBtn').addEventListener('click', () => { state.round = null; show('setup'); validateSetup(); });
@@ -2398,21 +2540,59 @@ $('podiumNext').addEventListener('click', () => {
 $('awardsBtn').addEventListener('click', () => { renderAwards(); show('awards'); });
 
 /* ---------- awards ---------- */
+const MOD_AWARD = { decoy: ['\u{1FA9E}', 'Decoy Champion'], kid: ['\u{1F9F8}', 'Young at Heart'],
+  jester: ['\u{1F3AA}', 'Ringmaster'], accomplices: ['\u{1F91D}', 'Partner in Crime'],
+  blackout: ['\u{1F311}', 'Blackout Boss'], written: ['\u270D\uFE0F', 'Wordsmith'],
+  blitz: ['\u{1F3CE}\uFE0F', 'Speed Demon'], scramble: ['\u{1F500}', 'Out of Order'],
+  secret: ['\u{1F92B}', 'Poker Face'] };
 function computeAwards() {
   const S = state.stats, N = state.session.names, out = [];
-  const top = (fn, icon, label, desc) => {
-    let best = 0, bi = -1;
-    N.forEach((_, i) => { const v = fn(i); if (v > best) { best = v; bi = i; } });
-    if (bi >= 0) out.push({ icon, label, name: N[bi], desc: desc(best) });
+  const nameList = idxs => idxs.map(i => N[i]).join(' & ');
+  const topAll = fn => {
+    let best = 0, list = [];
+    N.forEach((_, i) => { const v = fn(i) || 0; if (v > best) { best = v; list = [i]; } else if (v === best && v > 0) list.push(i); });
+    return { best, list };
   };
-  top(i => S[i].imp, '\u{1F576}\uFE0F', 'Most Wanted', v => `Drew the impostor card ${v}\u00d7`);
-  let mn = 1e9, mi = -1;
-  N.forEach((_, i) => { if (S[i].imp < mn) { mn = S[i].imp; mi = i; } });
-  if (mi >= 0) out.push({ icon: '\u{1F607}', label: 'Pure of Heart', name: N[mi], desc: mn ? `Impostor only ${mn}\u00d7` : 'Never once the impostor' });
-  top(i => S[i].esc, '\u{1F3C3}', 'Escape Artist', v => `Slipped the vote ${v}\u00d7`);
-  top(i => S[i].scape, '\u{1F3AF}', 'The Scapegoat', v => `Wrongly voted out ${v}\u00d7`);
-  top(i => S[i].caught, '\u{1F6A8}', 'Caught Red-Handed', v => `Busted ${v}\u00d7`);
-  top(i => S[i].jester, '\u{1F0CF}', 'Agent of Chaos', v => `Jester wins: ${v}`);
+  const push = (icon, label, r2, desc) => {
+    if (r2.list.length && r2.list.length < N.length) out.push({ icon, label, name: nameList(r2.list), desc });
+  };
+  let r2 = topAll(i => S[i].imp);
+  push('\u{1F576}\uFE0F', 'Most Wanted', r2, `Drew the impostor card ${r2.best}\u00d7`);
+  let mn = 1e9, ml = [];
+  N.forEach((_, i) => { const v = S[i].imp; if (v < mn) { mn = v; ml = [i]; } else if (v === mn) ml.push(i); });
+  if (ml.length && ml.length < N.length)
+    out.push({ icon: '\u{1F607}', label: 'Pure of Heart', name: nameList(ml), desc: mn ? `Impostor only ${mn}\u00d7` : 'Never once the impostor' });
+  r2 = topAll(i => S[i].esc); push('\u{1F3C3}', 'Escape Artist', r2, `Slipped the vote ${r2.best}\u00d7`);
+  r2 = topAll(i => S[i].scape); push('\u{1F3AF}', 'The Scapegoat', r2, `Wrongly voted out ${r2.best}\u00d7`);
+  r2 = topAll(i => S[i].caught); push('\u{1F6A8}', 'Caught Red-Handed', r2, `Busted ${r2.best}\u00d7`);
+  r2 = topAll(i => S[i].jester); push('\u{1F0CF}', 'Agent of Chaos', r2, `Jester wins: ${r2.best}`);
+  r2 = topAll(i => S[i].svCorrect); push('\u{1F50D}', 'Master Detective', r2, `${r2.best} correct secret votes`);
+  r2 = topAll(i => S[i].svWrong); push('\u{1F9ED}', 'Way Off', r2, `${r2.best} secret votes gone wrong`);
+  if (state.history.length >= 3) {
+    const alibi = [...Array(N.length).keys()].filter(i => S[i].scape === 0 && S[i].caught === 0);
+    if (alibi.length && alibi.length <= Math.ceil(N.length / 2))
+      out.push({ icon: '\u{1F9CA}', label: 'Iron Alibi', name: nameList(alibi), desc: 'Never once voted out' });
+  }
+  if (state.history.length >= 2) {
+    const runs = new Map();
+    state.history.forEach(hh => (hh.names || []).forEach((nm2, i2) => {
+      const c2 = runs.get(nm2) || { run: 0, best: 0 };
+      if (hh.deltas && hh.deltas[i2] > 0) { c2.run++; c2.best = Math.max(c2.best, c2.run); } else c2.run = 0;
+      runs.set(nm2, c2);
+    }));
+    let hb = 1, hl = [];
+    runs.forEach((v2, nm2) => { if (v2.best > hb) { hb = v2.best; hl = [nm2]; } else if (v2.best === hb && v2.best > 1) hl.push(nm2); });
+    if (hl.length) out.push({ icon: '\u{1F525}', label: 'Hot Streak', name: hl.join(' & '), desc: `Scored ${hb} rounds in a row` });
+  }
+  const rounds = state.history.length;
+  Object.keys(MOD_AWARD).forEach(m => {
+    const withM = state.history.filter(hh => (hh.mods || []).includes(m)).length;
+    if (!withM || withM === rounds) return;
+    const arr2 = state.modPts[m] || [];
+    let best = 0, list = [];
+    N.forEach((_, i) => { const v = arr2[i] || 0; if (v > best) { best = v; list = [i]; } else if (v === best && v > 0) list.push(i); });
+    if (list.length) out.push({ icon: MOD_AWARD[m][0], label: MOD_AWARD[m][1], name: nameList(list), desc: `+${best} pts with ${MOD_NAME[m]} on` });
+  });
   return out;
 }
 function renderAwards() {
@@ -2429,8 +2609,9 @@ function renderAwards() {
 $('newGameBtn').addEventListener('click', () => {
   confirmDlg('Start a new game?', 'Scores, stats, and history reset. The roster stays.', 'New Game', () => {
     state.scores = state.scores.map(() => 0);
-    state.stats = state.stats.map(() => ({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0 }));
+    state.stats = state.stats.map(() => ({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0, svCorrect: 0, svWrong: 0 }));
     state.history = []; state.prevRank = null; state.roundNo = 0; state.round = null;
+    state.modPts = {}; state.gameStart = null; state.targetShown = { pts: false, time: false };
     show('setup'); validateSetup();
   });
 });
@@ -2448,7 +2629,8 @@ $('histBtn').addEventListener('click', () => {
     row.innerHTML = `<div class="hw">${OUT_ICON[hh.outcome] || ''} Round ${hh.no} &middot; &ldquo;${esc(hh.word)}&rdquo;${dec}</div>
       <div class="hd">${esc(hh.cat)}</div>
       <div>Impostor${hh.imp.length > 1 ? 's' : ''}: ${hh.imp.map(i => esc(hh.names[i])).join(', ')}${jn}</div>
-      <div class="hd">Voted: ${hh.accused.length ? hh.accused.map(i => esc(hh.names[i])).join(', ') : '\u2014 (hung jury)'}</div>`;
+      <div class="hd">Voted: ${hh.accused.length ? hh.accused.map(i => esc(hh.names[i])).join(', ') : '\u2014 (hung jury)'}</div>
+      ${hh.mods && hh.mods.length ? `<div class="hd">Mods: ${hh.mods.map(m2 => MOD_NAME[m2] || m2).join(', ')}</div>` : ''}`;
     list.appendChild(row);
   });
   show('history');
@@ -2511,10 +2693,11 @@ $('gearBtn').addEventListener('click', () => {
 $('mCancel').addEventListener('click', closeModal);
 $('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
 let modalCb = null;
-function confirmDlg(title, body, ok, cb) {
+function confirmDlg(title, body, ok, cb, cancel = 'Cancel') {
   $('mTitle').textContent = title;
   $('mBody').textContent = body;
   $('mOk').textContent = ok;
+  $('mCancel').textContent = cancel;
   modalCb = cb;
   openModal();
 }
@@ -2557,6 +2740,23 @@ $('rulesClose').addEventListener('click', () => $('rulesPop').classList.remove('
   try { localStorage.setItem('impostor.sound', state.sound ? '1' : '0'); } catch (e) {}
   sndTick();
 }));
+function syncPts() {
+  const v = +$('ptsRange').value;
+  state.cfg.toPoints = v;
+  $('ptsLabel').textContent = v + ' pts';
+  $('ptsRange').style.setProperty('--fill', ((v - 1) / 99 * 100) + '%');
+}
+function syncTime() {
+  const v = +$('timeRange').value;
+  state.cfg.toTime = v;
+  $('timeLabel').textContent = v + ' min';
+  $('timeRange').style.setProperty('--fill', ((v - 1) / 59 * 100) + '%');
+}
+$('ptsRange').addEventListener('input', syncPts);
+$('timeRange').addEventListener('input', syncTime);
+$('ptsSwitch').addEventListener('change', () => { state.cfg.toPointsOn = $('ptsSwitch').checked; $('ptsField').classList.toggle('open', state.cfg.toPointsOn); sndTick(); });
+$('timeSwitch').addEventListener('change', () => { state.cfg.toTimeOn = $('timeSwitch').checked; $('timeField').classList.toggle('open', state.cfg.toTimeOn); sndTick(); });
+syncPts(); syncTime();
 $('modsHead').addEventListener('click', () => {
   const open = $('modsBody').classList.toggle('open');
   $('modsHead').classList.toggle('open', open);
@@ -2576,11 +2776,11 @@ $('startBtn').addEventListener('click', () => {
   };
   ensurePlayers();
   saveRoster();
+  if (state.roundNo === 0) { state.gameStart = Date.now(); state.targetShown = { pts: false, time: false }; }
   newRound();
 });
 $('rosterCTA').addEventListener('click', () => {
-  if (state.mods.written) enterClues();
-  else if (state.mods.blitz) runBlitz();
+  if (state.mods.blitz) runBlitz();
   else enterDiscussion();
 });
 $('skipWordBtn').addEventListener('click', () => {
