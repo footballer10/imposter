@@ -450,6 +450,86 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 .m-row{display:flex; gap:10px}
 .m-row .btn{flex:1; padding:12px 10px}
 
+/* ---- mods panel ---- */
+.mods-head{width:100%; background:none; border:none; color:inherit; font:inherit; text-align:left; padding:0; cursor:pointer}
+.mods-head .chev{transition:transform .3s var(--ease); flex:none}
+.mods-head.open .chev{transform:rotate(180deg)}
+.modsbody{display:none; margin-top:6px}
+.modsbody.open{display:block}
+.mod-row{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px dashed var(--line)}
+.mod-row .mlab{font-weight:650; font-size:15px}
+.mod-row .msub{font-size:12.5px; color:var(--dim); margin-top:1px}
+.mod-row.off{opacity:.42; pointer-events:none}
+/* ---- roster name remove ---- */
+.name-x{flex:none; width:34px; height:34px; border-radius:var(--btn-radius,var(--radius)); border:var(--bw,1px) var(--bstyle) var(--line);
+  background:var(--elev); color:var(--dim); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer}
+.name-x:active{transform:scale(.92)}
+/* ---- order line & clue board ---- */
+.order-line{font-size:13.5px; color:var(--dim); text-align:center; max-width:100%; overflow-wrap:anywhere; padding:0 8px}
+.clueboard{width:100%; margin:4px 0 2px; display:none}
+.clueboard.on{display:block}
+.clue-row{display:flex; gap:10px; align-items:baseline; padding:7px 12px; border:var(--bw,1px) var(--bstyle) var(--line);
+  border-radius:var(--radius); background:var(--elev); margin-bottom:7px; font-size:14.5px}
+.clue-row b{flex:none; max-width:38%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.clue-row span{color:var(--dim); overflow-wrap:anywhere}
+/* ---- blitz ---- */
+.blitz-name{font-family:var(--font-display); font-weight:var(--display-weight); text-transform:var(--display-case);
+  letter-spacing:var(--display-track); font-size:clamp(30px,9vw,44px); text-align:center; max-width:100%; overflow-wrap:anywhere}
+.blitz-count{font-family:var(--font-display); font-weight:var(--display-weight); font-size:clamp(90px,34vw,170px); line-height:1; color:var(--accent)}
+/* ---- standings / final board ---- */
+.stand-list{width:100%; display:flex; flex-direction:column; gap:9px}
+.stand-row{display:flex; align-items:center; gap:11px; padding:13px 14px; background:var(--elev);
+  border:var(--bw,1px) var(--bstyle) var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); will-change:transform}
+.stand-row .rk{flex:none; width:26px; font-family:var(--font-display); font-weight:800; color:var(--dim); font-size:17px}
+.stand-row.r1 .rk{color:var(--accent)}
+.stand-row .nm{flex:1; font-weight:650; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.stand-row .pts{font-family:var(--font-display); font-weight:800; font-size:19px}
+.stand-row .dl{flex:none; font-size:12.5px; font-weight:700; padding:3px 8px; border-radius:999px; background:var(--accent-soft); color:var(--accent)}
+.stand-row .mv{flex:none; font-size:12.5px; font-weight:700; width:34px; text-align:right}
+.stand-row .mv.up{color:var(--win)} .stand-row .mv.dn{color:var(--lose)} .stand-row .mv.eq{color:var(--dim)}
+/* ---- podium ---- */
+.podium{display:flex; align-items:flex-end; justify-content:center; gap:12px; width:100%; max-width:360px; height:290px; margin-top:12px}
+.pod{flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; transform:translateY(26px); transition:opacity .5s ease, transform .6s var(--ease-pop)}
+.pod.in{opacity:1; transform:none}
+.pod .pname{font-weight:700; font-size:14.5px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pod .ppts{font-size:12.5px; color:var(--dim)}
+.pod .bar{width:100%; border-radius:var(--radius) var(--radius) 0 0; background:var(--elev); border:var(--bw,1px) var(--bstyle) var(--line);
+  border-bottom:none; display:flex; align-items:flex-start; justify-content:center; padding-top:10px;
+  font-family:var(--font-display); font-weight:800; font-size:22px; color:var(--dim)}
+.pod.p1 .bar{height:150px; background:var(--accent); color:var(--accent-contrast); border-color:transparent; box-shadow:var(--shadow)}
+.pod.p2 .bar{height:106px} .pod.p3 .bar{height:76px}
+.pod .medal{font-size:26px}
+/* ---- awards ---- */
+.award-card{display:flex; gap:13px; align-items:center; width:100%; padding:14px; background:var(--elev);
+  border:var(--bw,1px) var(--bstyle) var(--line); border-radius:var(--radius); box-shadow:var(--shadow-sm); margin-bottom:10px}
+.award-card .aico{font-size:27px; flex:none}
+.award-card .at{font-family:var(--font-display); font-weight:var(--display-weight); text-transform:var(--display-case);
+  letter-spacing:var(--display-track); font-size:16px}
+.award-card .an{font-weight:650; margin-top:1px}
+.award-card .ad{font-size:12.5px; color:var(--dim)}
+/* ---- history ---- */
+.hist-row{padding:12px 14px; background:var(--elev); border:var(--bw,1px) var(--bstyle) var(--line);
+  border-radius:var(--radius); margin-bottom:9px; font-size:13.5px; line-height:1.5}
+.hist-row .hw{font-weight:700; font-size:15px}
+.hist-row .hd{color:var(--dim)}
+/* ---- rules overlay ---- */
+#rulesPop{position:fixed; inset:0; z-index:60; background:var(--bg); display:none; flex-direction:column}
+#rulesPop.open{display:flex}
+#rulesPop .r-head{display:flex; align-items:center; justify-content:space-between; padding:calc(10px + env(safe-area-inset-top)) 18px 10px; border-bottom:var(--bw,1px) var(--bstyle) var(--line)}
+#rulesPop .r-body{flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:16px 20px calc(28px + env(safe-area-inset-bottom))}
+#rulesPop h3{font-family:var(--font-display); font-weight:var(--display-weight); text-transform:var(--display-case); letter-spacing:var(--display-track); font-size:19px; margin:20px 0 8px}
+#rulesPop h3:first-child{margin-top:0}
+#rulesPop p, #rulesPop li{font-size:14.5px; line-height:1.55; color:var(--text)}
+#rulesPop li{margin-bottom:7px}
+#rulesPop ul{padding-left:20px; margin:6px 0}
+#rulesPop b{color:var(--accent)}
+/* ---- misc new ---- */
+.danger-quiet{color:var(--lose) !important}
+.btn-row2{display:flex; gap:10px; width:100%}
+.btn-row2 .btn{flex:1; padding:12px 8px; font-size:14px}
+.bottombar{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+#app{position:fixed; inset:0}
+
 /* ---- noscript ---- */
 noscript .ns{
   position:fixed; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
@@ -494,6 +574,7 @@ noscript .ns{
     <div class="bottombar">
       <button id="introStart" class="btn primary lg">Let&rsquo;s Play</button>
       <button id="introShare" class="btn quiet lg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:7px"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share with Friends</button>
+      <button id="rulesBtn" class="btn quiet">Read the Full Rules</button>
       <p class="foot">Pass &amp; play &middot; one phone &middot; no internet needed</p>
     </div>
   </section>
@@ -544,6 +625,23 @@ noscript .ns{
           <div class="durrow"><span class="sub">Length</span><span class="durval" id="durLabel">3:00</span></div>
         </div>
       </div>
+
+      <div class="field rise" style="--i:3">
+        <button class="frow mods-head" id="modsHead" type="button" aria-expanded="false">
+          <div><div class="label">Mods</div><div class="sub" id="modsSub">Tap to open</div></div>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div id="modsBody" class="modsbody">
+          <div class="mod-row" id="row_decoy"><div><div class="mlab">Decoy Words</div><div class="msub">Impostor gets a close-but-wrong word &mdash; and has no idea</div></div><label class="switch"><input type="checkbox" id="mod_decoy"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_kid"><div><div class="mlab">Kid Mode</div><div class="msub">Only words every kid can connect to</div></div><label class="switch"><input type="checkbox" id="mod_kid"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_jester"><div><div class="mlab">Jester</div><div class="msub">One player wins only by getting voted out</div></div><label class="switch"><input type="checkbox" id="mod_jester"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_accomplices"><div><div class="mlab">Accomplices</div><div class="msub">Impostors know each other (needs 2+)</div></div><label class="switch"><input type="checkbox" id="mod_accomplices"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_blackout"><div><div class="mlab">Blackout</div><div class="msub">Impostor gets nothing &mdash; not even the category</div></div><label class="switch"><input type="checkbox" id="mod_blackout"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_written"><div><div class="mlab">Written Clues</div><div class="msub">Type clues in secret, reveal all at once</div></div><label class="switch"><input type="checkbox" id="mod_written"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_blitz"><div><div class="mlab">Blitz</div><div class="msub">5 seconds each, then straight to the vote</div></div><label class="switch"><input type="checkbox" id="mod_blitz"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_scramble"><div><div class="mlab">Scramble Order</div><div class="msub">Whole speaking order gets shuffled</div></div><label class="switch"><input type="checkbox" id="mod_scramble"><span class="track"></span><span class="thumb"></span></label></div>
+        </div>
+      </div>
     </div>
     <div class="bottombar">
       <div id="setupHint" class="hint"></div>
@@ -558,6 +656,10 @@ noscript .ns{
         <button data-mode="dark">Dark</button>
       </div>
       <div id="themeList"></div>
+      <div class="seg" id="soundSeg" style="margin-top:10px">
+        <button data-snd="on" class="on">Sound On</button>
+        <button data-snd="off">Sound Off</button>
+      </div>
     </div>
   </section>
 
@@ -575,6 +677,7 @@ noscript .ns{
     </div>
     <div class="bottombar">
       <button id="rosterCTA" class="btn primary lg cta-hide">Start Discussion</button>
+      <button id="skipWordBtn" class="btn quiet">Swap the Word</button>
     </div>
   </section>
 
@@ -604,6 +707,8 @@ noscript .ns{
   <section class="screen" id="s-discussion">
     <div class="scrollarea pt center-col">
       <div id="discCat" class="chip rise" style="--i:0"></div>
+      <div id="orderLine" class="order-line rise" style="--i:1"></div>
+      <div id="clueBoard" class="clueboard"></div>
       <div id="discTimerWrap">
         <h2 class="h-display" id="discTitle">Time&rsquo;s up.</h2>
         <div class="ringbox rise" style="--i:1">
@@ -624,6 +729,7 @@ noscript .ns{
     </div>
     <div class="bottombar">
       <button id="voteBtn" class="btn primary lg">Start Voting</button>
+      <button id="scrapBtn1" class="btn quiet danger-quiet">Scrap This Round</button>
     </div>
   </section>
 
@@ -637,6 +743,10 @@ noscript .ns{
     <div class="bottombar">
       <div class="hint" id="voteCount"></div>
       <button id="voteSubmit" class="btn primary lg" disabled>Lock In the Vote</button>
+      <div class="btn-row2">
+        <button id="hungBtn" class="btn quiet">Hung Jury</button>
+        <button id="scrapBtn2" class="btn quiet danger-quiet">Scrap Round</button>
+      </div>
     </div>
   </section>
 
@@ -657,15 +767,159 @@ noscript .ns{
         <div id="realList"></div>
         <div id="wordLine" class="d-word"></div>
         <div id="accLine" class="d-acc"></div>
-        <button id="againBtn" class="btn primary lg">Play Again</button>
-        <button id="setupBtn2" class="btn quiet">Change Setup</button>
+        <button id="standBtn" class="btn primary lg">See the Standings</button>
       </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ STANDINGS ═══════════ -->
+  <section class="screen" id="s-standings">
+    <header class="topbar"><span class="tb-spacer"></span><span class="wordmark sm">Impostor</span><span class="mini-chip" id="standChip"></span></header>
+    <div class="scrollarea pt">
+      <h2 class="h-display rise" style="--i:0">Standings</h2>
+      <div id="standList" class="stand-list"></div>
+    </div>
+    <div class="bottombar">
+      <button id="nextRoundBtn" class="btn primary lg">Next Round</button>
+      <div class="btn-row2">
+        <button id="stSetupBtn" class="btn quiet">Change Setup</button>
+        <button id="finishBtn" class="btn quiet">Finish Game</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PODIUM ═══════════ -->
+  <section class="screen" id="s-podium">
+    <div class="scrollarea pt center-col">
+      <div class="eyes rise" style="--i:0">Final results&hellip;</div>
+      <h2 class="h-display rise" style="--i:1">The Podium</h2>
+      <div class="podium" id="podiumWrap"></div>
+    </div>
+    <div class="bottombar">
+      <button id="podiumNext" class="btn primary lg cta-hide">Full Leaderboard</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ FINAL BOARD ═══════════ -->
+  <section class="screen" id="s-final">
+    <div class="scrollarea pt">
+      <h2 class="h-display rise" style="--i:0">Final Standings</h2>
+      <div id="finalList" class="stand-list"></div>
+    </div>
+    <div class="bottombar">
+      <button id="awardsBtn" class="btn primary lg">The Awards</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ AWARDS ═══════════ -->
+  <section class="screen" id="s-awards">
+    <div class="scrollarea pt">
+      <h2 class="h-display rise" style="--i:0">Awards</h2>
+      <div id="awardList"></div>
+    </div>
+    <div class="bottombar">
+      <button id="newGameBtn" class="btn primary lg">New Game</button>
+      <button id="histBtn" class="btn quiet">Round History</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ HISTORY ═══════════ -->
+  <section class="screen" id="s-history">
+    <div class="scrollarea pt">
+      <h2 class="h-display rise" style="--i:0">Round History</h2>
+      <div id="histList"></div>
+    </div>
+    <div class="bottombar">
+      <button id="histBack" class="btn primary lg">Back to Awards</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ BLITZ ═══════════ -->
+  <section class="screen" id="s-blitz">
+    <div class="scrollarea pt center-col">
+      <div id="blitzCat" class="chip rise" style="--i:0"></div>
+      <p class="sub-lead rise" style="--i:1">One word each. That&rsquo;s it.</p>
+      <h2 class="blitz-name" id="blitzName"></h2>
+      <div class="blitz-count" id="blitzCount">5</div>
+    </div>
+    <div class="bottombar">
+      <button id="blitzAbort" class="btn quiet danger-quiet">Scrap This Round</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ WRITTEN CLUES · pick ═══════════ -->
+  <section class="screen" id="s-clues">
+    <header class="topbar"><span class="tb-spacer"></span><span class="wordmark sm">Impostor</span><span class="mini-chip">Clues</span></header>
+    <div class="scrollarea">
+      <h2 class="h-display rise" style="--i:0">Write your clues</h2>
+      <p class="sub-lead rise" style="--i:1">Tap your name. Type one word. Keep it secret.</p>
+      <div id="clueGrid" class="grid-names"></div>
+    </div>
+    <div class="bottombar">
+      <button id="clueCTA" class="btn primary lg cta-hide">Reveal All Clues</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ WRITTEN CLUES · entry ═══════════ -->
+  <section class="screen" id="s-clueentry">
+    <div class="scrollarea pt center-col">
+      <div class="eyes rise" style="--i:0">Eyes only</div>
+      <h2 id="clueName" class="h-display rise" style="--i:1"></h2>
+      <p class="sub-lead rise" style="--i:2">One word (or a very short phrase) that hints at your word.</p>
+      <input id="clueInput" class="input rise" style="--i:3; max-width:320px" type="text" maxlength="30" autocomplete="off" autocapitalize="none" placeholder="Your clue&hellip;">
+    </div>
+    <div class="bottombar">
+      <button id="clueSave" class="btn primary lg">Hide My Clue</button>
+      <button id="clueBack" class="btn quiet">Not you? Go back</button>
     </div>
   </section>
 
   <button id="gearBtn" class="icon-btn" aria-label="Back to setup" hidden>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.4"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.08A1.7 1.7 0 0 0 10.1 3.6V3.5a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.08a1.7 1.7 0 0 0 1.56 1.03h.1a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03Z"/></svg>
   </button>
+
+
+  <div id="rulesPop" role="dialog" aria-label="Full rules">
+    <div class="r-head">
+      <span class="wordmark sm">Impostor</span>
+      <button id="rulesClose" class="icon-btn" aria-label="Close rules"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="r-body">
+      <h3>The Game</h3>
+      <p>Everyone secretly gets the same word from a category &mdash; except the impostor, who only sees the category. Take turns saying one word that hints at the secret word. Innocents want to prove they know it without giving it away. Impostors bluff and blend in. Then the table votes. Catch every impostor and the innocents win; if even one slips through, the impostors take it.</p>
+      <h3>A Round</h3>
+      <ul>
+        <li><b>Pass the phone.</b> Each player taps their name and privately reveals their role.</li>
+        <li><b>Clues.</b> The timer screen names who starts &mdash; then go clockwise around the table. Vague clues look guilty; obvious clues teach the impostor the word.</li>
+        <li><b>Vote together.</b> Pick exactly as many people as there are impostors. With one impostor, tapping a new name simply moves the vote.</li>
+        <li><b>Hung Jury.</b> Table can&rsquo;t agree? Every impostor escapes with 1 point.</li>
+        <li><b>Scrap Round.</b> Someone blurted the word? Scrap it &mdash; no points, fresh word.</li>
+        <li><b>Swap the Word.</b> On the pass-the-phone screen you can swap for a new word (roles get re-dealt).</li>
+      </ul>
+      <h3>Scoring</h3>
+      <ul>
+        <li>Innocents catch <b>every</b> impostor &rarr; each innocent +1.</li>
+        <li>An impostor escapes the vote &rarr; that impostor +2 (only the ones who got away score).</li>
+        <li>Hung jury &rarr; each impostor +1.</li>
+        <li>Jester gets voted out &rarr; jester +2 (and any escaped impostors still get their +2).</li>
+      </ul>
+      <p><b>Tiebreaker:</b> equal points are settled by most impostor escapes (jester wins count), then fewest times wrongly voted out, then name.</p>
+      <h3>The Mods</h3>
+      <ul>
+        <li><b>Decoy Words</b> &mdash; the impostor gets a similar-but-wrong word and has no idea they&rsquo;re the impostor. Their clue lands slightly off&hellip; Can&rsquo;t combine with Blackout or Accomplices.</li>
+        <li><b>Kid Mode</b> &mdash; only categories and words kids can connect to. Stacks with everything.</li>
+        <li><b>Jester</b> &mdash; one extra secret role. The jester knows the word but only wins by getting voted out (+2). House rule: the jester may never point the vote at themselves. Needs at least 2 more players than impostors.</li>
+        <li><b>Accomplices</b> &mdash; impostors learn each other&rsquo;s names. Needs 2+ impostors.</li>
+        <li><b>Blackout</b> &mdash; the impostor sees nothing, not even the category. Pure bluff.</li>
+        <li><b>Written Clues</b> &mdash; everyone types their clue in secret; all clues reveal at once, so going last is no advantage. Can&rsquo;t combine with Blitz.</li>
+        <li><b>Blitz</b> &mdash; each player gets 5 seconds to say one word, in order, then straight to the vote. No discussion, ignores the timer setting.</li>
+        <li><b>Scramble Order</b> &mdash; instead of clockwise-from-a-random-start, the entire speaking order is shuffled and shown.</li>
+      </ul>
+      <h3>Sound</h3>
+      <p>If you hear nothing, flip your phone&rsquo;s ring/silent switch &mdash; iPhones mute game audio in silent mode. You can also toggle sound off in the theme menu.</p>
+    </div>
+  </div>
 
   <div id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
     <div class="m-card">
@@ -821,574 +1075,584 @@ const THEMES = {
    + word, and nothing repeats until the whole library is used up.
    ════════════════════════════════════════════════════════════════ */
 const WORDS = {
-  'Wild Animals': ['Lion', 'Tiger', 'Elephant', 'Giraffe', 'Zebra', 'Hippo', 'Rhino', 'Cheetah',
-    'Leopard', 'Jaguar', 'Panther', 'Cougar', 'Grizzly Bear', 'Polar Bear', 'Panda', 'Koala',
-    'Kangaroo', 'Sloth', 'Monkey', 'Gorilla', 'Chimpanzee', 'Orangutan', 'Lemur', 'Meerkat',
-    'Hyena', 'Wolf', 'Fox', 'Coyote', 'Raccoon', 'Skunk', 'Opossum', 'Badger', 'Beaver', 'Otter',
-    'Porcupine', 'Hedgehog', 'Armadillo', 'Anteater', 'Aardvark', 'Moose', 'Elk', 'Deer',
-    'Gazelle', 'Bison', 'Warthog', 'Camel', 'Llama', 'Alpaca', 'Chameleon', 'Iguana',
-    'Komodo Dragon', 'Gecko', 'Cobra', 'Python', 'Rattlesnake', 'Anaconda', 'Crocodile',
-    'Alligator', 'Tortoise', 'Tree Frog', 'Platypus', 'Tasmanian Devil', 'Red Panda',
-    'Snow Leopard', 'Mountain Goat', 'Wolverine', 'Lynx', 'Capybara'],
+  'Wild Animals': ['Lion', 'Tiger', 'Cheetah', 'Leopard', 'Jaguar', 'Panther', 'Cougar', 'Lynx',
+    'Elephant', 'Rhino', 'Hippo', 'Warthog', 'Giraffe', 'Zebra', 'Camel', 'Llama', 'Alpaca',
+    'Mountain Goat', 'Grizzly Bear', 'Polar Bear', 'Panda', 'Red Panda', 'Koala', 'Sloth',
+    'Kangaroo', 'Platypus', 'Monkey', 'Lemur', 'Gorilla', 'Chimpanzee', 'Orangutan',
+    'Tasmanian Devil', 'Meerkat', 'Hyena', 'Wolf', 'Coyote', 'Fox', 'Wolverine', 'Raccoon',
+    'Opossum', 'Skunk', 'Badger', 'Beaver', 'Otter', 'Porcupine', 'Hedgehog', 'Armadillo',
+    'Anteater', 'Aardvark', 'Capybara', 'Moose', 'Elk', 'Deer', 'Gazelle', 'Bison', 'Snow Leopard',
+    'Chameleon', 'Iguana', 'Komodo Dragon', 'Gecko', 'Cobra', 'Rattlesnake', 'Python', 'Anaconda',
+    'Crocodile', 'Alligator', 'Tortoise', 'Tree Frog'],
   'Pets': ['Dog', 'Cat', 'Puppy', 'Kitten', 'Goldfish', 'Betta Fish', 'Hamster', 'Gerbil',
-    'Guinea Pig', 'Rabbit', 'Ferret', 'Chinchilla', 'Mouse', 'Turtle', 'Lizard', 'Hermit Crab',
-    'Fish Tank', 'Leash', 'Collar', 'Dog Bed', 'Cat Tower', 'Scratching Post', 'Litter Box',
-    'Food Bowl', 'Kibble', 'Dog Treats', 'Catnip', 'Squeaky Toy', 'Tennis Ball', 'Chew Toy',
-    'Fetch', 'Belly Rubs', 'Zoomies', 'Wagging Tail', 'Purring', 'Hairball', 'Shedding',
-    'Bath Time', 'Vet Visit', 'Pet Store', 'Animal Shelter', 'Cone of Shame', 'Puppy Eyes',
-    'Guard Dog', 'Service Dog', 'Dog Park', 'Roll Over', 'Playing Dead', 'Pet Costume', 'Kennel',
-    'Pet Sitter', 'Cat Nap', 'Obedience School'],
-  'On the Farm': ['Cow', 'Bull', 'Calf', 'Horse', 'Pony', 'Foal', 'Pig', 'Piglet', 'Sheep', 'Lamb',
-    'Goat', 'Chicken', 'Rooster', 'Hen', 'Chick', 'Duckling', 'Turkey', 'Donkey', 'Mule', 'Ox',
-    'Barn', 'Silo', 'Tractor', 'Plow', 'Hay Bale', 'Haystack', 'Scarecrow', 'Chicken Coop',
-    'Pigpen', 'Pasture', 'Fence Post', 'Barnyard', 'Farmhouse', 'Windmill', 'Water Trough',
-    'Milking a Cow', 'Sheepdog', 'Shepherd', 'Wheat Field', 'Cornfield', 'Orchard',
-    'Apple Picking', 'Pumpkin Patch', 'Corn Maze', 'Hayride', 'Petting Zoo', 'Rooster Crow',
-    'Egg Basket', 'Pitchfork', 'Overalls', 'Barn Cat', 'Cattle Drive', 'County Fair', 'Mud Pit',
-    'Goat Yoga'],
-  'Under the Sea': ['Shark', 'Great White Shark', 'Hammerhead Shark', 'Dolphin', 'Whale',
-    'Blue Whale', 'Humpback Whale', 'Orca', 'Narwhal', 'Octopus', 'Squid', 'Giant Squid',
-    'Jellyfish', 'Crab', 'Lobster', 'Shrimp', 'Seahorse', 'Starfish', 'Coral', 'Sea Anemone',
-    'Clam', 'Oyster', 'Mussel', 'Eel', 'Electric Eel', 'Stingray', 'Manta Ray', 'Sea Turtle',
-    'Seal', 'Sea Lion', 'Walrus', 'Sea Otter', 'Manatee', 'Pufferfish', 'Swordfish', 'Anglerfish',
-    'Barracuda', 'Tuna', 'Salmon', 'Clownfish', 'Angelfish', 'Flying Fish', 'Catfish', 'Piranha',
-    'Sea Urchin', 'Sand Dollar', 'Seaweed', 'Kelp Forest', 'Plankton', 'Sea Sponge',
-    'Sea Cucumber', 'Sea Snail', 'Dolphin Pod', 'Whale Song', 'Ink Cloud'],
-  'Birds': ['Eagle', 'Bald Eagle', 'Hawk', 'Falcon', 'Owl', 'Robin', 'Sparrow', 'Crow', 'Raven',
-    'Blue Jay', 'Cardinal', 'Penguin', 'Ostrich', 'Emu', 'Flamingo', 'Peacock', 'Parrot',
-    'Parakeet', 'Cockatoo', 'Canary', 'Toucan', 'Woodpecker', 'Hummingbird', 'Seagull', 'Pelican',
-    'Duck', 'Goose', 'Swan', 'Pigeon', 'Dove', 'Vulture', 'Stork', 'Crane', 'Heron', 'Kiwi Bird',
-    'Puffin', 'Roadrunner', 'Quail', 'Pheasant', 'Magpie', 'Mockingbird', 'Chickadee', 'Finch',
-    'Wren', 'Kingfisher', 'Albatross', 'Loon', 'Sandpiper', 'Bird Nest', 'Bird Feeder',
-    'Birdhouse', 'Bird Bath', 'Feather', 'Beak', 'Migration'],
+    'Guinea Pig', 'Chinchilla', 'Rabbit', 'Ferret', 'Mouse', 'Lizard', 'Turtle', 'Hermit Crab',
+    'Fish Tank', 'Litter Box', 'Leash', 'Collar', 'Dog Bed', 'Cat Tower', 'Scratching Post',
+    'Chew Toy', 'Food Bowl', 'Kibble', 'Dog Treats', 'Catnip', 'Squeaky Toy', 'Tennis Ball',
+    'Fetch', 'Roll Over', 'Belly Rubs', 'Cat Nap', 'Zoomies', 'Wagging Tail', 'Purring',
+    'Hairball', 'Shedding', 'Bath Time', 'Vet Visit', 'Cone of Shame', 'Pet Store',
+    'Animal Shelter', 'Puppy Eyes', 'Playing Dead', 'Guard Dog', 'Service Dog', 'Dog Park',
+    'Pet Sitter', 'Pet Costume', 'Kennel'],
+  'On the Farm': ['Cow', 'Bull', 'Calf', 'Foal', 'Horse', 'Pony', 'Pig', 'Piglet', 'Sheep', 'Lamb',
+    'Goat', 'Donkey', 'Chicken', 'Hen', 'Rooster', 'Turkey', 'Chick', 'Duckling', 'Mule', 'Ox',
+    'Barn', 'Silo', 'Tractor', 'Plow', 'Hay Bale', 'Haystack', 'Scarecrow', 'Windmill',
+    'Chicken Coop', 'Pigpen', 'Pasture', 'Barnyard', 'Fence Post', 'Water Trough', 'Farmhouse',
+    'Orchard', 'Milking a Cow', 'Egg Basket', 'Sheepdog', 'Shepherd', 'Wheat Field', 'Cornfield',
+    'Corn Maze', 'Hayride', 'Pumpkin Patch', 'Apple Picking', 'Petting Zoo', 'County Fair',
+    'Rooster Crow', 'Cattle Drive', 'Pitchfork', 'Overalls', 'Barn Cat', 'Mud Pit'],
+  'Under the Sea': ['Shark', 'Great White Shark', 'Hammerhead Shark', 'Barracuda', 'Dolphin',
+    'Orca', 'Whale', 'Blue Whale', 'Humpback Whale', 'Narwhal', 'Octopus', 'Squid', 'Giant Squid',
+    'Jellyfish', 'Crab', 'Lobster', 'Shrimp', 'Sea Urchin', 'Seahorse', 'Starfish', 'Coral',
+    'Sea Anemone', 'Clam', 'Oyster', 'Mussel', 'Sea Snail', 'Eel', 'Electric Eel', 'Stingray',
+    'Manta Ray', 'Sea Turtle', 'Manatee', 'Seal', 'Sea Lion', 'Walrus', 'Sea Otter', 'Pufferfish',
+    'Anglerfish', 'Swordfish', 'Tuna', 'Salmon', 'Catfish', 'Clownfish', 'Angelfish',
+    'Flying Fish', 'Piranha', 'Sand Dollar', 'Sea Sponge', 'Seaweed', 'Kelp Forest', 'Plankton',
+    'Sea Cucumber', 'Dolphin Pod', 'Whale Song'],
+  'Birds': ['Eagle', 'Bald Eagle', 'Hawk', 'Falcon', 'Owl', 'Raven', 'Robin', 'Sparrow', 'Crow',
+    'Magpie', 'Blue Jay', 'Cardinal', 'Penguin', 'Puffin', 'Ostrich', 'Emu', 'Flamingo', 'Peacock',
+    'Parrot', 'Parakeet', 'Cockatoo', 'Canary', 'Toucan', 'Woodpecker', 'Hummingbird',
+    'Kingfisher', 'Seagull', 'Pelican', 'Duck', 'Goose', 'Swan', 'Heron', 'Pigeon', 'Dove',
+    'Vulture', 'Albatross', 'Stork', 'Crane', 'Kiwi Bird', 'Roadrunner', 'Quail', 'Pheasant',
+    'Mockingbird', 'Chickadee', 'Finch', 'Wren', 'Loon', 'Sandpiper', 'Bird Nest', 'Bird Feeder',
+    'Birdhouse', 'Bird Bath', 'Feather', 'Beak'],
   'Bugs & Crawlies': ['Ant', 'Fire Ant', 'Bee', 'Bumblebee', 'Wasp', 'Hornet', 'Butterfly',
     'Monarch Butterfly', 'Moth', 'Caterpillar', 'Ladybug', 'Beetle', 'Firefly', 'Dragonfly',
-    'Grasshopper', 'Cicada', 'Praying Mantis', 'Stick Bug', 'Spider', 'Tarantula',
-    'Daddy Longlegs', 'Scorpion', 'Centipede', 'Millipede', 'Earthworm', 'Snail', 'Slug', 'Fly',
-    'Mosquito', 'Gnat', 'Flea', 'Tick', 'Termite', 'Cockroach', 'Roly-Poly', 'Aphid', 'Silkworm',
-    'Inchworm', 'Water Strider', 'June Bug', 'Stink Bug', 'Katydid', 'Weevil', 'Leech', 'Horsefly',
-    'Anthill', 'Beehive', 'Honeycomb', 'Spiderweb', 'Cocoon', 'Chrysalis', 'Bug Bite', 'Swarm'],
-  'Fruits': ['Apple', 'Green Apple', 'Banana', 'Orange', 'Grapes', 'Strawberry', 'Blueberry',
-    'Raspberry', 'Blackberry', 'Watermelon', 'Cantaloupe', 'Honeydew', 'Pineapple', 'Mango',
-    'Papaya', 'Kiwi', 'Peach', 'Plum', 'Apricot', 'Nectarine', 'Cherry', 'Pear', 'Lemon', 'Lime',
-    'Grapefruit', 'Tangerine', 'Clementine', 'Pomegranate', 'Fig', 'Date', 'Coconut', 'Avocado',
-    'Dragon Fruit', 'Passion Fruit', 'Star Fruit', 'Lychee', 'Guava', 'Cranberry', 'Mulberry',
-    'Persimmon', 'Tomato', 'Golden Raisin', 'Raisin', 'Prune', 'Dried Mango', 'Fruit Cup',
-    'Applesauce', 'Banana Peel', 'Watermelon Seeds', 'Fruit Basket', 'Smoothie Bowl',
-    'Orange Slice', 'Grapevine', 'Berry Picking'],
-  'Vegetables': ['Carrot', 'Potato', 'Baked Potato', 'Mashed Potatoes', 'Broccoli', 'Cauliflower',
-    'Spinach', 'Lettuce', 'Kale', 'Cabbage', 'Brussels Sprouts', 'Asparagus', 'Green Beans',
-    'Peas', 'Snap Peas', 'Corn', 'Corn on the Cob', 'Celery', 'Cucumber', 'Zucchini', 'Squash',
-    'Butternut Squash', 'Pumpkin', 'Sweet Potato', 'Onion', 'Red Onion', 'Garlic', 'Leek',
-    'Radish', 'Turnip', 'Beet', 'Parsnip', 'Eggplant', 'Bell Pepper', 'Jalapeño', 'Mushroom',
-    'Artichoke', 'Okra', 'Bok Choy', 'Edamame', 'Chickpeas', 'Lentils', 'Green Onion', 'Chives',
-    'Rhubarb', 'Ginger', 'Cherry Tomato', 'Veggie Tray', 'Pickled Beets', 'Baby Carrots',
-    'Creamed Corn', 'Coleslaw', 'Garden Salad', 'Sweet Corn'],
-  'Desserts & Sweets': ['Chocolate Cake', 'Cheesecake', 'Cupcake', 'Brownie',
+    'Grasshopper', 'Katydid', 'Cicada', 'Praying Mantis', 'Stick Bug', 'Inchworm', 'Spider',
+    'Tarantula', 'Daddy Longlegs', 'Scorpion', 'Centipede', 'Millipede', 'Earthworm', 'Silkworm',
+    'Snail', 'Slug', 'Fly', 'Horsefly', 'Mosquito', 'Gnat', 'Flea', 'Tick', 'Termite', 'Cockroach',
+    'Roly-Poly', 'Weevil', 'Aphid', 'Water Strider', 'June Bug', 'Stink Bug', 'Leech', 'Bug Bite',
+    'Anthill', 'Beehive', 'Honeycomb', 'Spiderweb', 'Cocoon', 'Chrysalis'],
+  'Fruits': ['Apple', 'Green Apple', 'Banana', 'Banana Peel', 'Orange', 'Tangerine', 'Clementine',
+    'Grapefruit', 'Grapes', 'Grapevine', 'Strawberry', 'Raspberry', 'Blueberry', 'Blackberry',
+    'Cranberry', 'Mulberry', 'Watermelon', 'Cantaloupe', 'Honeydew', 'Watermelon Seeds',
+    'Pineapple', 'Mango', 'Papaya', 'Guava', 'Kiwi', 'Lychee', 'Peach', 'Nectarine', 'Plum',
+    'Apricot', 'Cherry', 'Pear', 'Lemon', 'Lime', 'Pomegranate', 'Persimmon', 'Fig', 'Date',
+    'Coconut', 'Avocado', 'Dragon Fruit', 'Star Fruit', 'Passion Fruit', 'Tomato', 'Raisin',
+    'Golden Raisin', 'Prune', 'Dried Mango', 'Fruit Cup', 'Fruit Basket', 'Applesauce',
+    'Smoothie Bowl', 'Orange Slice', 'Berry Picking'],
+  'Vegetables': ['Carrot', 'Baby Carrots', 'Potato', 'Sweet Potato', 'Baked Potato',
+    'Mashed Potatoes', 'Broccoli', 'Cauliflower', 'Spinach', 'Kale', 'Lettuce', 'Cabbage',
+    'Brussels Sprouts', 'Bok Choy', 'Asparagus', 'Celery', 'Green Beans', 'Snap Peas', 'Peas',
+    'Edamame', 'Corn', 'Sweet Corn', 'Corn on the Cob', 'Creamed Corn', 'Cucumber', 'Zucchini',
+    'Squash', 'Butternut Squash', 'Pumpkin', 'Eggplant', 'Onion', 'Red Onion', 'Garlic', 'Leek',
+    'Green Onion', 'Chives', 'Radish', 'Turnip', 'Beet', 'Parsnip', 'Bell Pepper', 'Jalapeño',
+    'Mushroom', 'Artichoke', 'Okra', 'Rhubarb', 'Chickpeas', 'Lentils', 'Ginger', 'Pickled Beets',
+    'Cherry Tomato', 'Veggie Tray', 'Coleslaw', 'Garden Salad'],
+  'Desserts & Sweets': ['Chocolate Cake', 'Cheesecake', 'Cupcake', 'Cake Pop', 'Brownie', 'Fudge',
     'Chocolate Chip Cookie', 'Sugar Cookie', 'Oatmeal Cookie', 'Gingerbread Cookies', 'Apple Pie',
-    'Cherry Pie', 'Key Lime Pie', 'Banana Cream Pie', 'Ice Cream', 'Ice Cream Cone',
-    'Ice Cream Sandwich', 'Ice Cream Float', 'Sundae', 'Banana Split', 'Hot Fudge', 'Sprinkles',
-    'Whipped Cream', 'Cherry on Top', 'Fudge', 'Caramel', 'Toffee', 'Taffy', 'Lollipop',
+    'Cherry Pie', 'Key Lime Pie', 'Banana Cream Pie', 'Ice Cream', 'Sundae', 'Ice Cream Cone',
+    'Ice Cream Sandwich', 'Ice Cream Float', 'Banana Split', 'Hot Fudge', 'Caramel',
+    'Whipped Cream', 'Cherry on Top', 'Sprinkles', 'Frosting', 'Toffee', 'Taffy', 'Lollipop',
     'Jawbreaker', 'Gummy Bears', 'Gummy Worms', 'Sour Candy', 'Licorice', 'Peppermint',
-    'Bubblegum', 'Gumball', 'Rock Candy', 'Marshmallow Treats', 'Chocolate Bar',
-    'Chocolate Truffle', 'White Chocolate', 'Dark Chocolate', 'Peanut Brittle', 'Pudding', 'Jello',
-    'Custard', 'Flan', 'Tiramisu', 'Macarons', 'Donut Holes', 'Cake Pop', 'Frosting',
-    'Candy Necklace', 'Shaved Ice', 'Cotton Candy Grapes'],
-  'Snack Attack': ['Potato Chips', 'Tortilla Chips', 'Nachos', 'Pretzels', 'Soft Pretzel',
-    'Popcorn', 'Cheese Puffs', 'Crackers', 'Cheese and Crackers', 'Trail Mix', 'Granola Bar',
-    'Protein Bar', 'Fruit Snacks', 'Fruit Roll-Up', 'Beef Jerky', 'String Cheese', 'Pita Chips',
-    'Hummus', 'Guacamole', 'Salsa', 'Queso', 'Veggie Chips', 'Rice Cakes', 'Popcorn Balls',
-    'Caramel Corn', 'Mixed Nuts', 'Cashews', 'Almonds', 'Pistachios', 'Sunflower Seeds',
-    'Pumpkin Seeds', 'Peanut Butter Crackers', 'Ants on a Log', 'Apple Slices', 'Cheese Cubes',
-    'Pepperoni Slices', 'Pickles', 'Pickle Chips', 'Olives', 'Goldfish Crackers',
-    'Animal Crackers', 'Graham Crackers', 'Saltines', 'Bagel Chips', 'Chips and Dip',
-    'Onion Rings', 'Mozzarella Sticks', 'French Fries', 'Curly Fries', 'Snack Drawer',
-    'Lunchbox Snacks', 'Midnight Snack'],
-  'Foods of the World': ['Pizza', 'Pepperoni Pizza', 'Spaghetti', 'Lasagna', 'Ravioli',
-    'Fettuccine Alfredo', 'Garlic Bread', 'Meatballs', 'Tacos', 'Burrito', 'Quesadilla',
-    'Enchiladas', 'Fajitas', 'Sushi', 'California Roll', 'Ramen', 'Fried Rice', 'Dumplings',
-    'Egg Rolls', 'Spring Rolls', 'Lo Mein', 'Orange Chicken', 'Pad Thai', 'Curry',
-    'Butter Chicken', 'Naan', 'Samosa', 'Falafel', 'Gyro', 'Kebab', 'Shawarma', 'Pita Bread',
-    'Paella', 'Empanada', 'Pho', 'Banh Mi', 'Bibimbap', 'Korean BBQ', 'Dim Sum', 'Peking Duck',
-    'Fish and Chips', 'Shepherd\'s Pie', 'Bangers and Mash', 'Baguette', 'Fondue', 'Schnitzel',
-    'Bratwurst', 'Pierogi', 'Goulash', 'Poutine', 'Jambalaya', 'Gumbo', 'Mac and Cheese',
-    'Cheeseburger', 'Hot Dog', 'Corn Bread', 'Pot Roast', 'Chicken Noodle Soup', 'Tortilla Soup'],
-  'Drinks': ['Lemonade', 'Pink Lemonade', 'Limeade', 'Iced Tea', 'Green Tea', 'Chai',
-    'Hot Chocolate', 'Chocolate Milk', 'Strawberry Milk', 'Warm Milk', 'Oat Milk', 'Almond Milk',
-    'Milkshake', 'Root Beer', 'Cream Soda', 'Grape Soda', 'Orange Soda', 'Ginger Ale',
-    'Fruit Punch', 'Juice Box', 'Apple Juice', 'Grape Juice', 'Cranberry Juice', 'Tomato Juice',
-    'Prune Juice', 'Slushie', 'Bubble Tea', 'Matcha', 'Latte', 'Iced Coffee', 'Cold Brew',
-    'Espresso', 'Frappé', 'Pumpkin Spice Latte', 'Apple Cider', 'Sparkling Cider', 'Horchata',
-    'Mango Lassi', 'Thai Iced Tea', 'Shirley Temple', 'Arnold Palmer', 'Mocktail', 'Coconut Water',
-    'Sports Drink', 'Energy Drink', 'Protein Shake', 'Ice Water', 'Sparkling Water',
-    'Cucumber Water', 'Kombucha', 'Cherry Limeade', 'Agua Fresca', 'Sweet Tea'],
+    'Candy Necklace', 'Bubblegum', 'Gumball', 'Rock Candy', 'Peanut Brittle', 'Marshmallow Treats',
+    'Cotton Candy Grapes', 'Chocolate Bar', 'Chocolate Truffle', 'White Chocolate',
+    'Dark Chocolate', 'Pudding', 'Custard', 'Jello', 'Flan', 'Tiramisu', 'Macarons', 'Donut Holes',
+    'Shaved Ice'],
+  'Snack Attack': ['Potato Chips', 'Veggie Chips', 'Tortilla Chips', 'Pita Chips', 'Nachos',
+    'Chips and Dip', 'Pretzels', 'Soft Pretzel', 'Popcorn', 'Popcorn Balls', 'Caramel Corn',
+    'Cheese Puffs', 'Crackers', 'Saltines', 'Cheese and Crackers', 'Cheese Cubes', 'Trail Mix',
+    'Mixed Nuts', 'Granola Bar', 'Protein Bar', 'Fruit Snacks', 'Fruit Roll-Up', 'Beef Jerky',
+    'Pepperoni Slices', 'String Cheese', 'Mozzarella Sticks', 'Hummus', 'Guacamole', 'Salsa',
+    'Queso', 'Rice Cakes', 'Bagel Chips', 'Cashews', 'Almonds', 'Pistachios', 'Sunflower Seeds',
+    'Pumpkin Seeds', 'Peanut Butter Crackers', 'Ants on a Log', 'Apple Slices', 'Pickles',
+    'Pickle Chips', 'Olives', 'Goldfish Crackers', 'Animal Crackers', 'Graham Crackers',
+    'French Fries', 'Curly Fries', 'Onion Rings', 'Midnight Snack', 'Snack Drawer',
+    'Lunchbox Snacks'],
+  'Foods of the World': ['Pizza', 'Pepperoni Pizza', 'Spaghetti', 'Fettuccine Alfredo', 'Lasagna',
+    'Ravioli', 'Garlic Bread', 'Baguette', 'Meatballs', 'Bratwurst', 'Tacos', 'Burrito',
+    'Quesadilla', 'Fajitas', 'Enchiladas', 'Empanada', 'Sushi', 'California Roll', 'Ramen', 'Pho',
+    'Fried Rice', 'Lo Mein', 'Dumplings', 'Dim Sum', 'Egg Rolls', 'Spring Rolls', 'Orange Chicken',
+    'Peking Duck', 'Pad Thai', 'Banh Mi', 'Curry', 'Butter Chicken', 'Naan', 'Pita Bread',
+    'Samosa', 'Falafel', 'Gyro', 'Kebab', 'Shawarma', 'Bibimbap', 'Paella', 'Korean BBQ',
+    'Fish and Chips', 'Shepherd\'s Pie', 'Bangers and Mash', 'Schnitzel', 'Fondue', 'Pierogi',
+    'Goulash', 'Poutine', 'Jambalaya', 'Gumbo', 'Mac and Cheese', 'Corn Bread', 'Cheeseburger',
+    'Hot Dog', 'Pot Roast', 'Chicken Noodle Soup'],
+  'Drinks': ['Lemonade', 'Pink Lemonade', 'Limeade', 'Cherry Limeade', 'Iced Tea', 'Sweet Tea',
+    'Green Tea', 'Chai', 'Hot Chocolate', 'Warm Milk', 'Chocolate Milk', 'Strawberry Milk',
+    'Oat Milk', 'Almond Milk', 'Milkshake', 'Slushie', 'Root Beer', 'Cream Soda', 'Grape Soda',
+    'Orange Soda', 'Ginger Ale', 'Sparkling Water', 'Fruit Punch', 'Juice Box', 'Apple Juice',
+    'Grape Juice', 'Cranberry Juice', 'Tomato Juice', 'Prune Juice', 'Cucumber Water',
+    'Bubble Tea', 'Matcha', 'Latte', 'Espresso', 'Iced Coffee', 'Cold Brew', 'Frappé',
+    'Pumpkin Spice Latte', 'Apple Cider', 'Sparkling Cider', 'Horchata', 'Agua Fresca',
+    'Mango Lassi', 'Thai Iced Tea', 'Shirley Temple', 'Arnold Palmer', 'Mocktail', 'Kombucha',
+    'Coconut Water', 'Ice Water', 'Sports Drink', 'Energy Drink'],
   'Breakfast': ['Pancakes', 'Waffles', 'French Toast', 'Crepes', 'Cereal', 'Granola', 'Oatmeal',
-    'Grits', 'Toast', 'Avocado Toast', 'Bagel', 'English Muffin', 'Croissant', 'Blueberry Muffin',
-    'Banana Bread', 'Donut', 'Cinnamon Roll', 'Sticky Bun', 'Scone', 'Danish', 'Coffee Cake',
-    'Monkey Bread', 'Biscuits and Gravy', 'Scrambled Eggs', 'Sunny-Side-Up Eggs',
-    'Hard-Boiled Egg', 'Omelet', 'Quiche', 'Eggs Benedict', 'Breakfast Burrito',
-    'Breakfast Sandwich', 'Breakfast Tacos', 'Bacon', 'Sausage', 'Ham', 'Hash Browns',
-    'Tater Tots', 'Toaster Pastry', 'Yogurt Parfait', 'Fruit Salad', 'Overnight Oats', 'Acai Bowl',
-    'Smoothie', 'Maple Syrup', 'Honey', 'Butter', 'Jam', 'Peanut Butter', 'Milk', 'Orange Juice',
-    'Coffee', 'Brunch', 'Breakfast in Bed', 'Cereal Milk'],
-  'Countries': ['United States', 'Canada', 'Mexico', 'Brazil', 'Argentina', 'Peru', 'Chile',
-    'Colombia', 'England', 'France', 'Spain', 'Portugal', 'Italy', 'Germany', 'Switzerland',
-    'Austria', 'Netherlands', 'Belgium', 'Ireland', 'Scotland', 'Norway', 'Sweden', 'Denmark',
-    'Finland', 'Iceland', 'Greece', 'Croatia', 'Russia', 'Poland', 'Ukraine', 'Egypt', 'Morocco',
-    'Kenya', 'Nigeria', 'South Africa', 'Madagascar', 'India', 'China', 'Japan', 'South Korea',
-    'Thailand', 'Vietnam', 'Philippines', 'Indonesia', 'Malaysia', 'Singapore', 'Australia',
-    'New Zealand', 'Fiji', 'Jamaica', 'Cuba', 'Costa Rica', 'Panama', 'Saudi Arabia', 'Israel'],
-  'Cities of the World': ['New York City', 'Los Angeles', 'Chicago', 'Miami', 'Las Vegas',
-    'San Francisco', 'Seattle', 'Boston', 'New Orleans', 'Nashville', 'Denver', 'Honolulu',
-    'Toronto', 'Vancouver', 'Montreal', 'Mexico City', 'Rio de Janeiro', 'Buenos Aires', 'London',
-    'Paris', 'Rome', 'Venice', 'Florence', 'Barcelona', 'Madrid', 'Lisbon', 'Amsterdam', 'Berlin',
-    'Munich', 'Vienna', 'Prague', 'Athens', 'Istanbul', 'Moscow', 'Dubai', 'Cairo', 'Marrakech',
-    'Nairobi', 'Cape Town', 'Mumbai', 'Delhi', 'Beijing', 'Shanghai', 'Hong Kong', 'Tokyo',
-    'Kyoto', 'Seoul', 'Bangkok', 'Sydney', 'Melbourne', 'Auckland', 'Dublin', 'Edinburgh',
-    'Stockholm', 'Copenhagen'],
-  'Around Town': ['Library', 'Post Office', 'Fire Station', 'Police Station', 'City Hall',
-    'Courthouse', 'Bank', 'ATM', 'Bakery', 'Butcher Shop', 'Farmers Market', 'Coffee Shop',
-    'Diner', 'Barbershop', 'Hair Salon', 'Nail Salon', 'Laundromat', 'Dry Cleaner', 'Car Wash',
-    'Auto Shop', 'Hardware Store', 'Bookstore', 'Toy Store', 'Candy Shop', 'Ice Cream Parlor',
-    'Flower Shop', 'Thrift Store', 'Mall', 'Bowling Alley', 'Skating Rink', 'Community Pool',
-    'Gym', 'Yoga Studio', 'Dance Studio', 'Music Store', 'Pharmacy', 'Hospital', 'Dentist Office',
-    'Eyeglasses Shop', 'Pet Salon', 'Church', 'Museum', 'Aquarium', 'Zoo', 'Stadium',
-    'Concert Hall', 'Theater', 'Hotel', 'Bus Stop', 'Parking Garage', 'Sidewalk', 'Crosswalk',
-    'Traffic Light', 'Fire Hydrant', 'Park Bench', 'Fountain', 'Statue', 'Town Square',
+    'Grits', 'Toast', 'Avocado Toast', 'Bagel', 'English Muffin', 'Croissant', 'Danish',
+    'Blueberry Muffin', 'Scone', 'Banana Bread', 'Coffee Cake', 'Donut', 'Cinnamon Roll',
+    'Sticky Bun', 'Monkey Bread', 'Biscuits and Gravy', 'Toaster Pastry', 'Scrambled Eggs',
+    'Omelet', 'Sunny-Side-Up Eggs', 'Hard-Boiled Egg', 'Quiche', 'Eggs Benedict',
+    'Breakfast Burrito', 'Breakfast Tacos', 'Breakfast Sandwich', 'Brunch', 'Bacon', 'Sausage',
+    'Ham', 'Hash Browns', 'Tater Tots', 'Cereal Milk', 'Yogurt Parfait', 'Fruit Salad',
+    'Overnight Oats', 'Acai Bowl', 'Smoothie', 'Orange Juice', 'Maple Syrup', 'Honey', 'Butter',
+    'Jam', 'Peanut Butter', 'Milk', 'Coffee', 'Breakfast in Bed'],
+  'Countries': ['United States', 'Canada', 'Mexico', 'Brazil', 'Argentina', 'Chile', 'Peru',
+    'Colombia', 'England', 'France', 'Spain', 'Portugal', 'Italy', 'Greece', 'Germany', 'Austria',
+    'Switzerland', 'Netherlands', 'Belgium', 'Poland', 'Ireland', 'Scotland', 'Norway', 'Sweden',
+    'Denmark', 'Finland', 'Iceland', 'New Zealand', 'Croatia', 'Ukraine', 'Russia', 'China',
+    'Egypt', 'Morocco', 'Kenya', 'Nigeria', 'South Africa', 'Madagascar', 'India', 'Saudi Arabia',
+    'Japan', 'South Korea', 'Thailand', 'Vietnam', 'Philippines', 'Indonesia', 'Malaysia',
+    'Singapore', 'Australia', 'Fiji', 'Jamaica', 'Cuba', 'Costa Rica', 'Panama'],
+  'Cities of the World': ['New York City', 'Chicago', 'Los Angeles', 'San Francisco', 'Miami',
+    'New Orleans', 'Las Vegas', 'Honolulu', 'Seattle', 'Boston', 'Nashville', 'Denver', 'Toronto',
+    'Vancouver', 'Montreal', 'Mexico City', 'Rio de Janeiro', 'Buenos Aires', 'London', 'Paris',
+    'Rome', 'Venice', 'Florence', 'Athens', 'Barcelona', 'Madrid', 'Lisbon', 'Amsterdam', 'Berlin',
+    'Munich', 'Vienna', 'Prague', 'Istanbul', 'Moscow', 'Dubai', 'Cairo', 'Marrakech', 'Nairobi',
+    'Cape Town', 'Mumbai', 'Delhi', 'Bangkok', 'Beijing', 'Shanghai', 'Hong Kong', 'Seoul',
+    'Tokyo', 'Kyoto', 'Sydney', 'Melbourne', 'Auckland', 'Dublin', 'Edinburgh', 'Stockholm'],
+  'Around Town': ['Library', 'Bookstore', 'Post Office', 'City Hall', 'Fire Station',
+    'Police Station', 'Courthouse', 'Bank', 'ATM', 'Parking Garage', 'Bakery', 'Candy Shop',
+    'Butcher Shop', 'Farmers Market', 'Coffee Shop', 'Diner', 'Barbershop', 'Hair Salon',
+    'Nail Salon', 'Pet Salon', 'Laundromat', 'Dry Cleaner', 'Car Wash', 'Auto Shop',
+    'Hardware Store', 'Thrift Store', 'Toy Store', 'Ice Cream Parlor', 'Flower Shop',
+    'Eyeglasses Shop', 'Mall', 'Music Store', 'Bowling Alley', 'Skating Rink', 'Community Pool',
+    'Gym', 'Yoga Studio', 'Dance Studio', 'Pharmacy', 'Hospital', 'Dentist Office', 'Church',
+    'Museum', 'Aquarium', 'Zoo', 'Stadium', 'Concert Hall', 'Theater', 'Hotel', 'Bus Stop',
+    'Sidewalk', 'Crosswalk', 'Traffic Light', 'Fire Hydrant', 'Park Bench', 'Fountain', 'Statue',
     'Water Tower'],
-  'Around the House': ['Kitchen', 'Living Room', 'Dining Room', 'Bedroom', 'Bathroom', 'Basement',
-    'Attic', 'Garage', 'Closet', 'Walk-In Closet', 'Pantry', 'Laundry Room', 'Hallway', 'Entryway',
-    'Home Office', 'Playroom', 'Nursery', 'Guest Room', 'Mudroom', 'Sunroom', 'Porch', 'Patio',
-    'Deck', 'Balcony', 'Backyard', 'Front Yard', 'Garden', 'Driveway', 'Shed', 'Treehouse',
-    'Staircase', 'Fireplace', 'Chimney', 'Doghouse', 'Mailbox', 'Front Door', 'Doorbell',
-    'Welcome Mat', 'Window Seat', 'Windowsill', 'Rooftop', 'Gutter', 'Fence', 'Gate',
-    'Garden Gnome', 'Sprinkler', 'Garden Hose', 'Sandbox', 'Swing Set', 'Above-Ground Pool',
-    'Hot Tub', 'Hammock', 'Porch Swing', 'Crawl Space', 'Linen Closet', 'Junk Drawer',
-    'Couch Cushions', 'Coat Rack'],
-  'Famous Landmarks': ['Eiffel Tower', 'Statue of Liberty', 'Big Ben', 'The Pyramids',
-    'Great Wall of China', 'Taj Mahal', 'Colosseum', 'Leaning Tower of Pisa', 'Mount Rushmore',
-    'Golden Gate Bridge', 'Niagara Falls', 'Grand Canyon', 'Mount Everest', 'Stonehenge',
-    'Sydney Opera House', 'Machu Picchu', 'Christ the Redeemer', 'The Louvre', 'Times Square',
-    'Hollywood Sign', 'White House', 'Empire State Building', 'Brooklyn Bridge', 'London Eye',
-    'Buckingham Palace', 'Notre Dame', 'Sahara Desert', 'Amazon Rainforest', 'Great Barrier Reef',
-    'Old Faithful', 'Yellowstone', 'Yosemite', 'Venice Canals', 'Dead Sea', 'Nile River',
-    'Mississippi River', 'Rocky Mountains', 'The Alps', 'Mount Fuji', 'Easter Island',
-    'Bermuda Triangle', 'Loch Ness', 'Area 51', 'Space Needle', 'Gateway Arch', 'Liberty Bell',
-    'Alcatraz', 'Mount Vesuvius', 'Victoria Falls', 'Hoover Dam', 'Central Park', 'Blue Lagoon',
-    'Redwood Forest', 'Antarctica', 'North Pole'],
-  'Beach Day': ['Sandcastle', 'Sand Bucket', 'Sand Shovel', 'Beach Towel', 'Beach Umbrella',
-    'Beach Chair', 'Sunscreen', 'Sunburn', 'Sunglasses', 'Sun Hat', 'Flip-Flops', 'Swimsuit',
-    'Swim Trunks', 'Goggles', 'Snorkel', 'Fins', 'Boogie Board', 'Surfboard', 'Beach Ball',
-    'Volleyball Net', 'Seashell', 'Conch Shell', 'Driftwood', 'Low Tide', 'High Tide', 'Waves',
-    'Undertow', 'Lifeguard Tower', 'Boardwalk', 'Pier', 'Jetty', 'Dune Grass', 'Palm Tree',
-    'Beach Bonfire', 'Clambake', 'Sand Between Your Toes', 'Salty Air', 'Seagull Stealing Fries',
-    'Metal Detector', 'Message in a Bottle', 'Skimboard', 'Paddleboard', 'Wading', 'Sandbar',
-    'Beach Blanket', 'Picnic Basket', 'Ocean Breeze', 'Sunset Walk', 'Burying Someone in Sand',
-    'Sand in the Car', 'Tan Lines', 'Tide Pool Hunting'],
-  'Camping Trip': ['Tent', 'Sleeping Bag', 'Campfire', 'S\'mores', 'Marshmallows', 'Firewood',
-    'Kindling', 'Matches', 'Lantern', 'Flashlight', 'Headlamp', 'Compass', 'Trail Map',
-    'Hiking Boots', 'Hiking Trail', 'Hiking Pack', 'Canteen', 'Water Filter', 'Bug Spray',
-    'Mosquito Net', 'First Aid Kit', 'Pocketknife', 'Rope', 'Tarp', 'Campsite', 'Ranger Station',
-    'Park Ranger', 'Fishing Pole', 'Bait', 'Tackle Box', 'Life Jacket', 'Binoculars', 'Bear Bag',
-    'Bear Sighting', 'Deer Tracks', 'Crickets at Night', 'Campfire Stories', 'Ghost Story',
-    'Stargazing', 'Sunrise Hike', 'Pitching the Tent', 'Sleeping Pad', 'Cooler', 'Camp Stove',
-    'Tin Cup', 'Hot Dog on a Stick', 'Dutch Oven', 'Picnic Table', 'Fire Pit',
-    'Smoke in Your Eyes', 'Leave No Trace', 'Trail Mix Refill'],
-  'The Great Outdoors': ['Mountain', 'Hill', 'Valley', 'Canyon', 'Cliff', 'Cave', 'Volcano',
-    'Lava', 'Glacier', 'Iceberg', 'Island', 'Peninsula', 'Coastline', 'Bay', 'Lagoon', 'Lake',
-    'Pond', 'River', 'Stream', 'Waterfall', 'Rapids', 'Swamp', 'Marsh', 'Desert', 'Oasis',
-    'Sand Dune', 'Prairie', 'Meadow', 'Forest', 'Jungle', 'Rainforest', 'Tundra', 'Savanna',
-    'Coral Reef', 'Tide Pool', 'Hot Spring', 'Geyser', 'Quicksand', 'Boulder', 'Pebble', 'Moss',
-    'Fern', 'Toadstool', 'Pinecone', 'Acorn', 'Wildflowers', 'Tree Stump', 'Riverbank', 'Summit',
-    'Wilderness', 'Babbling Brook', 'Fallen Leaves', 'Cattails', 'Lily Pad', 'Skipping Stones'],
-  'Weather & Sky': ['Rain', 'Drizzle', 'Downpour', 'Mist', 'Fog', 'Haze', 'Dew', 'Frost', 'Hail',
-    'Sleet', 'Snow', 'Snowflake', 'Flurries', 'Blizzard', 'Whiteout', 'Avalanche', 'Thunder',
-    'Lightning', 'Thunderstorm', 'Storm Cloud', 'Tornado', 'Waterspout', 'Hurricane', 'Monsoon',
-    'Sandstorm', 'Drought', 'Heat Wave', 'Cold Front', 'Breeze', 'Gust', 'Wind Chill', 'Humidity',
-    'Rainbow', 'Double Rainbow', 'Sun Shower', 'Sunbeam', 'Sunshine', 'Sunrise', 'Sunset', 'Dusk',
-    'Dawn', 'Twilight', 'Overcast', 'Partly Cloudy', 'Clear Sky', 'Puddle', 'Flood', 'Icicle',
-    'Black Ice', 'Northern Lights', 'Moonlight', 'Starry Night', 'Weather Vane', 'Umbrella',
-    'Raincoat', 'Rain Boots', 'Windsock', 'Jack Frost'],
+  'Around the House': ['Kitchen', 'Pantry', 'Living Room', 'Dining Room', 'Bedroom', 'Guest Room',
+    'Bathroom', 'Laundry Room', 'Basement', 'Attic', 'Garage', 'Shed', 'Closet', 'Walk-In Closet',
+    'Hallway', 'Entryway', 'Home Office', 'Playroom', 'Nursery', 'Mudroom', 'Sunroom',
+    'Linen Closet', 'Porch', 'Patio', 'Deck', 'Balcony', 'Backyard', 'Front Yard', 'Garden',
+    'Driveway', 'Treehouse', 'Doghouse', 'Staircase', 'Crawl Space', 'Fireplace', 'Chimney',
+    'Mailbox', 'Front Door', 'Doorbell', 'Welcome Mat', 'Window Seat', 'Windowsill', 'Rooftop',
+    'Gutter', 'Fence', 'Gate', 'Garden Gnome', 'Sprinkler', 'Garden Hose', 'Sandbox', 'Swing Set',
+    'Above-Ground Pool', 'Hot Tub', 'Hammock', 'Porch Swing', 'Junk Drawer', 'Couch Cushions',
+    'Coat Rack'],
+  'Famous Landmarks': ['Eiffel Tower', 'Statue of Liberty', 'Big Ben', 'London Eye',
+    'The Pyramids', 'Great Wall of China', 'Taj Mahal', 'Colosseum', 'Leaning Tower of Pisa',
+    'Notre Dame', 'Mount Rushmore', 'Hollywood Sign', 'Golden Gate Bridge', 'Brooklyn Bridge',
+    'Niagara Falls', 'Victoria Falls', 'Grand Canyon', 'Yellowstone', 'Mount Everest',
+    'Mount Fuji', 'Stonehenge', 'Easter Island', 'Sydney Opera House', 'Space Needle',
+    'Machu Picchu', 'Christ the Redeemer', 'The Louvre', 'Buckingham Palace', 'Times Square',
+    'Central Park', 'White House', 'Empire State Building', 'Sahara Desert', 'Amazon Rainforest',
+    'Great Barrier Reef', 'Blue Lagoon', 'Old Faithful', 'Yosemite', 'Venice Canals', 'Dead Sea',
+    'Nile River', 'Mississippi River', 'Rocky Mountains', 'The Alps', 'Bermuda Triangle',
+    'Loch Ness', 'Area 51', 'Alcatraz', 'Gateway Arch', 'Liberty Bell', 'Mount Vesuvius',
+    'Hoover Dam', 'Redwood Forest', 'Antarctica'],
+  'Beach Day': ['Sandcastle', 'Sand Bucket', 'Sand Shovel', 'Burying Someone in Sand',
+    'Beach Towel', 'Beach Blanket', 'Beach Umbrella', 'Beach Chair', 'Sunscreen', 'Sunburn',
+    'Sunglasses', 'Sun Hat', 'Flip-Flops', 'Tan Lines', 'Swimsuit', 'Swim Trunks', 'Goggles',
+    'Snorkel', 'Fins', 'Skimboard', 'Boogie Board', 'Surfboard', 'Beach Ball', 'Volleyball Net',
+    'Seashell', 'Conch Shell', 'Driftwood', 'Dune Grass', 'Low Tide', 'High Tide', 'Waves',
+    'Undertow', 'Lifeguard Tower', 'Metal Detector', 'Boardwalk', 'Pier', 'Jetty', 'Sandbar',
+    'Palm Tree', 'Ocean Breeze', 'Beach Bonfire', 'Clambake', 'Sand Between Your Toes',
+    'Sand in the Car', 'Salty Air', 'Sunset Walk', 'Seagull Stealing Fries', 'Message in a Bottle',
+    'Paddleboard', 'Wading', 'Picnic Basket', 'Tide Pool Hunting'],
+  'Camping Trip': ['Tent', 'Pitching the Tent', 'Sleeping Bag', 'Sleeping Pad', 'Campfire',
+    'Fire Pit', 'S\'mores', 'Marshmallows', 'Firewood', 'Kindling', 'Matches',
+    'Smoke in Your Eyes', 'Lantern', 'Flashlight', 'Headlamp', 'Binoculars', 'Compass',
+    'Trail Map', 'Hiking Boots', 'Hiking Trail', 'Hiking Pack', 'Canteen', 'Water Filter',
+    'Tin Cup', 'Bug Spray', 'Mosquito Net', 'First Aid Kit', 'Pocketknife', 'Rope', 'Tarp',
+    'Campsite', 'Picnic Table', 'Ranger Station', 'Park Ranger', 'Fishing Pole', 'Bait',
+    'Tackle Box', 'Life Jacket', 'Bear Bag', 'Bear Sighting', 'Deer Tracks', 'Crickets at Night',
+    'Campfire Stories', 'Ghost Story', 'Stargazing', 'Sunrise Hike', 'Cooler', 'Camp Stove',
+    'Hot Dog on a Stick', 'Dutch Oven', 'Leave No Trace', 'Trail Mix Refill'],
+  'The Great Outdoors': ['Mountain', 'Summit', 'Hill', 'Valley', 'Canyon', 'Cliff', 'Cave',
+    'Boulder', 'Volcano', 'Lava', 'Glacier', 'Iceberg', 'Island', 'Peninsula', 'Coastline', 'Bay',
+    'Lagoon', 'Lake', 'Pond', 'Lily Pad', 'River', 'Stream', 'Waterfall', 'Rapids',
+    'Babbling Brook', 'Skipping Stones', 'Swamp', 'Marsh', 'Desert', 'Oasis', 'Sand Dune',
+    'Quicksand', 'Prairie', 'Meadow', 'Forest', 'Jungle', 'Rainforest', 'Savanna', 'Tundra',
+    'Wilderness', 'Coral Reef', 'Tide Pool', 'Hot Spring', 'Geyser', 'Pebble', 'Riverbank', 'Moss',
+    'Fern', 'Toadstool', 'Cattails', 'Pinecone', 'Acorn', 'Wildflowers', 'Fallen Leaves'],
+  'Weather & Sky': ['Rain', 'Drizzle', 'Downpour', 'Puddle', 'Mist', 'Fog', 'Haze', 'Humidity',
+    'Dew', 'Frost', 'Hail', 'Sleet', 'Snow', 'Snowflake', 'Flurries', 'Blizzard', 'Whiteout',
+    'Avalanche', 'Thunder', 'Lightning', 'Thunderstorm', 'Storm Cloud', 'Tornado', 'Waterspout',
+    'Hurricane', 'Monsoon', 'Sandstorm', 'Drought', 'Heat Wave', 'Cold Front', 'Breeze', 'Gust',
+    'Wind Chill', 'Windsock', 'Rainbow', 'Double Rainbow', 'Sun Shower', 'Sunbeam', 'Sunshine',
+    'Clear Sky', 'Sunrise', 'Sunset', 'Dusk', 'Dawn', 'Twilight', 'Moonlight', 'Overcast',
+    'Partly Cloudy', 'Flood', 'Black Ice', 'Icicle', 'Jack Frost', 'Northern Lights',
+    'Starry Night', 'Umbrella', 'Raincoat', 'Rain Boots', 'Weather Vane'],
   'In the Kitchen': ['Refrigerator', 'Freezer', 'Oven', 'Stove', 'Microwave', 'Toaster', 'Blender',
-    'Dishwasher', 'Kitchen Sink', 'Faucet', 'Countertop', 'Kitchen Island', 'Cutting Board',
-    'Chef\'s Knife', 'Fork', 'Spoon', 'Spork', 'Chopsticks', 'Ladle', 'Spatula', 'Whisk', 'Tongs',
-    'Grater', 'Rolling Pin', 'Measuring Cup', 'Mixing Bowl', 'Colander', 'Frying Pan', 'Saucepan',
-    'Baking Sheet', 'Muffin Tin', 'Oven Mitt', 'Apron', 'Cookbook', 'Salt Shaker', 'Ketchup',
-    'Mustard', 'Mayonnaise', 'Ranch Dressing', 'Hot Sauce', 'Flour', 'Sugar', 'Tupperware',
-    'Aluminum Foil', 'Plastic Wrap', 'Paper Towels', 'Dish Soap', 'Sponge', 'Trash Can',
-    'Recycling Bin', 'Garbage Disposal', 'Ice Cube Tray', 'Kettle', 'Coffee Maker', 'Waffle Iron',
-    'Slow Cooker', 'Air Fryer', 'Pizza Cutter', 'Can Opener', 'Salad Spinner', 'Dinner Plate',
-    'Cereal Bowl', 'Coffee Mug'],
-  'School Supplies': ['Pencil', 'Mechanical Pencil', 'Pen', 'Gel Pens', 'Eraser', 'Ruler',
-    'Backpack', 'Notebook', 'Composition Book', 'Binder', 'Folder', 'Glue Stick', 'Glitter Glue',
-    'Scissors', 'Crayons', 'Markers', 'Highlighter', 'Colored Pencils', 'Pencil Sharpener',
-    'Pencil Case', 'Pencil Shavings', 'Stapler', 'Tape Dispenser', 'Paper Clips', 'Rubber Bands',
-    'Push Pins', 'Sticky Notes', 'Index Cards', 'Flashcards', 'Clipboard', 'Calculator',
-    'Protractor', 'Graph Paper', 'Loose-Leaf Paper', 'Construction Paper', 'Poster Board',
-    'Pipe Cleaners', 'Popsicle Sticks', 'Googly Eyes', 'Glitter', 'Watercolors', 'Paintbrush',
-    'Art Smock', 'Dictionary', 'Thesaurus', 'Textbook', 'Globe', 'Locker', 'Locker Combination',
-    'Lunchbox', 'Water Bottle', 'Hall Pass', 'Name Tag', 'Whiteboard', 'Dry-Erase Marker', 'Chalk',
-    'Chalkboard', 'Report Card'],
-  'School Life': ['Math Class', 'Science Class', 'History Class', 'Language Arts', 'Spelling Test',
-    'Algebra', 'Geometry', 'Biology', 'Chemistry', 'Art Class', 'Music Class', 'Gym Class',
-    'Recess', 'Lunch Period', 'Cafeteria', 'Lunch Line', 'Mystery Meat', 'Homeroom', 'Study Hall',
-    'Computer Lab', 'Library Day', 'School Assembly', 'Fire Drill', 'Tornado Drill', 'Field Trip',
-    'Field Day', 'Picture Day', 'Show and Tell', 'Science Fair', 'Spelling Bee', 'Book Report',
-    'Pop Quiz', 'Final Exam', 'Parent-Teacher Night', 'Substitute Teacher', 'Class President',
-    'Student Council', 'Yearbook', 'School Dance', 'Prom', 'Homecoming', 'Pep Rally',
-    'Spirit Week', 'Crazy Hair Day', 'Pajama Day', 'Graduation', 'Summer Break', 'Snow Day',
-    'First Day of School', 'Last Day of School', 'Carpool Line', 'Detention', 'Tardy Slip',
-    'Perfect Attendance', 'Honor Roll', 'Class Pet', 'Group Project', 'Bake Sale', 'Talent Show',
-    'Passing Notes', 'Raise Your Hand'],
-  'Clothes & Accessories': ['T-Shirt', 'Hoodie', 'Sweater', 'Tank Top', 'Flannel Shirt', 'Jeans',
-    'Ripped Jeans', 'Sweatpants', 'Joggers', 'Leggings', 'Shorts', 'Cargo Shorts', 'Skirt',
-    'Dress', 'Suit', 'Tuxedo', 'Tie', 'Bow Tie', 'Belt', 'Suspenders', 'Jacket', 'Denim Jacket',
-    'Puffer Jacket', 'Winter Coat', 'Poncho', 'Scarf', 'Gloves', 'Mittens', 'Earmuffs', 'Beanie',
-    'Baseball Cap', 'Bucket Hat', 'Cowboy Hat', 'Headband', 'Hair Tie', 'Scrunchie', 'Bandana',
-    'Socks', 'Fuzzy Socks', 'Sneakers', 'High-Tops', 'Sandals', 'Slides', 'Crocs', 'Cowboy Boots',
-    'Snow Boots', 'Slippers', 'High Heels', 'Cleats', 'Pajamas', 'Onesie', 'Bathrobe',
-    'School Uniform', 'Jersey', 'Necklace', 'Friendship Bracelet', 'Earrings', 'Watch', 'Wallet',
-    'Fanny Pack', 'Pockets', 'Shoelaces', 'Velcro Shoes', 'Hand-Me-Downs'],
-  'Toys': ['Teddy Bear', 'Yo-Yo', 'Slinky', 'Kite', 'Marbles', 'Jacks', 'Dominoes',
-    'Playing Cards', 'Dice', 'Jigsaw Puzzle', 'Rubik\'s Cube', 'Action Figure', 'Doll',
-    'Dollhouse', 'Toy Car', 'Race Track', 'Train Set', 'Rocking Horse', 'Pogo Stick', 'Water Gun',
-    'Water Balloons', 'Bubbles', 'Pinwheel', 'Spinning Top', 'Jack-in-the-Box', 'Whoopee Cushion',
-    'Boomerang', 'Frisbee', 'Paddleball', 'Bouncy Ball', 'Rubber Duck', 'Toy Robot',
-    'Remote Control Car', 'Walkie-Talkies', 'Magic 8 Ball', 'Fidget Spinner', 'Pop-It', 'Slime',
-    'Modeling Clay', 'Play Kitchen', 'Building Blocks', 'Puppet', 'Kaleidoscope', 'Toy Soldiers',
-    'Toy Dinosaur', 'Model Airplane', 'Paper Airplane', 'Silly String', 'Sticker Book',
-    'Temporary Tattoos', 'Toy Chest', 'Wind-Up Toy', 'Music Box', 'Snow Globe', 'Gumball Machine',
-    'Nesting Dolls', 'Hula Hoop'],
-  'Gadgets & Tech': ['Smartphone', 'Tablet', 'Laptop', 'Desktop Computer', 'Computer Mouse',
-    'Keyboard', 'Monitor', 'Printer', '3D Printer', 'Headphones', 'Earbuds', 'Smartwatch',
-    'Fitness Tracker', 'Television', 'Game Console', 'Controller', 'Gaming Headset', 'Charger',
-    'Power Bank', 'USB Drive', 'Memory Card', 'Bluetooth Speaker', 'Microphone', 'Webcam',
-    'Digital Camera', 'Action Camera', 'Security Camera', 'Doorbell Camera', 'Drone',
-    'Robot Vacuum', 'Smart Speaker', 'VR Headset', 'Projector', 'E-Reader', 'GPS', 'Router',
-    'Selfie Stick', 'Tripod', 'Ring Light', 'Record Player', 'Boombox', 'Cassette Tape',
-    'VHS Tape', 'Typewriter', 'Rotary Phone', 'Flip Phone', 'Calculator Watch', 'Landline',
-    'Solar Panel', 'Laser Pointer', 'Lava Lamp', 'Alarm Clock', 'Stopwatch', 'Batteries',
-    'Power Strip', 'Smart Fridge'],
-  'Tools & Garage': ['Hammer', 'Screwdriver', 'Wrench', 'Power Drill', 'Handsaw', 'Chainsaw',
-    'Nails', 'Screws', 'Nuts and Bolts', 'Tape Measure', 'Level', 'Pliers', 'Wire Cutters',
-    'Allen Wrench', 'Ladder', 'Toolbox', 'Tool Belt', 'Workbench', 'Vise', 'Clamp', 'Sandpaper',
-    'Paint Can', 'Paint Roller', 'Painter\'s Tape', 'Duct Tape', 'Super Glue', 'Zip Ties',
-    'Bungee Cord', 'Chain', 'Padlock', 'Work Gloves', 'Safety Goggles', 'Hard Hat', 'Broom',
-    'Dustpan', 'Bucket', 'Shovel', 'Snow Shovel', 'Rake', 'Wheelbarrow', 'Lawnmower',
-    'Weed Whacker', 'Hedge Trimmer', 'Leaf Blower', 'Watering Can', 'Jumper Cables', 'Spare Tire',
-    'Car Jack', 'Motor Oil', 'Funnel', 'Gas Can', 'Plunger', 'Crowbar', 'Sledgehammer', 'Axe',
-    'Pickaxe', 'Stud Finder', 'Extension Cord', 'Sawdust', 'Two-by-Four'],
-  'Sports': ['Soccer', 'Basketball', 'Football', 'Baseball', 'Softball', 'Tennis', 'Golf',
-    'Hockey', 'Field Hockey', 'Lacrosse', 'Volleyball', 'Badminton', 'Ping Pong', 'Pickleball',
-    'Swimming', 'Diving', 'Water Polo', 'Surfing', 'Skateboarding', 'Snowboarding', 'Skiing',
-    'Ice Skating', 'Figure Skating', 'Curling', 'Bowling', 'Archery', 'Fencing', 'Boxing',
-    'Wrestling', 'Karate', 'Judo', 'Taekwondo', 'Gymnastics', 'Cheerleading', 'Track and Field',
-    'Marathon', 'Relay Race', 'Hurdles', 'High Jump', 'Long Jump', 'Pole Vault', 'Shot Put',
-    'Rowing', 'Kayaking', 'Sailing', 'Horseback Riding', 'Cricket', 'Rugby', 'Handball',
-    'Dodgeball', 'Kickball', 'Darts', 'Billiards', 'Cycling', 'BMX', 'Rock Climbing', 'Parkour',
-    'Ultimate Frisbee', 'Weightlifting', 'Yoga', 'Slam Dunk', 'Home Run', 'Touchdown', 'Hat Trick',
-    'Hole in One', 'Penalty Kick', 'Free Throw', 'Team Mascot', 'Gold Medal', 'Trophy', 'Overtime',
-    'Halftime Show', 'Instant Replay', 'Championship', 'The Olympics', 'Tailgate', 'Batting Cage',
-    'Locker Room'],
+    'Garbage Disposal', 'Dishwasher', 'Kitchen Sink', 'Faucet', 'Sponge', 'Countertop',
+    'Kitchen Island', 'Cutting Board', 'Chef\'s Knife', 'Fork', 'Spoon', 'Spork', 'Chopsticks',
+    'Ladle', 'Spatula', 'Whisk', 'Tongs', 'Grater', 'Rolling Pin', 'Measuring Cup', 'Mixing Bowl',
+    'Colander', 'Salad Spinner', 'Frying Pan', 'Saucepan', 'Baking Sheet', 'Muffin Tin',
+    'Oven Mitt', 'Apron', 'Cookbook', 'Kettle', 'Salt Shaker', 'Hot Sauce', 'Ketchup', 'Mustard',
+    'Mayonnaise', 'Ranch Dressing', 'Flour', 'Sugar', 'Tupperware', 'Ice Cube Tray',
+    'Aluminum Foil', 'Plastic Wrap', 'Paper Towels', 'Dish Soap', 'Trash Can', 'Recycling Bin',
+    'Coffee Maker', 'Coffee Mug', 'Waffle Iron', 'Slow Cooker', 'Air Fryer', 'Pizza Cutter',
+    'Can Opener', 'Dinner Plate'],
+  'School Supplies': ['Pencil', 'Mechanical Pencil', 'Pen', 'Gel Pens', 'Eraser',
+    'Pencil Shavings', 'Ruler', 'Protractor', 'Backpack', 'Lunchbox', 'Notebook',
+    'Composition Book', 'Binder', 'Folder', 'Glue Stick', 'Glitter Glue', 'Scissors',
+    'Tape Dispenser', 'Crayons', 'Markers', 'Highlighter', 'Colored Pencils', 'Pencil Sharpener',
+    'Pencil Case', 'Stapler', 'Paper Clips', 'Rubber Bands', 'Push Pins', 'Sticky Notes',
+    'Index Cards', 'Flashcards', 'Clipboard', 'Calculator', 'Graph Paper', 'Loose-Leaf Paper',
+    'Construction Paper', 'Poster Board', 'Pipe Cleaners', 'Popsicle Sticks', 'Googly Eyes',
+    'Glitter', 'Watercolors', 'Paintbrush', 'Art Smock', 'Dictionary', 'Thesaurus', 'Textbook',
+    'Globe', 'Locker', 'Locker Combination', 'Water Bottle', 'Hall Pass', 'Name Tag',
+    'Report Card', 'Whiteboard', 'Dry-Erase Marker', 'Chalk', 'Chalkboard'],
+  'School Life': ['Math Class', 'Science Class', 'History Class', 'Language Arts', 'Algebra',
+    'Geometry', 'Biology', 'Chemistry', 'Art Class', 'Music Class', 'Gym Class', 'Recess',
+    'Spelling Test', 'Pop Quiz', 'Lunch Period', 'Cafeteria', 'Lunch Line', 'Mystery Meat',
+    'Homeroom', 'Study Hall', 'Computer Lab', 'Library Day', 'School Assembly', 'Pep Rally',
+    'Fire Drill', 'Tornado Drill', 'Field Trip', 'Field Day', 'Picture Day', 'Crazy Hair Day',
+    'Pajama Day', 'Spirit Week', 'Show and Tell', 'Science Fair', 'Spelling Bee', 'Book Report',
+    'Final Exam', 'Honor Roll', 'Parent-Teacher Night', 'Substitute Teacher', 'Class President',
+    'Student Council', 'Yearbook', 'Graduation', 'Prom', 'Homecoming', 'School Dance',
+    'Talent Show', 'Summer Break', 'Snow Day', 'First Day of School', 'Last Day of School',
+    'Detention', 'Tardy Slip', 'Perfect Attendance', 'Raise Your Hand', 'Group Project',
+    'Passing Notes', 'Class Pet', 'Bake Sale'],
+  'Clothes & Accessories': ['T-Shirt', 'Tank Top', 'Hoodie', 'Sweater', 'Flannel Shirt',
+    'Denim Jacket', 'Jeans', 'Ripped Jeans', 'Sweatpants', 'Joggers', 'Leggings', 'Skirt',
+    'Shorts', 'Cargo Shorts', 'Dress', 'High Heels', 'Suit', 'Tuxedo', 'Tie', 'Bow Tie', 'Belt',
+    'Suspenders', 'Jacket', 'Winter Coat', 'Puffer Jacket', 'Poncho', 'Scarf', 'Earmuffs',
+    'Gloves', 'Mittens', 'Beanie', 'Bucket Hat', 'Baseball Cap', 'Cowboy Hat', 'Headband',
+    'Bandana', 'Hair Tie', 'Scrunchie', 'Socks', 'Fuzzy Socks', 'Sneakers', 'High-Tops', 'Sandals',
+    'Slides', 'Crocs', 'Velcro Shoes', 'Cowboy Boots', 'Snow Boots', 'Slippers', 'Pajamas',
+    'Onesie', 'Bathrobe', 'School Uniform', 'Jersey', 'Cleats', 'Shoelaces', 'Necklace',
+    'Earrings', 'Friendship Bracelet', 'Watch', 'Wallet', 'Fanny Pack', 'Pockets', 'Hand-Me-Downs'],
+  'Toys': ['Teddy Bear', 'Doll', 'Yo-Yo', 'Spinning Top', 'Slinky', 'Pop-It', 'Kite', 'Pinwheel',
+    'Marbles', 'Jacks', 'Dominoes', 'Dice', 'Playing Cards', 'Jigsaw Puzzle', 'Rubik\'s Cube',
+    'Magic 8 Ball', 'Action Figure', 'Toy Soldiers', 'Dollhouse', 'Play Kitchen', 'Toy Car',
+    'Race Track', 'Train Set', 'Model Airplane', 'Rocking Horse', 'Toy Chest', 'Pogo Stick',
+    'Hula Hoop', 'Water Gun', 'Water Balloons', 'Bubbles', 'Silly String', 'Jack-in-the-Box',
+    'Wind-Up Toy', 'Whoopee Cushion', 'Rubber Duck', 'Boomerang', 'Frisbee', 'Paddleball',
+    'Bouncy Ball', 'Toy Robot', 'Remote Control Car', 'Walkie-Talkies', 'Kaleidoscope',
+    'Fidget Spinner', 'Slime', 'Modeling Clay', 'Building Blocks', 'Puppet', 'Nesting Dolls',
+    'Toy Dinosaur', 'Paper Airplane', 'Sticker Book', 'Temporary Tattoos', 'Music Box', 'Snow Globe'],
+  'Gadgets & Tech': ['Smartphone', 'Flip Phone', 'Tablet', 'E-Reader', 'Laptop',
+    'Desktop Computer', 'Computer Mouse', 'Keyboard', 'Monitor', 'Projector', 'Printer',
+    '3D Printer', 'Headphones', 'Earbuds', 'Gaming Headset', 'Microphone', 'Smartwatch',
+    'Fitness Tracker', 'Calculator Watch', 'Stopwatch', 'Television', 'Smart Speaker',
+    'Game Console', 'Controller', 'Charger', 'Power Bank', 'Batteries', 'Power Strip', 'USB Drive',
+    'Memory Card', 'Bluetooth Speaker', 'Boombox', 'Webcam', 'Security Camera', 'Digital Camera',
+    'Action Camera', 'Doorbell Camera', 'Smart Fridge', 'Drone', 'Robot Vacuum', 'VR Headset',
+    'Laser Pointer', 'GPS', 'Router', 'Selfie Stick', 'Tripod', 'Ring Light', 'Lava Lamp',
+    'Record Player', 'Cassette Tape', 'VHS Tape', 'Typewriter', 'Rotary Phone', 'Landline',
+    'Solar Panel', 'Alarm Clock'],
+  'Tools & Garage': ['Hammer', 'Sledgehammer', 'Screwdriver', 'Allen Wrench', 'Wrench', 'Pliers',
+    'Power Drill', 'Handsaw', 'Chainsaw', 'Axe', 'Nails', 'Screws', 'Nuts and Bolts',
+    'Wire Cutters', 'Tape Measure', 'Level', 'Ladder', 'Workbench', 'Toolbox', 'Tool Belt', 'Vise',
+    'Clamp', 'Sandpaper', 'Sawdust', 'Paint Can', 'Paint Roller', 'Painter\'s Tape', 'Duct Tape',
+    'Super Glue', 'Zip Ties', 'Bungee Cord', 'Chain', 'Padlock', 'Crowbar', 'Work Gloves',
+    'Safety Goggles', 'Hard Hat', 'Two-by-Four', 'Broom', 'Dustpan', 'Bucket', 'Plunger', 'Shovel',
+    'Snow Shovel', 'Rake', 'Leaf Blower', 'Wheelbarrow', 'Watering Can', 'Lawnmower',
+    'Weed Whacker', 'Hedge Trimmer', 'Pickaxe', 'Jumper Cables', 'Spare Tire', 'Car Jack',
+    'Motor Oil', 'Funnel', 'Gas Can', 'Stud Finder', 'Extension Cord'],
+  'Sports': ['Soccer', 'Rugby', 'Basketball', 'Volleyball', 'Football', 'Kickball', 'Baseball',
+    'Softball', 'Tennis', 'Badminton', 'Ping Pong', 'Pickleball', 'Golf', 'Hole in One', 'Hockey',
+    'Field Hockey', 'Lacrosse', 'Cricket', 'Swimming', 'Diving', 'Water Polo', 'Surfing',
+    'Skateboarding', 'BMX', 'Snowboarding', 'Skiing', 'Ice Skating', 'Figure Skating', 'Curling',
+    'Bowling', 'Archery', 'Darts', 'Fencing', 'Boxing', 'Wrestling', 'Judo', 'Karate', 'Taekwondo',
+    'Gymnastics', 'Cheerleading', 'Track and Field', 'Relay Race', 'Hurdles', 'High Jump',
+    'Long Jump', 'Pole Vault', 'Shot Put', 'Weightlifting', 'Marathon', 'Cycling', 'Rowing',
+    'Kayaking', 'Sailing', 'Horseback Riding', 'Handball', 'Dodgeball', 'Billiards',
+    'Batting Cage', 'Rock Climbing', 'Parkour', 'Ultimate Frisbee', 'Yoga', 'Slam Dunk',
+    'Free Throw', 'Home Run', 'Touchdown', 'Hat Trick', 'Penalty Kick', 'Team Mascot',
+    'Halftime Show', 'Gold Medal', 'Trophy', 'Overtime', 'Instant Replay', 'Championship',
+    'The Olympics', 'Tailgate', 'Locker Room'],
   'Hobbies': ['Painting', 'Drawing', 'Coloring', 'Doodling', 'Knitting', 'Crocheting', 'Sewing',
-    'Baking', 'Cooking', 'Grilling', 'Gardening', 'Birdwatching', 'Fishing', 'Hiking', 'Camping',
-    'Photography', 'Scrapbooking', 'Journaling', 'Calligraphy', 'Origami', 'Pottery',
-    'Woodworking', 'Whittling', 'Model Building', 'Stamp Collecting', 'Coin Collecting',
-    'Card Collecting', 'Chess', 'Checkers', 'Juggling', 'Creative Writing', 'Coding', 'Robotics',
-    'Board Game Night', 'Thrifting', 'Skincare Routine', 'Nail Art', 'Sourdough Starter',
-    'Scuba Diving', 'Geocaching', 'Volunteering', 'Babysitting', 'Lemonade Stand', 'Yard Sale',
-    'Candle Making', 'Crossword Puzzles', 'Sudoku', 'Word Search', 'Trivia Night', 'Rollerblading',
-    'Cosplay', 'DIY Projects', 'Terrarium', 'Houseplants'],
-  'Playground Games': ['Swings', 'Slide', 'Monkey Bars', 'Seesaw', 'Merry-Go-Round', 'Jungle Gym',
-    'Climbing Wall', 'Zip Line', 'Tire Swing', 'Balance Beam', 'Hopscotch', 'Foursquare',
-    'Tetherball', 'Wall Ball', 'Tag', 'Freeze Tag', 'Hide-and-Seek', 'Sardines', 'Marco Polo',
-    'Red Rover', 'Red Light Green Light', 'Duck Duck Goose', 'Simon Says', 'Mother May I',
-    'Capture the Flag', 'Sharks and Minnows', 'Steal the Bacon', 'Kick the Can',
-    'Ring-Around-the-Rosy', 'London Bridge', 'Hot Potato', 'Telephone Game', 'Thumb War',
-    'Rock Paper Scissors', 'Tic-Tac-Toe', 'Hangman', 'Staring Contest', 'Leapfrog', 'Jump Rope',
-    'Double Dutch', 'Cat\'s Cradle', 'Patty-Cake', 'Cooties', 'Four Corners', 'Heads Up Seven Up',
-    'Silent Ball', 'Trampoline', 'Slip and Slide', 'Sprinkler Run', 'Water Balloon Fight',
-    'Follow the Leader', 'Obstacle Course'],
-  'Musical Instruments': ['Piano', 'Electric Keyboard', 'Guitar', 'Electric Guitar', 'Bass Guitar',
-    'Ukulele', 'Banjo', 'Violin', 'Viola', 'Cello', 'Harp', 'Flute', 'Piccolo', 'Clarinet', 'Oboe',
-    'Saxophone', 'Trumpet', 'Trombone', 'French Horn', 'Tuba', 'Harmonica', 'Accordion',
-    'Bagpipes', 'Recorder', 'Kazoo', 'Xylophone', 'Drums', 'Snare Drum', 'Bass Drum',
-    'Bongo Drums', 'Steel Drums', 'Tambourine', 'Maracas', 'Cowbell', 'Triangle', 'Cymbals',
-    'Gong', 'Castanets', 'Sleigh Bells', 'Wind Chimes', 'Organ', 'Synthesizer', 'DJ Turntables',
-    'Didgeridoo', 'Fiddle', 'Pan Flute', 'Ocarina', 'Slide Whistle', 'Hand Bells', 'Music Stand',
-    'Metronome', 'Guitar Pick', 'Drumsticks'],
+    'Candle Making', 'Baking', 'Cooking', 'Grilling', 'Sourdough Starter', 'Gardening',
+    'Houseplants', 'Terrarium', 'Birdwatching', 'Fishing', 'Hiking', 'Camping', 'Geocaching',
+    'Photography', 'Scrapbooking', 'Journaling', 'Creative Writing', 'Calligraphy', 'Origami',
+    'Pottery', 'Woodworking', 'Whittling', 'Model Building', 'Stamp Collecting', 'Coin Collecting',
+    'Card Collecting', 'Board Game Night', 'Chess', 'Checkers', 'Juggling', 'Rollerblading',
+    'Coding', 'Robotics', 'Thrifting', 'Yard Sale', 'Skincare Routine', 'Nail Art', 'Scuba Diving',
+    'Volunteering', 'Babysitting', 'Lemonade Stand', 'Crossword Puzzles', 'Word Search', 'Sudoku',
+    'Trivia Night', 'Cosplay', 'DIY Projects'],
+  'Playground Games': ['Swings', 'Tire Swing', 'Slide', 'Jungle Gym', 'Monkey Bars',
+    'Climbing Wall', 'Seesaw', 'Merry-Go-Round', 'Zip Line', 'Balance Beam', 'Hopscotch',
+    'Foursquare', 'Tetherball', 'Wall Ball', 'Tag', 'Freeze Tag', 'Hide-and-Seek', 'Sardines',
+    'Marco Polo', 'Sharks and Minnows', 'Red Rover', 'Red Light Green Light', 'Duck Duck Goose',
+    'Ring-Around-the-Rosy', 'Simon Says', 'Mother May I', 'Capture the Flag', 'Kick the Can',
+    'Steal the Bacon', 'Four Corners', 'London Bridge', 'Patty-Cake', 'Hot Potato',
+    'Telephone Game', 'Thumb War', 'Staring Contest', 'Rock Paper Scissors', 'Tic-Tac-Toe',
+    'Hangman', 'Heads Up Seven Up', 'Leapfrog', 'Follow the Leader', 'Jump Rope', 'Double Dutch',
+    'Cat\'s Cradle', 'Cooties', 'Silent Ball', 'Obstacle Course', 'Trampoline', 'Slip and Slide',
+    'Sprinkler Run', 'Water Balloon Fight'],
+  'Musical Instruments': ['Piano', 'Organ', 'Electric Keyboard', 'Synthesizer', 'Guitar',
+    'Electric Guitar', 'Bass Guitar', 'Guitar Pick', 'Ukulele', 'Banjo', 'Violin', 'Fiddle',
+    'Viola', 'Cello', 'Harp', 'Harmonica', 'Flute', 'Piccolo', 'Clarinet', 'Oboe', 'Saxophone',
+    'Trumpet', 'Trombone', 'French Horn', 'Tuba', 'Bagpipes', 'Accordion', 'Didgeridoo',
+    'Recorder', 'Kazoo', 'Slide Whistle', 'Ocarina', 'Xylophone', 'Hand Bells', 'Drums',
+    'Drumsticks', 'Snare Drum', 'Bass Drum', 'Bongo Drums', 'Steel Drums', 'Tambourine', 'Maracas',
+    'Cowbell', 'Triangle', 'Cymbals', 'Gong', 'Castanets', 'Pan Flute', 'Sleigh Bells',
+    'Wind Chimes', 'DJ Turntables', 'Music Stand'],
   'Music & Dance': ['Rock and Roll', 'Pop Music', 'Hip Hop', 'Rap Battle', 'Jazz', 'Blues',
-    'Country Music', 'Classical Music', 'Opera', 'Reggae', 'Salsa Dancing', 'Tango', 'Waltz',
-    'Ballet', 'Tap Dancing', 'Breakdancing', 'The Moonwalk', 'The Floss', 'The Robot', 'The Worm',
-    'Conga Line', 'Square Dancing', 'Line Dancing', 'Disco', 'Techno', 'K-Pop', 'Folk Music',
-    'Choir', 'Beatboxing', 'Karaoke', 'Marching Band', 'Orchestra', 'Garage Band', 'Boy Band',
-    'Girl Group', 'Air Guitar', 'Yodeling', 'Lullaby', 'Theme Song', 'National Anthem',
-    'Drum Solo', 'Encore', 'Mosh Pit', 'Headbanging', 'Slow Dance', 'Flash Mob', 'The Macarena',
-    'Cha-Cha', 'Electric Slide', 'The Twist', 'Swing Dancing', 'Hokey Pokey', 'Chicken Dance',
-    'Dance Battle', 'Dance Recital', 'Tutu', 'Sheet Music', 'Concert', 'Music Festival', 'Mixtape',
-    'One-Hit Wonder', 'Earworm', 'Singing in the Shower', 'Lip Syncing', 'Autotune', 'Remix',
-    'Beat Drop'],
-  'Jobs': ['Firefighter', 'Police Officer', 'Paramedic', 'Doctor', 'Nurse', 'Surgeon', 'Dentist',
-    'Orthodontist', 'Veterinarian', 'Pharmacist', 'Teacher', 'Principal', 'Librarian', 'Coach',
-    'Referee', 'Astronaut', 'Pilot', 'Flight Attendant', 'Ship Captain', 'Train Conductor',
-    'Bus Driver', 'Taxi Driver', 'Truck Driver', 'Delivery Driver', 'Mail Carrier',
-    'Garbage Collector', 'Farmer', 'Fisherman', 'Chef', 'Baker', 'Barista', 'Waiter', 'Cashier',
-    'Butcher', 'Barber', 'Hairstylist', 'Mechanic', 'Plumber', 'Electrician', 'Carpenter',
-    'Construction Worker', 'Architect', 'Engineer', 'Scientist', 'Marine Biologist', 'Zookeeper',
-    'Lifeguard', 'Actor', 'Artist', 'Photographer', 'Journalist', 'News Anchor',
-    'Weather Forecaster', 'Judge', 'Lawyer', 'Detective', 'Spy', 'Mayor', 'Banker',
-    'Video Game Designer', 'Fashion Designer', 'Florist', 'Janitor', 'Security Guard',
-    'Dog Walker', 'Dog Groomer', 'Crossing Guard', 'Tour Guide', 'Paleontologist', 'Archaeologist'],
-  'Storybook Characters': ['Cinderella', 'Glass Slipper', 'Fairy Godmother', 'Snow White',
-    'Seven Dwarfs', 'Poison Apple', 'Sleeping Beauty', 'Rapunzel', 'Little Red Riding Hood',
-    'Big Bad Wolf', 'Three Little Pigs', 'Goldilocks', 'The Three Bears', 'Hansel and Gretel',
-    'Gingerbread Man', 'Jack and the Beanstalk', 'Golden Goose', 'Pinocchio', 'Peter Pan',
-    'Tinker Bell', 'Captain Hook', 'Neverland', 'Alice in Wonderland', 'Mad Hatter',
-    'Cheshire Cat', 'Queen of Hearts', 'White Rabbit', 'Humpty Dumpty', 'Mother Goose',
-    'Pied Piper', 'Rumpelstiltskin', 'Thumbelina', 'The Ugly Duckling', 'The Little Mermaid',
-    'The Frog Prince', 'Beauty and the Beast', 'Aladdin', 'Genie', 'Open Sesame', 'Robin Hood',
-    'King Arthur', 'Excalibur', 'Merlin', 'Knight', 'Puss in Boots', 'The Snow Queen',
-    'Emperor\'s New Clothes', 'Tortoise and the Hare', 'The Boy Who Cried Wolf',
-    'Three Billy Goats Gruff', 'Chicken Little', 'Paul Bunyan', 'Johnny Appleseed', 'Tooth Fairy',
-    'Sandman', 'The Muffin Man', 'Little Miss Muffet', 'Itsy Bitsy Spider', 'Three Blind Mice'],
-  'Mythical Creatures': ['Dragon', 'Unicorn', 'Mermaid', 'Fairy', 'Elf', 'Dwarf', 'Gnome',
-    'Goblin', 'Troll', 'Ogre', 'Giant', 'Leprechaun', 'Pixie', 'Banshee', 'Gremlin', 'Imp',
-    'Phoenix', 'Griffin', 'Pegasus', 'Centaur', 'Minotaur', 'Cyclops', 'Medusa', 'Hydra', 'Kraken',
-    'Sea Serpent', 'Loch Ness Monster', 'Bigfoot', 'Yeti', 'Mothman', 'Jackalope', 'Chupacabra',
-    'Sphinx', 'Gargoyle', 'Basilisk', 'Cerberus', 'Chimera', 'Thunderbird', 'Golem', 'Siren',
-    'Harpy', 'Valkyrie', 'Dragon Egg', 'Unicorn Horn', 'Fairy Ring', 'Elf Ears', 'Hippogriff',
-    'Fairy Wings', 'Mermaid Tail', 'Frost Giant', 'Dragon\'s Lair'],
-  'Magic & Illusions': ['Magic Wand', 'Spellbook', 'Potion', 'Cauldron', 'Crystal Ball',
-    'Magic Carpet', 'Wizard', 'Wizard Hat', 'Magic Mirror', 'Enchanted Forest', 'Castle',
-    'Wizard\'s Tower', 'Dungeon', 'Moat', 'Drawbridge', 'Throne', 'Crown', 'Royal Scepter',
-    'Magic Lamp', 'Three Wishes', 'Curse', 'Lucky Charm', 'Amulet', 'Ancient Scroll',
-    'Quill and Ink', 'Eye of Newt', 'Fairy Dust', 'Magic Beans', 'Golden Egg', 'Elixir',
-    'Fountain of Youth', 'Wishing Well', 'Four-Leaf Clover', 'Lucky Horseshoe', 'Rabbit\'s Foot',
-    'Invisibility Cloak', 'Magician', 'Magician\'s Assistant', 'Top Hat', 'Rabbit in a Hat',
-    'Card Trick', 'Sleight of Hand', 'Disappearing Act', 'Escape Trick', 'Abracadabra',
-    'Hocus Pocus', 'Ta-Da', 'Smoke and Mirrors', 'Trapdoor', 'Secret Passage', 'Magic Show'],
-  'Spooky Season': ['Jack-o\'-Lantern', 'Carving Pumpkins', 'Haunted House', 'Ghost', 'Vampire',
-    'Fangs', 'Werewolf', 'Zombie', 'Mummy', 'Skeleton', 'Skull', 'Witch', 'Witch\'s Hat',
-    'Broomstick', 'Black Cat', 'Bat', 'Full Moon', 'Graveyard', 'Tombstone', 'Coffin', 'Cobwebs',
-    'Creaky Door', 'Trick-or-Treat', 'Candy Bucket', 'Costume', 'Mask', 'Candy Corn', 'Boogeyman',
-    'Monster Under the Bed', 'Fog Machine', 'Fake Spiders', 'Halloween Night', 'Apple Bobbing',
-    'Caramel Apples', 'Jump Scare', 'Creepy Doll', 'Ventriloquist Dummy', 'Shivers',
-    'Howling Wind', 'Candelabra', 'Ghost Town', 'Witching Hour', 'Midnight', 'Nightmare', 'Boo',
-    'Frankenstein\'s Monster', 'Dracula', 'Grim Reaper', 'Headless Horseman',
-    'Pillowcase of Candy', 'Haunted Hayride'],
-  'Outer Space': ['Sun', 'Moon', 'Crescent Moon', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter',
-    'Saturn', 'Saturn\'s Rings', 'Uranus', 'Neptune', 'Pluto', 'Galaxy', 'Milky Way', 'Black Hole',
-    'Asteroid', 'Comet', 'Meteor', 'Constellation', 'Big Dipper', 'North Star', 'Telescope',
-    'Observatory', 'Planetarium', 'Rocket', 'Rocket Launch', 'Launch Pad', 'Mission Control',
-    'Spaceship', 'Space Station', 'Satellite', 'Space Suit', 'Moon Landing', 'Moon Rocks',
-    'Lunar Rover', 'Mars Rover', 'Alien', 'UFO', 'Little Green Men', 'Crop Circles',
-    'Solar System', 'Orbit', 'Zero Gravity', 'Space Walk', 'Freeze-Dried Ice Cream',
-    'Solar Eclipse', 'Lunar Eclipse', 'Supernova', 'Nebula', 'Shooting Star', 'Wormhole',
-    'Light-Year', 'Gravity', 'Moon Phases', 'Space Race', 'Space Junk'],
-  'Video Games': ['Avatar', 'Arcade', 'Claw Machine', 'Tutorial', 'Pro Gamer', 'Loot Box',
-    'Boss Battle', 'Checkpoint', 'Cheat Code', 'Easter Egg', 'Respawn', 'Extra Life', 'Game Over',
-    'High Score', 'Leaderboard', 'Power-Up', 'Level Up', 'Side Quest', 'Speedrun', 'Lag', 'Glitch',
-    'Noob', 'Rage Quit', 'Button Mashing', 'Multiplayer', 'Co-op Mode', 'Split Screen', 'Joystick',
-    'D-Pad', 'Save File', 'Pause Button', 'Skill Tree', 'Health Bar', 'Boss Music', 'Cutscene',
-    'Pixel Art', '8-Bit Graphics', 'Open World', 'Sandbox Mode', 'Battle Royale', 'Skins',
-    'Emotes', 'Victory Dance', 'Controller Drift', 'Blowing on the Cartridge', 'Loading Screen',
-    'Hard Mode', 'Achievement Unlocked', 'NPC', 'Secret Level', 'Minigame', 'Racing Game',
-    'Esports', 'Gaming Chair', 'Combo Move', 'Player One', 'Press Start', 'Insert Coin',
-    'Virtual Pet'],
-  'Superpowers': ['Flight', 'Invisibility', 'Super Strength', 'Super Speed', 'Teleportation',
-    'Mind Reading', 'Mind Control', 'X-Ray Vision', 'Laser Eyes', 'Ice Powers', 'Fire Powers',
-    'Shapeshifting', 'Time Travel', 'Freezing Time', 'Force Field', 'Healing Touch', 'Stretching',
-    'Shrinking', 'Growing Huge', 'Talking to Animals', 'Breathing Underwater',
-    'Walking Through Walls', 'Telekinesis', 'Weather Control', 'Magnetism', 'Night Vision',
-    'Super Hearing', 'Super Smell', 'Indestructible', 'Duplication', 'Wall Crawling',
-    'Web Slinging', 'Super Jump', 'Levitation', 'Plant Control', 'Water Control',
-    'Gravity Control', 'Portals', 'Super Luck', 'Memory Erasing', 'Dream Control',
-    'Seeing the Future', 'Echolocation', 'Energy Blasts', 'Sonic Scream', 'Freeze Breath',
-    'Immortality', 'Copying Powers', 'Super Intelligence', 'Danger Sense', 'Superhero Cape',
-    'Secret Identity'],
-  'Pirates': ['Pirate Ship', 'Pirate Captain', 'First Mate', 'Pirate Crew', 'Treasure Chest',
-    'Buried Treasure', 'Treasure Map', 'X Marks the Spot', 'Gold Doubloons', 'Pieces of Eight',
-    'Jewels', 'Parrot on the Shoulder', 'Eyepatch', 'Peg Leg', 'Hook Hand', 'Pirate Flag',
-    'Jolly Roger', 'Skull and Crossbones', 'Cannon', 'Cannonball', 'Walking the Plank', 'Anchor',
-    'Ship\'s Wheel', 'Crow\'s Nest', 'Sails', 'Spyglass', 'Sea Shanty', 'Mutiny', 'Marooned',
-    'Deserted Island', 'Shipwreck', 'Davy Jones\' Locker', 'Landlubber', 'Scallywag', 'Ahoy',
-    'Shiver Me Timbers', 'Yo Ho Ho', 'Plunder', 'Cutlass', 'Cabin Boy', 'Stowaway', 'Pirate Cove',
-    'Lighthouse', 'Sea Legs', 'Scurvy', 'Barnacles', 'Figurehead', 'Cargo Hold', 'Below Deck',
-    'Land Ho', 'Buccaneer', 'Swashbuckler', 'Blackbeard', 'Captain\'s Log', 'Ghost Ship', 'Dinghy'],
-  'Feelings': ['Happy', 'Excited', 'Nervous', 'Jittery', 'Shy', 'Proud', 'Embarrassed', 'Jealous',
-    'Grumpy', 'Giggly', 'Silly', 'Goofy', 'Bored', 'Sleepy', 'Exhausted', 'Energetic', 'Hyper',
-    'Calm', 'Relaxed', 'Peaceful', 'Cozy', 'Curious', 'Confused', 'Surprised', 'Amazed',
-    'Grateful', 'Hopeful', 'Homesick', 'Nostalgic', 'Lonely', 'Brave', 'Scared', 'Frustrated',
-    'Annoyed', 'Determined', 'Confident', 'Suspicious', 'Mischievous', 'Sneaky', 'Awkward',
-    'Hangry', 'Ticklish', 'Starstruck', 'Blushing', 'Daydreaming', 'Zoned Out', 'Stage Fright',
-    'Déjà Vu', 'Warm and Fuzzy', 'On Cloud Nine', 'Over the Moon', 'Under the Weather',
-    'Sugar Rush', 'Happy Tears', 'Belly Laugh', 'Heebie-Jeebies', 'Salty', 'Shook', 'Vibing', 'FOMO'],
-  'The Human Body': ['Heart', 'Brain', 'Lungs', 'Stomach', 'Rib Cage', 'Spine', 'Bones', 'Muscles',
-    'Biceps', 'Funny Bone', 'Wisdom Teeth', 'Baby Teeth', 'Braces', 'Retainer', 'Freckles',
-    'Dimples', 'Eyebrows', 'Eyelashes', 'Unibrow', 'Mustache', 'Beard', 'Ponytail', 'Pigtails',
-    'Braids', 'Bedhead', 'Cowlick', 'Elbow', 'Kneecap', 'Ankle', 'Fingerprints', 'Pinky Promise',
-    'Belly Button', 'Innie or Outie', 'Tonsils', 'Appendix', 'Adam\'s Apple', 'Vocal Cords',
-    'Taste Buds', 'Tongue', 'Uvula', 'Earlobe', 'Pupils', 'Goosebumps', 'Hiccups', 'Sneeze',
-    'Yawn', 'Wink', 'Growth Spurt', 'Voice Crack', 'Wiggling Your Ears', 'Double-Jointed',
-    'Ambidextrous', 'Left-Handed', 'DNA', 'Hangnail', 'Paper Cut', 'Bandage', 'Signing a Cast',
-    'X-Ray', 'Growing Pains', 'Sweaty Palms', 'Stomach Growling', 'Brain Freeze', 'Charley Horse',
-    'Pins and Needles', 'Foot Falling Asleep', 'Cracking Knuckles'],
-  'Sounds & Noises': ['Whistle', 'Creak', 'Howl', 'Hum', 'Echo', 'Hoot', 'Ding-Dong',
-    'Knock Knock', 'Beep', 'Honk', 'Vroom', 'Screech', 'Squeak', 'Rattle', 'Sonic Boom', 'Splash',
-    'Slurp', 'Gulp', 'Burp', 'Achoo', 'Snore', 'Cackle', 'Growl', 'Bark', 'Meow', 'Moo', 'Oink',
-    'Cluck', 'Quack', 'Neigh', 'Baa', 'Hiss', 'Ribbit', 'Chirp', 'Cock-a-Doodle-Doo', 'Roar',
-    'Sizzle', 'Crackle', 'Pop', 'Snap', 'Crunch', 'Fizz', 'Whoosh', 'Zap', 'Tick-Tock', 'Cuckoo',
-    'Jingle', 'Boing', 'Clip-Clop', 'Pitter-Patter', 'Drumroll', 'Ka-Ching',
-    'Nails on a Chalkboard', 'Elevator Music', 'Dial-Up Sound', 'Crickets', 'Tongue Twister',
-    'Womp Womp', 'Ba-Dum-Tss'],
-  'Colors & Patterns': ['Red', 'Burnt Orange', 'Yellow', 'Blue', 'Green', 'Purple', 'Pink',
-    'Hot Pink', 'Black', 'White', 'Gray', 'Brown', 'Beige', 'Navy Blue', 'Teal', 'Mint Green',
-    'Forest Green', 'Lime Green', 'Emerald', 'Ruby Red', 'Maroon', 'Magenta', 'Lavender', 'Indigo',
-    'Periwinkle', 'Gold', 'Silver', 'Bronze', 'Rose Gold', 'Charcoal', 'Mustard Yellow',
-    'Coral Pink', 'Pastels', 'Neon', 'Holographic', 'Glow-in-the-Dark', 'Ombre', 'Tie-Dye',
-    'Polka Dots', 'Stripes', 'Plaid', 'Checkered', 'Floral Print', 'Leopard Print',
-    'Zebra Stripes', 'Camouflage', 'Chevron', 'Argyle', 'Color Wheel', 'Primary Colors',
-    'Sage Green', 'Eggshell', 'Midnight Blue', 'Fire Engine Red', 'Bubblegum Pink', 'Zigzag',
-    'Squiggles'],
-  'Chores': ['Making the Bed', 'Washing Dishes', 'Loading the Dishwasher',
-    'Unloading the Dishwasher', 'Sweeping', 'Mopping', 'Vacuuming', 'Dusting',
-    'Taking Out the Trash', 'Laundry', 'Folding Laundry', 'Matching Socks', 'Ironing',
-    'Cleaning Your Room', 'Organizing the Closet', 'Washing Windows', 'Cleaning the Bathroom',
-    'Brushing Teeth', 'Flossing', 'Washing the Car', 'Mowing the Lawn', 'Raking Leaves',
-    'Pulling Weeds', 'Watering Plants', 'Shoveling Snow', 'Walking the Dog', 'Feeding the Pets',
-    'Setting the Table', 'Clearing the Table', 'Packing Your Lunch', 'Allowance', 'Chore Chart',
-    'Gold Star', 'Screen Time Limit', 'Curfew', 'Grounded', 'Homework', 'Lint Trap',
-    'Dryer Sheets', 'Lost Sock', 'Folding a Fitted Sheet', 'Dust Bunnies', 'Spring Cleaning',
-    'Decluttering', 'Hitting Snooze', 'Wiping Your Feet', 'Changing a Lightbulb', 'Sock Drawer',
-    'Tidying Up', 'Cleaning Mirrors', 'Scrubbing Pots'],
-  'Party Time': ['Birthday Cake', 'Birthday Candles', 'Make a Wish', 'Confetti', 'Balloons',
-    'Balloon Animals', 'Streamers', 'Party Hats', 'Party Favors', 'Goodie Bags', 'Piñata',
-    'Musical Chairs', 'Limbo', 'Bounce House', 'Glow Sticks', 'Disco Ball', 'Karaoke Machine',
-    'Truth or Dare', 'Midnight Countdown', 'Fireworks', 'Dance Floor', 'Photo Booth', 'Charades',
-    'Scavenger Hunt', 'Pin the Tail', 'Freeze Dance', 'Invitations', 'RSVP', 'Guest List',
-    'Surprise Party', 'Costume Party', 'Slumber Party', 'Sleepover', 'Pillow Fight',
-    'Blanket Fort', 'Pizza Party', 'Ice Cream Social', 'Party Poppers', 'Noisemakers',
-    'Wrapping Paper', 'Ribbon', 'Opening Presents', 'Thank-You Notes', 'Party Crasher', 'Plus-One',
-    'Housewarming Party', 'Pool Party', 'Barbecue', 'Potluck', 'Punch Bowl', 'Birthday Song',
-    'Party Bus', 'Two Truths and a Lie', 'Would You Rather'],
+    'Country Music', 'Folk Music', 'Classical Music', 'Opera', 'Reggae', 'Disco', 'Techno',
+    'K-Pop', 'Salsa Dancing', 'Tango', 'Waltz', 'Ballet', 'Tap Dancing', 'Breakdancing',
+    'The Moonwalk', 'The Robot', 'The Floss', 'The Worm', 'Conga Line', 'Hokey Pokey',
+    'Chicken Dance', 'The Macarena', 'Electric Slide', 'Line Dancing', 'Square Dancing',
+    'Swing Dancing', 'The Twist', 'Cha-Cha', 'Slow Dance', 'Lullaby', 'Flash Mob', 'Dance Battle',
+    'Dance Recital', 'Tutu', 'Choir', 'Orchestra', 'Marching Band', 'Drum Solo', 'Garage Band',
+    'Air Guitar', 'Boy Band', 'Girl Group', 'Beatboxing', 'Autotune', 'Karaoke', 'Lip Syncing',
+    'Yodeling', 'Singing in the Shower', 'Theme Song', 'National Anthem', 'Mosh Pit',
+    'Headbanging', 'Concert', 'Music Festival', 'Encore', 'One-Hit Wonder', 'Mixtape', 'Remix',
+    'Earworm', 'Beat Drop'],
+  'Jobs': ['Firefighter', 'Police Officer', 'Paramedic', 'Nurse', 'Doctor', 'Surgeon', 'Dentist',
+    'Orthodontist', 'Veterinarian', 'Zookeeper', 'Pharmacist', 'Scientist', 'Teacher', 'Principal',
+    'Librarian', 'Judge', 'Coach', 'Referee', 'Astronaut', 'Pilot', 'Flight Attendant',
+    'Tour Guide', 'Ship Captain', 'Fisherman', 'Train Conductor', 'Bus Driver', 'Taxi Driver',
+    'Truck Driver', 'Delivery Driver', 'Mail Carrier', 'Garbage Collector', 'Janitor', 'Farmer',
+    'Florist', 'Chef', 'Baker', 'Barista', 'Waiter', 'Cashier', 'Banker', 'Butcher', 'Barber',
+    'Hairstylist', 'Fashion Designer', 'Mechanic', 'Plumber', 'Electrician', 'Carpenter',
+    'Construction Worker', 'Architect', 'Engineer', 'Video Game Designer', 'Marine Biologist',
+    'Paleontologist', 'Archaeologist', 'Weather Forecaster', 'Lifeguard', 'Crossing Guard',
+    'Actor', 'Artist', 'Photographer', 'Journalist', 'News Anchor', 'Mayor', 'Lawyer',
+    'Accountant', 'Detective', 'Spy', 'Security Guard', 'Dog Walker'],
+  'Storybook Characters': ['Cinderella', 'Sleeping Beauty', 'Glass Slipper', 'Poison Apple',
+    'Fairy Godmother', 'Tooth Fairy', 'Snow White', 'The Snow Queen', 'Seven Dwarfs',
+    'Rumpelstiltskin', 'Rapunzel', 'Thumbelina', 'Little Red Riding Hood', 'Goldilocks',
+    'Big Bad Wolf', 'The Three Bears', 'Three Little Pigs', 'Three Billy Goats Gruff',
+    'Hansel and Gretel', 'Jack and the Beanstalk', 'Gingerbread Man', 'The Muffin Man',
+    'Golden Goose', 'Mother Goose', 'Pinocchio', 'Puss in Boots', 'Peter Pan', 'Tinker Bell',
+    'Captain Hook', 'Neverland', 'Alice in Wonderland', 'White Rabbit', 'Mad Hatter',
+    'Cheshire Cat', 'Queen of Hearts', 'Humpty Dumpty', 'Pied Piper', 'Chicken Little',
+    'The Ugly Duckling', 'The Frog Prince', 'The Little Mermaid', 'Beauty and the Beast',
+    'Aladdin', 'Genie', 'Open Sesame', 'Excalibur', 'Robin Hood', 'King Arthur', 'Merlin',
+    'Knight', 'The Princess and the Pea', 'Emperor\'s New Clothes', 'Tortoise and the Hare',
+    'The Boy Who Cried Wolf', 'Paul Bunyan', 'Johnny Appleseed', 'Sandman', 'Little Miss Muffet',
+    'Itsy Bitsy Spider', 'Three Blind Mice'],
+  'Mythical Creatures': ['Dragon', 'Dragon Egg', 'Unicorn', 'Unicorn Horn', 'Mermaid',
+    'Mermaid Tail', 'Fairy', 'Fairy Wings', 'Elf', 'Elf Ears', 'Dwarf', 'Gnome', 'Goblin', 'Troll',
+    'Ogre', 'Giant', 'Frost Giant', 'Golem', 'Leprechaun', 'Pixie', 'Banshee', 'Siren', 'Gremlin',
+    'Imp', 'Phoenix', 'Thunderbird', 'Griffin', 'Hippogriff', 'Pegasus', 'Centaur', 'Minotaur',
+    'Cyclops', 'Medusa', 'Basilisk', 'Hydra', 'Cerberus', 'Kraken', 'Sea Serpent',
+    'Loch Ness Monster', 'Chupacabra', 'Bigfoot', 'Yeti', 'Mothman', 'Jackalope', 'Sphinx',
+    'Chimera', 'Gargoyle', 'Harpy', 'Valkyrie', 'Fairy Ring'],
+  'Magic & Illusions': ['Magic Wand', 'Royal Scepter', 'Spellbook', 'Ancient Scroll', 'Potion',
+    'Elixir', 'Cauldron', 'Eye of Newt', 'Crystal Ball', 'Magic Mirror', 'Magic Carpet',
+    'Magic Lamp', 'Wizard', 'Magician', 'Wizard Hat', 'Top Hat', 'Enchanted Forest',
+    'Wizard\'s Tower', 'Castle', 'Throne', 'Dungeon', 'Trapdoor', 'Moat', 'Drawbridge', 'Crown',
+    'Golden Egg', 'Three Wishes', 'Wishing Well', 'Curse', 'Fairy Dust', 'Lucky Charm', 'Amulet',
+    'Quill and Ink', 'Magic Beans', 'Four-Leaf Clover', 'Lucky Horseshoe', 'Rabbit\'s Foot',
+    'Rabbit in a Hat', 'Invisibility Cloak', 'Disappearing Act', 'Card Trick', 'Sleight of Hand',
+    'Escape Trick', 'Smoke and Mirrors', 'Abracadabra', 'Hocus Pocus', 'Ta-Da', 'Magic Show',
+    'Magician\'s Assistant', 'Secret Passage'],
+  'Spooky Season': ['Jack-o\'-Lantern', 'Carving Pumpkins', 'Haunted House', 'Ghost Town', 'Ghost',
+    'Boo', 'Vampire', 'Dracula', 'Fangs', 'Grim Reaper', 'Werewolf', 'Frankenstein\'s Monster',
+    'Zombie', 'Mummy', 'Skeleton', 'Skull', 'Witch', 'Witch\'s Hat', 'Broomstick', 'Black Cat',
+    'Bat', 'Full Moon', 'Graveyard', 'Tombstone', 'Coffin', 'Headless Horseman', 'Cobwebs',
+    'Fake Spiders', 'Creaky Door', 'Howling Wind', 'Trick-or-Treat', 'Candy Bucket', 'Costume',
+    'Mask', 'Candy Corn', 'Caramel Apples', 'Boogeyman', 'Monster Under the Bed', 'Fog Machine',
+    'Candelabra', 'Halloween Night', 'Witching Hour', 'Apple Bobbing', 'Haunted Hayride',
+    'Jump Scare', 'Shivers', 'Creepy Doll', 'Ventriloquist Dummy', 'Midnight', 'Nightmare'],
+  'Outer Space': ['Sun', 'Moon', 'Crescent Moon', 'Moon Phases', 'Mercury', 'Venus', 'Earth',
+    'Mars', 'Jupiter', 'Saturn', 'Saturn\'s Rings', 'Pluto', 'Uranus', 'Neptune', 'Galaxy',
+    'Milky Way', 'Black Hole', 'Wormhole', 'Asteroid', 'Comet', 'Meteor', 'Shooting Star',
+    'Constellation', 'Big Dipper', 'North Star', 'Light-Year', 'Telescope', 'Observatory',
+    'Planetarium', 'Mission Control', 'Rocket', 'Rocket Launch', 'Launch Pad', 'Space Race',
+    'Spaceship', 'Space Station', 'Satellite', 'Space Junk', 'Space Suit', 'Space Walk',
+    'Moon Landing', 'Moon Rocks', 'Lunar Rover', 'Mars Rover', 'Alien', 'Little Green Men', 'UFO',
+    'Crop Circles', 'Solar System', 'Orbit', 'Zero Gravity', 'Gravity', 'Solar Eclipse',
+    'Lunar Eclipse', 'Supernova', 'Nebula'],
+  'Video Games': ['Avatar', 'Skins', 'Arcade', 'Claw Machine', 'Tutorial', 'Loading Screen',
+    'Pro Gamer', 'Esports', 'Loot Box', 'Cheat Code', 'Boss Battle', 'Boss Music', 'Checkpoint',
+    'Save File', 'Easter Egg', 'Secret Level', 'Respawn', 'Extra Life', 'Game Over', 'Hard Mode',
+    'High Score', 'Leaderboard', 'Power-Up', 'Level Up', 'Side Quest', 'Open World', 'Speedrun',
+    'Achievement Unlocked', 'Lag', 'Glitch', 'Noob', 'Rage Quit', 'Button Mashing', 'Combo Move',
+    'Multiplayer', 'Co-op Mode', 'Split Screen', 'Battle Royale', 'Joystick', 'D-Pad',
+    'Pause Button', 'Cutscene', 'Skill Tree', 'Health Bar', 'Pixel Art', '8-Bit Graphics',
+    'Sandbox Mode', 'Minigame', 'Emotes', 'Victory Dance', 'Controller Drift',
+    'Blowing on the Cartridge', 'NPC', 'Virtual Pet', 'Racing Game', 'Gaming Chair', 'Player One',
+    'Press Start'],
+  'Superpowers': ['Flight', 'Super Jump', 'Invisibility', 'Walking Through Walls',
+    'Super Strength', 'Indestructible', 'Super Speed', 'Freezing Time', 'Teleportation', 'Portals',
+    'Mind Reading', 'Mind Control', 'X-Ray Vision', 'Night Vision', 'Laser Eyes', 'Energy Blasts',
+    'Ice Powers', 'Freeze Breath', 'Fire Powers', 'Weather Control', 'Shapeshifting',
+    'Duplication', 'Time Travel', 'Seeing the Future', 'Force Field', 'Gravity Control',
+    'Healing Touch', 'Immortality', 'Stretching', 'Shrinking', 'Growing Huge', 'Telekinesis',
+    'Talking to Animals', 'Breathing Underwater', 'Magnetism', 'Plant Control', 'Super Hearing',
+    'Super Smell', 'Wall Crawling', 'Web Slinging', 'Levitation', 'Water Control', 'Super Luck',
+    'Danger Sense', 'Memory Erasing', 'Dream Control', 'Echolocation', 'Sonic Scream',
+    'Copying Powers', 'Super Intelligence', 'Superhero Cape', 'Secret Identity'],
+  'Pirates': ['Pirate Ship', 'Ghost Ship', 'Pirate Captain', 'First Mate', 'Pirate Crew',
+    'Cabin Boy', 'Treasure Chest', 'Buried Treasure', 'Treasure Map', 'X Marks the Spot',
+    'Gold Doubloons', 'Pieces of Eight', 'Jewels', 'Plunder', 'Parrot on the Shoulder',
+    'Crow\'s Nest', 'Eyepatch', 'Hook Hand', 'Peg Leg', 'Sea Legs', 'Pirate Flag', 'Jolly Roger',
+    'Skull and Crossbones', 'Davy Jones\' Locker', 'Cannon', 'Cannonball', 'Walking the Plank',
+    'Marooned', 'Anchor', 'Ship\'s Wheel', 'Sails', 'Figurehead', 'Spyglass', 'Lighthouse',
+    'Sea Shanty', 'Yo Ho Ho', 'Mutiny', 'Stowaway', 'Deserted Island', 'Pirate Cove', 'Shipwreck',
+    'Dinghy', 'Landlubber', 'Scallywag', 'Ahoy', 'Land Ho', 'Shiver Me Timbers', 'Scurvy',
+    'Cutlass', 'Blackbeard', 'Barnacles', 'Cargo Hold', 'Below Deck', 'Captain\'s Log',
+    'Buccaneer', 'Swashbuckler'],
+  'Feelings': ['Happy', 'Happy Tears', 'Excited', 'Hyper', 'Nervous', 'Jittery', 'Shy', 'Awkward',
+    'Proud', 'Confident', 'Embarrassed', 'Blushing', 'Jealous', 'Salty', 'Grumpy', 'Annoyed',
+    'Giggly', 'Belly Laugh', 'Silly', 'Goofy', 'Bored', 'Zoned Out', 'Sleepy', 'Exhausted',
+    'Energetic', 'Sugar Rush', 'Calm', 'Relaxed', 'Peaceful', 'Cozy', 'Curious', 'Suspicious',
+    'Confused', 'Surprised', 'Amazed', 'Starstruck', 'Grateful', 'Hopeful', 'Homesick', 'Lonely',
+    'Nostalgic', 'Déjà Vu', 'Brave', 'Determined', 'Scared', 'Heebie-Jeebies', 'Frustrated',
+    'Hangry', 'Mischievous', 'Sneaky', 'Ticklish', 'Warm and Fuzzy', 'Daydreaming', 'Vibing',
+    'Stage Fright', 'Shook', 'On Cloud Nine', 'Over the Moon', 'Under the Weather', 'FOMO'],
+  'The Human Body': ['Heart', 'Lungs', 'Brain', 'Brain Freeze', 'Stomach', 'Stomach Growling',
+    'Rib Cage', 'Spine', 'Bones', 'Kneecap', 'Muscles', 'Biceps', 'Funny Bone', 'Elbow',
+    'Wisdom Teeth', 'Baby Teeth', 'Braces', 'Retainer', 'Freckles', 'Dimples', 'Eyebrows',
+    'Eyelashes', 'Unibrow', 'Cowlick', 'Mustache', 'Beard', 'Ponytail', 'Pigtails', 'Braids',
+    'Bedhead', 'Ankle', 'Foot Falling Asleep', 'Fingerprints', 'DNA', 'Pinky Promise',
+    'Cracking Knuckles', 'Belly Button', 'Innie or Outie', 'Tonsils', 'Appendix', 'Adam\'s Apple',
+    'Voice Crack', 'Taste Buds', 'Tongue', 'Uvula', 'Vocal Cords', 'Earlobe', 'Wiggling Your Ears',
+    'Pupils', 'Wink', 'Goosebumps', 'Sweaty Palms', 'Hiccups', 'Sneeze', 'Growth Spurt',
+    'Growing Pains', 'Left-Handed', 'Ambidextrous', 'Double-Jointed', 'X-Ray', 'Charley Horse',
+    'Pins and Needles', 'Hangnail', 'Paper Cut', 'Bandage', 'Signing a Cast'],
+  'Sounds & Noises': ['Bark', 'Meow', 'Moo', 'Baa', 'Oink', 'Cluck', 'Quack', 'Ribbit', 'Neigh',
+    'Clip-Clop', 'Hiss', 'Rattle', 'Howl', 'Roar', 'Growl', 'Cackle', 'Hoot', 'Cock-a-Doodle-Doo',
+    'Chirp', 'Crickets', 'Cuckoo', 'Tick-Tock', 'Ding-Dong', 'Knock Knock', 'Beep', 'Honk',
+    'Vroom', 'Screech', 'Whistle', 'Hum', 'Creak', 'Squeak', 'Echo', 'Whoosh', 'Sonic Boom', 'Zap',
+    'Splash', 'Fizz', 'Slurp', 'Gulp', 'Burp', 'Achoo', 'Snore', 'Elevator Music', 'Sizzle',
+    'Crunch', 'Snap', 'Crackle', 'Pop', 'Boing', 'Jingle', 'Ka-Ching', 'Pitter-Patter', 'Drumroll',
+    'Nails on a Chalkboard', 'Dial-Up Sound', 'Womp Womp', 'Ba-Dum-Tss'],
+  'Colors & Patterns': ['Red', 'Fire Engine Red', 'Ruby Red', 'Maroon', 'Pink', 'Bubblegum Pink',
+    'Hot Pink', 'Magenta', 'Rose Gold', 'Gold', 'Silver', 'Bronze', 'Burnt Orange', 'Brown',
+    'Yellow', 'Mustard Yellow', 'White', 'Eggshell', 'Black', 'Charcoal', 'Gray', 'Beige', 'Blue',
+    'Navy Blue', 'Midnight Blue', 'Indigo', 'Purple', 'Lavender', 'Periwinkle', 'Teal', 'Emerald',
+    'Forest Green', 'Green', 'Lime Green', 'Mint Green', 'Sage Green', 'Neon', 'Glow-in-the-Dark',
+    'Holographic', 'Ombre', 'Pastels', 'Tie-Dye', 'Polka Dots', 'Squiggles', 'Stripes', 'Plaid',
+    'Checkered', 'Argyle', 'Chevron', 'Zigzag', 'Floral Print', 'Leopard Print', 'Zebra Stripes',
+    'Camouflage', 'Color Wheel', 'Primary Colors'],
+  'Chores': ['Making the Bed', 'Hitting Snooze', 'Washing Dishes', 'Scrubbing Pots',
+    'Loading the Dishwasher', 'Unloading the Dishwasher', 'Sweeping', 'Mopping', 'Vacuuming',
+    'Dust Bunnies', 'Cleaning Mirrors', 'Washing Windows', 'Dusting', 'Decluttering',
+    'Cleaning the Bathroom', 'Spring Cleaning', 'Laundry', 'Folding Laundry', 'Matching Socks',
+    'Lost Sock', 'Dryer Sheets', 'Lint Trap', 'Folding a Fitted Sheet', 'Ironing', 'Sock Drawer',
+    'Organizing the Closet', 'Cleaning Your Room', 'Tidying Up', 'Brushing Teeth', 'Flossing',
+    'Washing the Car', 'Mowing the Lawn', 'Raking Leaves', 'Pulling Weeds', 'Watering Plants',
+    'Feeding the Pets', 'Shoveling Snow', 'Walking the Dog', 'Setting the Table',
+    'Clearing the Table', 'Packing Your Lunch', 'Homework', 'Allowance', 'Chore Chart', 'Curfew',
+    'Grounded', 'Screen Time Limit', 'Gold Star', 'Taking Out the Trash', 'Changing a Lightbulb'],
+  'Party Time': ['Birthday Cake', 'Birthday Candles', 'Make a Wish', 'Birthday Song', 'Confetti',
+    'Party Poppers', 'Streamers', 'Party Hats', 'Balloons', 'Balloon Animals', 'Goodie Bags',
+    'Party Favors', 'Noisemakers', 'Party Bus', 'Piñata', 'Pin the Tail', 'Musical Chairs',
+    'Freeze Dance', 'Limbo', 'Charades', 'Truth or Dare', 'Would You Rather',
+    'Two Truths and a Lie', 'Scavenger Hunt', 'Bounce House', 'Pool Party', 'Glow Sticks',
+    'Disco Ball', 'Karaoke Machine', 'Dance Floor', 'Midnight Countdown', 'Fireworks',
+    'Invitations', 'RSVP', 'Guest List', 'Plus-One', 'Surprise Party', 'Party Crasher',
+    'Costume Party', 'Housewarming Party', 'Slumber Party', 'Sleepover', 'Pillow Fight',
+    'Blanket Fort', 'Pizza Party', 'Ice Cream Social', 'Barbecue', 'Potluck', 'Punch Bowl',
+    'Photo Booth', 'Wrapping Paper', 'Ribbon', 'Opening Presents', 'Thank-You Notes'],
   'Holidays': ['Santa Claus', 'Mrs. Claus', 'Reindeer', 'Sleigh', 'Santa\'s Elves',
-    'Santa\'s Workshop', 'Stocking', 'Mistletoe', 'Gingerbread House', 'Candy Cane', 'Eggnog',
-    'Menorah', 'Dreidel', 'Hanukkah', 'Kwanzaa', 'Christmas Tree', 'Christmas Lights', 'Ornaments',
-    'Tinsel', 'Wreath', 'Ugly Sweater', 'Secret Santa', 'White Elephant', 'Caroling', 'Nutcracker',
-    'Advent Calendar', 'Naughty or Nice List', 'Lump of Coal', 'Milk and Cookies', 'Turkey Dinner',
-    'Pumpkin Pie', 'Cranberry Sauce', 'Stuffing', 'Wishbone', 'Gravy Boat', 'Thanksgiving',
-    'Black Friday', 'Easter Bunny', 'Easter Egg Hunt', 'Chocolate Bunny', 'Jelly Beans',
-    'Easter Basket', 'Cupid', 'Valentine\'s Day', 'Candy Hearts', 'Box of Chocolates', 'Shamrock',
+    'Santa\'s Workshop', 'Stocking', 'Lump of Coal', 'Milk and Cookies', 'Naughty or Nice List',
+    'Christmas Tree', 'Wreath', 'Ornaments', 'Tinsel', 'Christmas Lights', 'Mistletoe',
+    'Gingerbread House', 'Candy Cane', 'Eggnog', 'Caroling', 'Ugly Sweater', 'Secret Santa',
+    'White Elephant', 'Nutcracker', 'Advent Calendar', 'Christmas Morning', 'Menorah', 'Dreidel',
+    'Hanukkah', 'Kwanzaa', 'Thanksgiving', 'Turkey Dinner', 'Stuffing', 'Gravy Boat',
+    'Pumpkin Pie', 'Cranberry Sauce', 'Wishbone', 'Black Friday', 'Easter Bunny',
+    'Easter Egg Hunt', 'Chocolate Bunny', 'Candy Hearts', 'Jelly Beans', 'Easter Basket',
+    'Box of Chocolates', 'Valentine\'s Day', 'Cupid', 'April Fools\' Day', 'Shamrock',
     'Pot of Gold', 'St. Patrick\'s Day', 'Leprechaun Trap', 'Fourth of July', 'Sparklers',
-    'Parade', 'New Year\'s Eve', 'New Year\'s Resolution', 'Ball Drop', 'Groundhog Day',
-    'April Fools\' Day', 'Mother\'s Day', 'Father\'s Day', 'Earth Day', 'Diwali', 'Lunar New Year',
-    'Cinco de Mayo', 'Christmas Morning'],
-  'Movies & TV': ['Movie Night', 'Movie Marathon', 'Popcorn Bucket', 'Movie Theater',
-    'Ticket Stub', 'Matinee', 'Drive-In Movie', 'Front Row Seats', '3D Glasses', 'Movie Trailer',
-    'Spoiler Alert', 'Plot Twist', 'Cliffhanger', 'Sequel', 'Prequel', 'Reboot', 'Horror Movie',
-    'Comedy', 'Rom-Com', 'Action Movie', 'Documentary', 'Animation', 'Musical', 'Western',
-    'Science Fiction', 'Superhero Movie', 'Tearjerker', 'Blockbuster', 'Box Office', 'Red Carpet',
-    'Movie Star', 'Director', 'Stunt Double', 'Green Screen', 'Autograph', 'Paparazzi',
-    'Award Show', 'Acceptance Speech', 'Behind the Scenes', 'Bloopers', 'End Credits',
-    'Post-Credits Scene', 'TV Remote', 'Channel Surfing', 'Binge-Watching', 'Season Finale',
-    'Pilot Episode', 'Rerun', 'Commercial Break', 'Laugh Track', 'Sitcom', 'Game Show',
-    'Talk Show', 'Reality TV', 'Cooking Show', 'Morning Cartoons', 'Subtitles',
-    'Based on a True Story', 'Villain'],
-  'Books & Reading': ['Bookworm', 'Bookmark', 'Book Club', 'Once Upon a Time',
-    'Happily Ever After', 'Author', 'Reading Glasses', 'Bedtime Story', 'Encyclopedia', 'Diary',
-    'Journal', 'Library Card', 'Overdue Books', 'Bookshelf', 'Hardcover', 'Paperback', 'Audiobook',
-    'Picture Book', 'Pop-Up Book', 'Chapter Book', 'Comic Book', 'Graphic Novel', 'Manga',
-    'Mystery Novel', 'Poetry', 'Fairy Tale', 'Nursery Rhyme', 'Tall Tale', 'Biography', 'Atlas',
-    'Table of Contents', 'Glossary', 'Chapter One', 'Epilogue', 'Main Character', 'Sidekick',
-    'Narrator', 'Foreshadowing', 'Metaphor', 'Alliteration', 'Onomatopoeia', 'Haiku', 'Limerick',
-    'Speed Reading', 'Reading Nook', 'Reading Under the Covers', 'Dog-Eared Pages', 'Book Cover',
-    'Dust Jacket', 'First Edition', 'Book Fair', 'Summer Reading List', 'Page Turner',
-    'Bestseller', 'E-Book', 'Bookends', 'Silent Reading', 'Story Time', 'Plot Hole', 'Fan Fiction'],
-  'Internet & Social Media': ['WiFi', 'Selfie', 'Hashtag', 'Emoji', 'Meme', 'Influencer',
-    'Playlist', 'Low Battery', 'Left on Read', 'Read Receipt', 'Dark Mode', 'Clickbait',
-    'Autocorrect', 'Group Chat', 'Going Viral', 'Trending', 'Followers', 'Likes',
-    'Comment Section', 'Subscribe', 'Username', 'Profile Picture', 'Filter', 'Photo Dump',
-    'Screenshot', 'Scrolling', 'Doomscrolling', 'Algorithm', 'Search Bar', 'Search History',
-    'Too Many Tabs Open', 'Pop-Up Ads', 'Spam Folder', 'Unsubscribe', 'Buffering', 'Live Stream',
-    'Podcast', 'Vlog', 'How-To Video', 'Unboxing Video', 'Reaction Video', 'Voicemail', 'Texting',
-    'Typo', 'Typing Dots', 'Airplane Mode', 'Do Not Disturb', 'Forgot My Password', 'CAPTCHA',
-    'Accepting Cookies', 'Terms and Conditions', 'Software Update', 'Hotspot', 'Cringe', 'Slay',
-    'Sus', 'Vibe Check', 'Streaks'],
+    'Parade', 'Cinco de Mayo', 'New Year\'s Eve', 'Ball Drop', 'New Year\'s Resolution',
+    'Groundhog Day', 'Mother\'s Day', 'Father\'s Day', 'Diwali', 'Lunar New Year'],
+  'Movies & TV': ['Movie Night', 'Movie Marathon', 'Popcorn Bucket', '3D Glasses', 'Movie Theater',
+    'Drive-In Movie', 'Ticket Stub', 'Matinee', 'Front Row Seats', 'Subtitles', 'Movie Trailer',
+    'Spoiler Alert', 'Plot Twist', 'Cliffhanger', 'Sequel', 'Prequel', 'Reboot', 'Rerun', 'Comedy',
+    'Rom-Com', 'Action Movie', 'Superhero Movie', 'Documentary', 'Based on a True Story',
+    'Animation', 'Morning Cartoons', 'Musical', 'Western', 'Science Fiction', 'Horror Movie',
+    'Tearjerker', 'Villain', 'Blockbuster', 'Box Office', 'Movie Star', 'Autograph', 'Director',
+    'Stunt Double', 'Green Screen', 'Behind the Scenes', 'Bloopers', 'Laugh Track', 'End Credits',
+    'Post-Credits Scene', 'Award Show', 'Acceptance Speech', 'Red Carpet', 'Paparazzi',
+    'TV Remote', 'Channel Surfing', 'Binge-Watching', 'Season Finale', 'Pilot Episode', 'Sitcom',
+    'Game Show', 'Talk Show', 'Reality TV', 'Cooking Show'],
+  'Books & Reading': ['Bookworm', 'Book Club', 'Bookmark', 'Dog-Eared Pages', 'Once Upon a Time',
+    'Happily Ever After', 'Author', 'Narrator', 'Reading Glasses', 'Reading Nook', 'Bedtime Story',
+    'Story Time', 'Reading Under the Covers', 'Silent Reading', 'Speed Reading', 'Page Turner',
+    'Encyclopedia', 'Atlas', 'Diary', 'Journal', 'Library Card', 'Overdue Books', 'Bookshelf',
+    'Bookends', 'Hardcover', 'Paperback', 'Audiobook', 'E-Book', 'Picture Book', 'Pop-Up Book',
+    'Chapter Book', 'Chapter One', 'Comic Book', 'Graphic Novel', 'Manga', 'Onomatopoeia',
+    'Mystery Novel', 'Plot Hole', 'Haiku', 'Limerick', 'Poetry', 'Nursery Rhyme', 'Fairy Tale',
+    'Tall Tale', 'Biography', 'First Edition', 'Fan Fiction', 'Bestseller', 'Book Cover',
+    'Dust Jacket', 'Book Fair', 'Summer Reading List', 'Table of Contents', 'Glossary',
+    'Foreshadowing', 'Epilogue', 'Main Character', 'Sidekick', 'Metaphor', 'Alliteration'],
+  'Internet & Social Media': ['WiFi', 'Hotspot', 'Selfie', 'Profile Picture', 'Hashtag',
+    'Going Viral', 'Trending', 'Algorithm', 'Emoji', 'Meme', 'Influencer', 'Followers', 'Playlist',
+    'Podcast', 'Low Battery', 'Airplane Mode', 'Left on Read', 'Read Receipt', 'Dark Mode',
+    'Do Not Disturb', 'Clickbait', 'Pop-Up Ads', 'Autocorrect', 'Typo', 'Group Chat', 'Voicemail',
+    'Texting', 'Typing Dots', 'Likes', 'Comment Section', 'Subscribe', 'Unsubscribe', 'Username',
+    'Forgot My Password', 'Filter', 'Photo Dump', 'Screenshot', 'Search History', 'Scrolling',
+    'Doomscrolling', 'Search Bar', 'Too Many Tabs Open', 'CAPTCHA', 'Accepting Cookies',
+    'Spam Folder', 'Terms and Conditions', 'Buffering', 'Software Update', 'Vlog', 'How-To Video',
+    'Unboxing Video', 'Reaction Video', 'Live Stream', 'Streaks', 'Cringe', 'Slay', 'Sus',
+    'Vibe Check'],
   'Theme Park': ['Roller Coaster', 'Upside-Down Loop', 'Ferris Wheel', 'Carousel', 'Bumper Cars',
-    'Log Flume', 'Wave Pool', 'Lazy River', 'Water Slide', 'Drop Tower', 'Teacup Ride',
-    'Tilt-a-Whirl', 'Swing Ride', 'Kiddie Rides', 'Cotton Candy', 'Funnel Cake', 'Candy Apple',
-    'Kettle Corn', 'Snow Cone', 'Corn Dog', 'Churro', 'Giant Turkey Leg', 'Carnival Games',
-    'Ring Toss', 'Balloon Darts', 'Milk Bottle Toss', 'Duck Pond Game', 'Test Your Strength',
-    'Prize Booth', 'Giant Teddy Bear', 'Goldfish Prize', 'Fortune Teller', 'Clown', 'Mime',
-    'Stilt Walker', 'Fun House', 'Funhouse Mirror', 'Ticket Booth', 'Wristband', 'Season Pass',
-    'Fast Pass', 'Long Line', 'You Must Be This Tall', 'Keep Your Arms Inside', 'Splash Zone',
-    'Souvenir Shop', 'Souvenir Cup', 'Ride Photo', 'Costumed Character', 'Face Paint',
-    'Caricature Artist', 'Midway', 'Bumper Boats', 'Go-Karts', 'Mini Golf', 'Lost and Found',
-    'Park Map', 'Turnstile'],
-  'Eating Out': ['Menu', 'Kids Menu', 'Appetizer', 'Main Course', 'Side Dish', 'Dessert Tray',
-    'Combo Meal', 'Booth', 'High Chair', 'Drive-Thru', 'Takeout', 'Food Delivery', 'Doggy Bag',
-    'Leftovers', 'Buffet', 'All-You-Can-Eat', 'Salad Bar', 'Soup of the Day', 'Today\'s Special',
-    'Secret Menu', 'Food Truck', 'Food Court', 'Reservation', 'Table for Two',
-    'Waiting for a Table', 'Restaurant Buzzer', 'Splitting the Bill', 'Asking for the Check',
-    'Tip Jar', 'Free Refills', 'Kids Eat Free', 'Ketchup Packets', 'Breadsticks', 'Fortune Cookie',
-    'Napkin', 'Straw', 'Coloring Placemat', 'Please Wait to Be Seated', 'Free Birthday Dessert',
-    'After-Dinner Mints', 'Toothpicks', 'Lazy Susan', 'Hibachi', 'Conveyor Belt Sushi',
-    'Early Bird Special', 'Five-Star Review', 'Elbows Off the Table', 'Kids Table',
-    'Clean Plate Club', 'Silverware', 'Waffle Fries', 'Curbside Pickup'],
-  'Grocery Store': ['Shopping Cart', 'Shopping List', 'Grocery Bags', 'Reusable Bags',
-    'Paper or Plastic', 'Coupons', 'Checkout Line', 'Self-Checkout', 'Express Lane',
-    'Ten Items or Less', 'Conveyor Belt', 'Divider Stick', 'Barcode', 'Price Check', 'Price Tag',
-    'Receipt', 'Free Samples', 'Produce Section', 'Produce Misters', 'Deli Counter',
-    'Take a Number', 'Bakery Section', 'Frozen Food Aisle', 'Cereal Aisle', 'Checkout Candy',
-    'Dairy Section', 'Egg Carton', 'Milk Jug', 'Canned Goods', 'Cleanup on Aisle Five',
-    'Wobbly Cart Wheel', 'Grocery Run', 'Impulse Buy', 'Buy One Get One', 'On Sale', 'Clearance',
-    'Loyalty Card', 'Bagging Groceries', 'Frozen Pizza', 'TV Dinner', 'Rotisserie Chicken',
-    'Free Cookie', 'Cart Corral', 'Returning the Cart', 'Attention Shoppers', 'Out of Stock',
-    'Rain Check', 'Expiration Date', 'Nutrition Facts', 'Store Brand', 'Name Brand', 'Grocery Haul'],
-  'Road Trip': ['Gas Station', 'Billboard', 'Vending Machine', 'Rest Stop', 'Are We There Yet',
-    'Calling Shotgun', 'Twenty Questions', 'I Spy', 'License Plate Game', 'Alphabet Game',
-    'Punch Buggy', 'Singing in the Car', 'Aux Cord', 'Backseat Driver', 'Middle Seat', 'Legroom',
-    'Pit Stop', 'Bathroom Break', 'Stretch Your Legs', 'Roadside Attraction',
-    'Giant Ball of Twine', 'Tourist Trap', 'Fridge Magnet', 'Postcards', 'Motel', 'Ice Machine',
-    'Continental Breakfast', 'Road Map', 'Wrong Turn', 'Recalculating', 'Detour',
-    'Road Work Ahead', 'Traffic Jam', 'Rush Hour', 'Bumper-to-Bumper', 'Toll Booth',
-    'Cruise Control', 'Speed Limit', 'Speed Bump', 'Pothole', 'U-Turn', 'Roundabout',
-    'Mile Markers', 'State Line', 'Scenic Route', 'Road Trip Bingo', 'Flat Tire', 'Low Fuel Light',
-    'Gas Prices', 'Windows Down', 'Bugs on the Windshield', 'Windshield Wipers', 'Fuzzy Dice',
-    'Bumper Sticker', 'Bobblehead', 'Pine Tree Air Freshener', 'No Signal', 'Sunroof'],
-  'Personality Types': ['Class Clown', 'Couch Potato', 'Teacher\'s Pet', 'Drama Queen',
-    'Theater Kid', 'Band Kid', 'Picky Eater', 'Neat Freak', 'Plant Parent', 'Sneakerhead',
-    'Early Bird', 'Night Owl', 'Foodie', 'Social Butterfly', 'Party Pooper', 'Party Animal',
-    'Wallflower', 'Overachiever', 'Perfectionist', 'Procrastinator', 'Prankster', 'Storyteller',
-    'Chatterbox', 'The Quiet One', 'Old Soul', 'Free Spirit', 'Thrill Seeker', 'Daredevil',
-    'Scaredy-Cat', 'Worrywart', 'Overthinker', 'Hype Man', 'Bargain Hunter', 'Window Shopper',
-    'Minimalist', 'Pack Rat', 'Superfan', 'Gym Rat', 'People Person', 'Introvert', 'Extrovert',
-    'Middle Child', 'Only Child', 'The Favorite Child', 'Goofball', 'Klutz', 'Know-It-All',
-    'Show-Off', 'Copycat', 'Tattletale', 'Peacemaker', 'Team Player', 'Born Leader',
-    'Rule Follower', 'Rule Breaker', 'Hopeless Romantic', 'Lone Wolf', 'Life of the Party',
-    'Main Character Energy', 'Not a Morning Person', 'Sweet Tooth', 'Sore Loser'],
-  'Things That Go': ['Car', 'Truck', 'Bus', 'School Bus', 'Taxi', 'Train', 'Subway', 'Monorail',
-    'Sailboat', 'Rowboat', 'Speedboat', 'Yacht', 'Ferry', 'Cruise Ship', 'Submarine', 'Canoe',
-    'Kayak', 'Jet Ski', 'Airplane', 'Helicopter', 'Hot Air Balloon', 'Blimp', 'Parachute',
-    'Fire Truck', 'Police Car', 'Ambulance', 'Garbage Truck', 'Dump Truck', 'Cement Mixer',
-    'Bulldozer', 'Excavator', 'Forklift', 'Tow Truck', 'Snowplow', 'Snowmobile', 'Golf Cart',
-    'Limousine', 'RV', 'Gondola', 'Zamboni', 'Segway', 'Hoverboard', 'Bicycle', 'Tandem Bike',
-    'Tricycle', 'Kick Scooter', 'Motorcycle', 'Skateboard', 'Unicycle', 'Red Wagon', 'Race Car',
-    'Monster Truck', 'Double-Decker Bus', 'Trolley', 'Cable Car', 'Bullet Train', 'Steam Engine',
-    'Ski Lift', 'Horse and Buggy', 'Parade Float', 'Ice Cream Truck', 'Mail Truck', 'Time Machine'],
+    'Bumper Boats', 'Log Flume', 'Water Slide', 'Wave Pool', 'Lazy River', 'Drop Tower',
+    'Tilt-a-Whirl', 'Teacup Ride', 'Swing Ride', 'Kiddie Rides', 'You Must Be This Tall',
+    'Cotton Candy', 'Funnel Cake', 'Candy Apple', 'Kettle Corn', 'Snow Cone', 'Churro', 'Corn Dog',
+    'Giant Turkey Leg', 'Carnival Games', 'Midway', 'Ring Toss', 'Balloon Darts',
+    'Milk Bottle Toss', 'Test Your Strength', 'Duck Pond Game', 'Goldfish Prize', 'Prize Booth',
+    'Giant Teddy Bear', 'Fortune Teller', 'Caricature Artist', 'Clown', 'Mime', 'Stilt Walker',
+    'Costumed Character', 'Fun House', 'Funhouse Mirror', 'Ticket Booth', 'Turnstile', 'Wristband',
+    'Season Pass', 'Fast Pass', 'Long Line', 'Keep Your Arms Inside', 'Splash Zone',
+    'Souvenir Shop', 'Souvenir Cup', 'Ride Photo', 'Face Paint', 'Go-Karts', 'Mini Golf',
+    'Lost and Found', 'Park Map'],
+  'Eating Out': ['Menu', 'Today\'s Special', 'Kids Menu', 'Coloring Placemat', 'Appetizer',
+    'Breadsticks', 'Main Course', 'Side Dish', 'Dessert Tray', 'Free Birthday Dessert',
+    'Combo Meal', 'Kids Eat Free', 'Booth', 'Table for Two', 'High Chair', 'Kids Table',
+    'Drive-Thru', 'Curbside Pickup', 'Takeout', 'Food Delivery', 'Doggy Bag', 'Leftovers',
+    'Food Truck', 'Food Court', 'Buffet', 'All-You-Can-Eat', 'Salad Bar', 'Soup of the Day',
+    'Secret Menu', 'Early Bird Special', 'Reservation', 'Waiting for a Table', 'Restaurant Buzzer',
+    'Please Wait to Be Seated', 'Splitting the Bill', 'Asking for the Check', 'Tip Jar',
+    'Five-Star Review', 'Free Refills', 'Straw', 'Ketchup Packets', 'Waffle Fries',
+    'Fortune Cookie', 'After-Dinner Mints', 'Toothpicks', 'Lazy Susan', 'Hibachi',
+    'Conveyor Belt Sushi', 'Elbows Off the Table', 'Clean Plate Club', 'Napkin', 'Silverware'],
+  'Grocery Store': ['Shopping Cart', 'Cart Corral', 'Wobbly Cart Wheel', 'Returning the Cart',
+    'Shopping List', 'Grocery Run', 'Grocery Bags', 'Reusable Bags', 'Paper or Plastic',
+    'Bagging Groceries', 'Coupons', 'Buy One Get One', 'On Sale', 'Clearance', 'Checkout Line',
+    'Express Lane', 'Self-Checkout', 'Ten Items or Less', 'Conveyor Belt', 'Divider Stick',
+    'Barcode', 'Price Check', 'Price Tag', 'Receipt', 'Free Samples', 'Free Cookie',
+    'Produce Section', 'Produce Misters', 'Deli Counter', 'Take a Number', 'Bakery Section',
+    'Dairy Section', 'Frozen Food Aisle', 'Cereal Aisle', 'Checkout Candy', 'Impulse Buy',
+    'Egg Carton', 'Milk Jug', 'Canned Goods', 'Nutrition Facts', 'Cleanup on Aisle Five',
+    'Attention Shoppers', 'Out of Stock', 'Rain Check', 'Frozen Pizza', 'TV Dinner', 'Store Brand',
+    'Name Brand', 'Loyalty Card', 'Grocery Haul', 'Rotisserie Chicken', 'Expiration Date'],
+  'Road Trip': ['Gas Station', 'Low Fuel Light', 'Gas Prices', 'Toll Booth', 'Billboard',
+    'Roadside Attraction', 'Vending Machine', 'Ice Machine', 'Rest Stop', 'Bathroom Break',
+    'Pit Stop', 'Stretch Your Legs', 'Are We There Yet', 'Backseat Driver', 'Calling Shotgun',
+    'Middle Seat', 'Twenty Questions', 'I Spy', 'License Plate Game', 'Alphabet Game',
+    'Punch Buggy', 'Road Trip Bingo', 'Singing in the Car', 'Aux Cord', 'Legroom', 'Sunroof',
+    'Windows Down', 'Bugs on the Windshield', 'Fuzzy Dice', 'Bobblehead', 'Bumper Sticker',
+    'Pine Tree Air Freshener', 'Windshield Wipers', 'Flat Tire', 'Giant Ball of Twine',
+    'Tourist Trap', 'Fridge Magnet', 'Postcards', 'Motel', 'Continental Breakfast', 'Road Map',
+    'Recalculating', 'Wrong Turn', 'U-Turn', 'Detour', 'Road Work Ahead', 'Traffic Jam',
+    'Rush Hour', 'Speed Limit', 'Cruise Control', 'Speed Bump', 'Pothole', 'Roundabout',
+    'Mile Markers', 'State Line', 'Scenic Route', 'No Signal', 'Bumper-to-Bumper'],
+  'Personality Types': ['Class Clown', 'Goofball', 'Prankster', 'Rule Breaker', 'Rule Follower',
+    'Scaredy-Cat', 'Teacher\'s Pet', 'Know-It-All', 'Overachiever', 'Born Leader', 'Drama Queen',
+    'Show-Off', 'Theater Kid', 'Band Kid', 'Picky Eater', 'Sweet Tooth', 'Neat Freak', 'Pack Rat',
+    'Plant Parent', 'Minimalist', 'Sneakerhead', 'Superfan', 'Early Bird', 'Night Owl',
+    'Couch Potato', 'Not a Morning Person', 'Bargain Hunter', 'Window Shopper', 'Social Butterfly',
+    'Life of the Party', 'Party Animal', 'Foodie', 'Party Pooper', 'Wallflower', 'Overthinker',
+    'Worrywart', 'Perfectionist', 'Procrastinator', 'Storyteller', 'Chatterbox', 'Introvert',
+    'Extrovert', 'The Quiet One', 'Old Soul', 'Free Spirit', 'Main Character Energy',
+    'Thrill Seeker', 'Daredevil', 'Hype Man', 'Team Player', 'Middle Child', 'The Favorite Child',
+    'Only Child', 'Lone Wolf', 'Copycat', 'Tattletale', 'Gym Rat', 'Klutz', 'Sore Loser',
+    'Peacemaker', 'People Person', 'Hopeless Romantic'],
+  'Things That Go': ['Car', 'Taxi', 'Bus', 'School Bus', 'Double-Decker Bus', 'Trolley', 'Train',
+    'Subway', 'Bullet Train', 'Steam Engine', 'Monorail', 'Cable Car', 'Truck', 'Monster Truck',
+    'Fire Truck', 'Police Car', 'Ambulance', 'Tow Truck', 'Garbage Truck', 'Dump Truck',
+    'Cement Mixer', 'Forklift', 'Bulldozer', 'Excavator', 'Mail Truck', 'Ice Cream Truck',
+    'Sailboat', 'Yacht', 'Canoe', 'Kayak', 'Rowboat', 'Gondola', 'Speedboat', 'Jet Ski', 'Ferry',
+    'Cruise Ship', 'Airplane', 'Helicopter', 'Hot Air Balloon', 'Blimp', 'Submarine', 'Parachute',
+    'Snowplow', 'Snowmobile', 'Zamboni', 'Ski Lift', 'Golf Cart', 'Red Wagon', 'Hoverboard',
+    'Segway', 'Skateboard', 'Kick Scooter', 'Bicycle', 'Tandem Bike', 'Tricycle', 'Unicycle',
+    'Motorcycle', 'Race Car', 'Limousine', 'Horse and Buggy', 'RV', 'Parade Float'],
 };
+/* Decoy pairs: words at even index i pair with i+1. Keep counts even per category. */
+const NON_KID_CATS = new Set(['Foods of the World', 'Countries', 'Cities of the World', 'Famous Landmarks', 'Hobbies', 'Music & Dance', 'Internet & Social Media', 'Movies & TV', 'Personality Types']);
+const KID_HARD = new Set(['Acai Bowl', 'Accountant', 'Algebra', 'Ambidextrous', 'Aphid', 
+  'Appendix', 'Argyle', 'Arnold Palmer', 'Banshee', 'Basilisk', 'Billiards', 'Biology', 
+  'Calculator Watch', 'Cassette Tape', 'Castanets', 'Chai', 'Chemistry', 'Chevron', 'Chimera', 
+  'City Hall', 'Clamp', 'Colander', 'Cold Brew', 'Courthouse', 'Cricket', 'Curling', 'Danish', 
+  'Decluttering', 'Detention', 'Dry Cleaner', 'Déjà Vu', 'Early Bird Special', 'Eggs Benedict', 
+  'Espresso', 'FOMO', 'Fencing', 'Frappé', 'Geometry', 'Golem', 'Grits', 'Harpy', 'Holographic', 
+  'Homecoming', 'Homeroom', 'Horchata', 'Katydid', 'Kombucha', 'Landline', 'Laundromat', 
+  'Lazy Susan', 'Mango Lassi', 'Matcha', 'Mocktail', 'Nebula', 'Nostalgic', 'Oboe', 'Ombre', 
+  'Pole Vault', 'Prom', 'Quiche', 'Rain Check', 'Record Player', 'Rotary Phone', 'Rugby', 
+  'Salad Spinner', 'Scone', 'Shot Put', 'Stud Finder', 'Study Hall', 'Supernova', 'Tardy Slip', 
+  'Thai Iced Tea', 'Typewriter', 'VHS Tape', 'Valkyrie', 'Vise', 'Weevil']);
 
 /* ---------- state ---------- */
 const state = {
-  themeId: 'parlor', mode: 'auto', screen: 'intro',
+  themeId: 'parlor', mode: 'auto', screen: 'intro', sound: true,
   cfg: { players: 4, names: ['', '', '', ''], impostors: 1, timerOn: true, dur: 180 },
-  session: null,      // { names[], K, timerOn, dur } — locked in at Start Game
-  round: null,        // { cat, word, imp:Set, viewed:Set }
+  mods: { decoy: false, kid: false, jester: false, accomplices: false, blackout: false, written: false, blitz: false, scramble: false },
+  session: null,
+  round: null,        // { cat, word, decoy, imp:Set, jester, order[], viewed:Set, clues, outcome, deltas, accused }
   roundNo: 0,
-  used: new Set(), lastKey: null,   // word rotation (no repeats until exhausted)
+  scores: [], stats: [], history: [], prevRank: null,
+  used: new Set(), lastKey: null,
   cur: 0, sel: new Set(),
 };
-const SCREENS = ['intro', 'setup', 'roster', 'reveal', 'discussion', 'voting', 'results'];
+const INCOMPAT = { decoy: ['blackout', 'accomplices'], blackout: ['decoy'], accomplices: ['decoy'], written: ['blitz'], blitz: ['written'] };
+const SCREENS = ['intro', 'setup', 'roster', 'reveal', 'discussion', 'voting', 'results',
+  'standings', 'podium', 'final', 'awards', 'history', 'blitz', 'clues', 'clueentry'];
 const RING_C = 2 * Math.PI * 104;
 
 /* ---------- audio & haptics ---------- */
@@ -1398,7 +1662,7 @@ document.addEventListener('pointerdown', () => {
   if (AC && AC.state === 'suspended') AC.resume();
 }, { passive: true });
 function tone(f, type, dur, gain, at = 0) {
-  if (!AC) return;
+  if (!AC || !state.sound) return;
   try {
     const t0 = AC.currentTime + at;
     const o = AC.createOscillator(), g = AC.createGain();
@@ -1416,6 +1680,9 @@ const sndThud = () => { tone(120, 'triangle', .22, .2); tone(58, 'sine', .26, .1
 const sndTimerEnd = () => { tone(880, 'square', .12, .07); tone(880, 'square', .12, .07, .22); tone(660, 'square', .22, .07, .44); };
 const sndWin  = () => [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, 'triangle', .2, .1, i * .085));
 const sndLose = () => { tone(196, 'triangle', .32, .14); tone(146.8, 'triangle', .5, .14, .26); };
+const sndFanfare = () => [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5, 1318.5].forEach((f, i) => tone(f, 'triangle', .22, .11, i * .11));
+const sndWhoosh = () => { tone(240, 'sine', .18, .06); tone(480, 'sine', .16, .05, .07); };
+const sndDrum = (n) => { for (let i = 0; i < n; i++) tone(220, 'triangle', .05, .07, i * .09); };
 
 /* ---------- theme application ---------- */
 const mq = matchMedia('(prefers-color-scheme: dark)');
@@ -1461,12 +1728,13 @@ function markMode() {
 /* ---------- screen router ---------- */
 function show(name) {
   if (state.screen === 'discussion' && name !== 'discussion') stopTimer();
+  if (state.screen === 'blitz' && name !== 'blitz') stopBlitz();
   if (state.screen === 'results' && name !== 'results') resultsCleanup();
   state.screen = name;
   SCREENS.forEach(n => $('s-' + n).classList.toggle('active', n === name));
   const sa = $('s-' + name).querySelector('.scrollarea, .stage');
   if (sa) sa.scrollTop = 0;
-  $('gearBtn').hidden = !(state.round && ['roster', 'reveal', 'discussion', 'voting'].includes(name));
+  $('gearBtn').hidden = !(state.round && ['roster', 'reveal', 'discussion', 'voting', 'blitz', 'clues', 'clueentry'].includes(name));
   closePop();
 }
 
@@ -1486,12 +1754,63 @@ function renderNames() {
     inp.placeholder = 'Player ' + (i + 1);
     inp.autocapitalize = 'words'; inp.autocomplete = 'off'; inp.enterKeyHint = 'next';
     inp.value = state.cfg.names[i] || '';
-    inp.addEventListener('input', () => { state.cfg.names[i] = inp.value; validateSetup(); });
+    inp.addEventListener('input', () => { state.cfg.names[i] = inp.value; validateSetup(); saveRoster(); });
     row.appendChild(inp);
+    if (n > 3) {
+      const x = document.createElement('button');
+      x.className = 'name-x'; x.type = 'button'; x.setAttribute('aria-label', 'Remove player');
+      x.textContent = '\u00d7';
+      x.addEventListener('click', () => {
+        const nm = (state.cfg.names[i] || '').trim() || ('Player ' + (i + 1));
+        confirmDlg('Remove ' + nm + '?', 'Their score goes with them. Everyone else keeps theirs.', 'Remove', () => {
+          state.cfg.names.splice(i, 1);
+          state.scores.splice(i, 1);
+          state.stats.splice(i, 1);
+          state.cfg.players--;
+          state.cfg.impostors = Math.min(state.cfg.impostors, state.cfg.players - 1);
+          $('pCount').value = state.cfg.players;
+          $('iCount').value = state.cfg.impostors;
+          state.prevRank = null;
+          renderNames(); syncMods(); saveRoster();
+        });
+      });
+      row.appendChild(x);
+    }
     list.appendChild(row);
   }
   validateSetup();
 }
+function ensurePlayers() {
+  const P = state.cfg.players;
+  while (state.scores.length < P) state.scores.push(0);
+  while (state.stats.length < P) state.stats.push({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0 });
+}
+function saveRoster() {
+  try { localStorage.setItem('impostor.roster', JSON.stringify(state.cfg.names.slice(0, state.cfg.players))); } catch (e) {}
+}
+/* ---------- mods ---------- */
+function setMod(id, on) {
+  state.mods[id] = on;
+  if (on) (INCOMPAT[id] || []).forEach(o => { if (state.mods[o]) { state.mods[o] = false; $('mod_' + o).checked = false; } });
+  syncMods();
+}
+function syncMods() {
+  if (state.cfg.impostors < 2 && state.mods.accomplices) { state.mods.accomplices = false; $('mod_accomplices').checked = false; }
+  $('row_accomplices').classList.toggle('off', state.cfg.impostors < 2);
+  const jOk = state.cfg.players >= state.cfg.impostors + 2;
+  if (!jOk && state.mods.jester) { state.mods.jester = false; $('mod_jester').checked = false; }
+  $('row_jester').classList.toggle('off', !jOk);
+  const n = Object.values(state.mods).filter(Boolean).length;
+  $('modsSub').textContent = n ? (n + ' active') : 'Tap to open';
+}
+/* ---------- wake lock ---------- */
+let wl = null;
+async function wakeLock() {
+  try { if ('wakeLock' in navigator) wl = await navigator.wakeLock.request('screen'); } catch (e) {}
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && state.round) wakeLock();
+});
 function validateSetup() {
   const { players: P, impostors: K, names } = state.cfg;
   let msg = '';
@@ -1499,15 +1818,16 @@ function validateSetup() {
   $('setupHint').textContent = msg;
   $('startBtn').disabled = !!msg;
 }
-function bindStepper(minusId, inputId, plusId, get, set, min = 1) {
+function bindStepper(minusId, inputId, plusId, get, set, min = 1, maxFn = null) {
   const inp = $(inputId);
+  const cap = v => maxFn ? Math.min(maxFn(), v) : v;
   const sync = () => { inp.value = get(); validateSetup(); };
   $(minusId).addEventListener('click', () => { set(Math.max(min, get() - 1)); sync(); });
-  $(plusId).addEventListener('click', () => { set(get() + 1); sync(); });
+  $(plusId).addEventListener('click', () => { set(cap(get() + 1)); sync(); });
   inp.addEventListener('input', () => {
     const digits = inp.value.replace(/\D/g, '');
     if (digits !== inp.value) inp.value = digits;
-    if (digits !== '') { set(clampInt(digits, min)); validateSetup(); }
+    if (digits !== '') { set(cap(clampInt(digits, min))); validateSetup(); }
   });
   inp.addEventListener('blur', sync);
   sync();
@@ -1520,26 +1840,54 @@ function syncDur() {
 }
 
 /* ---------- round engine ---------- */
-function pickWord() {
-  const all = [];
-  for (const cat in WORDS) for (const w of WORDS[cat]) all.push({ cat, w, key: cat + '¦' + w });
-  let avail = all.filter(p => !state.used.has(p.key));
-  if (!avail.length) {                       // library exhausted → reshuffle
-    state.used.clear();
-    avail = all.filter(p => p.key !== state.lastKey);
-    if (!avail.length) avail = all;
+function pickRound() {
+  const decoy = state.mods.decoy, kid = state.mods.kid;
+  const pool = [];
+  for (const cat in WORDS) {
+    if (kid && NON_KID_CATS.has(cat)) continue;
+    const ws = WORDS[cat];
+    if (decoy) {
+      for (let i = 0; i + 1 < ws.length; i += 2) {
+        if (kid && (KID_HARD.has(ws[i]) || KID_HARD.has(ws[i + 1]))) continue;
+        pool.push({ cat, a: ws[i], b: ws[i + 1], key: cat + '\u00a6' + ws[i] });
+      }
+    } else {
+      for (const w of ws) {
+        if (kid && KID_HARD.has(w)) continue;
+        pool.push({ cat, a: w, b: null, key: cat + '\u00a6' + w });
+      }
+    }
   }
-  const p = rand(avail);
-  state.used.add(p.key); state.lastKey = p.key;
-  return p;
+  let avail = pool.filter(q => !state.used.has(q.key));
+  if (!avail.length) {
+    state.used.clear();
+    avail = pool.filter(q => q.key !== state.lastKey);
+    if (!avail.length) avail = pool;
+  }
+  const q = rand(avail);
+  state.used.add(q.key); state.lastKey = q.key;
+  let a = q.a, b = q.b;
+  if (b && Math.random() < .5) { const t = a; a = b; b = t; }
+  return { cat: q.cat, word: a, decoy: b };
 }
 function newRound() {
   state.roundNo++;
-  const p = pickWord();
-  const order = shuffle([...Array(state.session.names.length).keys()]);
-  state.round = { cat: p.cat, word: p.w, imp: new Set(order.slice(0, state.session.K)), viewed: new Set() };
+  ensurePlayers();
+  const p = pickRound();
+  const N = state.session.names.length, K = state.session.K;
+  const deal = shuffle([...Array(N).keys()]);
+  const imp = new Set(deal.slice(0, K));
+  const jester = (state.mods.jester && N >= K + 2) ? deal[K] : -1;
+  const startAt = Math.floor(Math.random() * N);
+  const order = state.mods.scramble
+    ? shuffle([...Array(N).keys()])
+    : [...Array(N).keys()].map(i => (startAt + i) % N);
+  state.round = { cat: p.cat, word: p.word, decoy: p.decoy, imp, jester, order,
+    viewed: new Set(), clues: state.mods.written ? Array(N).fill(null) : null,
+    outcome: null, deltas: null, accused: null };
   renderRoster();
   show('roster');
+  wakeLock();
 }
 
 /* ---------- roster (pass the phone) ---------- */
@@ -1566,15 +1914,35 @@ function openReveal(i) {
   const K = state.session.K;
   $('revChip').innerHTML = `${maskSVG(22, 17)} ${K} impostor${K === 1 ? '' : 's'} this round`;
   const body = $('roleBody');
-  if (state.round.imp.has(i)) {
-    body.innerHTML = `${maskSVG(56, 42).replace('<svg', '<svg style="color:var(--accent)"')}
-      <div class="imp-title">You&rsquo;re the impostor</div>
-      <div class="cat">Category &middot; ${esc(state.round.cat)}</div>
-      <div class="tip">You don&rsquo;t know the word. Nod along, blend in.</div>`;
-  } else {
-    body.innerHTML = `<div class="cat">Category &middot; ${esc(state.round.cat)}</div>
-      <div class="word">${esc(state.round.word)}</div>
+  const r = state.round;
+  const innocentCard = w => `<div class="cat">Category &middot; ${esc(r.cat)}</div>
+      <div class="word">${esc(w)}</div>
       <div class="tip">Hint at it carefully &mdash; never say it.</div>`;
+  if (i === r.jester) {
+    body.innerHTML = `<div class="imp-title" style="font-size:26px">\u{1F0CF}</div>
+      <div class="imp-title">You&rsquo;re the Jester</div>
+      <div class="cat">Category &middot; ${esc(r.cat)}</div>
+      <div class="word">${esc(r.word)}</div>
+      <div class="tip">Win by getting voted out (+2). Draw suspicion &mdash; but never vote for yourself.</div>`;
+  } else if (r.imp.has(i)) {
+    if (r.decoy) {
+      body.innerHTML = innocentCard(r.decoy);   // decoy: looks exactly like an innocent card
+    } else if (state.mods.blackout) {
+      const pals = state.mods.accomplices && r.imp.size > 1
+        ? `<div class="cat">With you &middot; ${[...r.imp].filter(x => x !== i).map(x => esc(state.session.names[x])).join(', ')}</div>` : '';
+      body.innerHTML = `${maskSVG(56, 42).replace('<svg', '<svg style="color:var(--accent)"')}
+        <div class="imp-title">You&rsquo;re the impostor</div>${pals}
+        <div class="tip">No category. No word. Pure bluff &mdash; good luck.</div>`;
+    } else {
+      const pals = state.mods.accomplices && r.imp.size > 1
+        ? `<div class="cat">With you &middot; ${[...r.imp].filter(x => x !== i).map(x => esc(state.session.names[x])).join(', ')}</div>` : '';
+      body.innerHTML = `${maskSVG(56, 42).replace('<svg', '<svg style="color:var(--accent)"')}
+        <div class="imp-title">You&rsquo;re the impostor</div>
+        <div class="cat">Category &middot; ${esc(r.cat)}</div>${pals}
+        <div class="tip">You don&rsquo;t know the word. Nod along, blend in.</div>`;
+    }
+  } else {
+    body.innerHTML = innocentCard(r.word);
   }
   const card = $('flipCard'), inner = card.querySelector('.flip-inner');
   inner.style.transition = 'none';
@@ -1603,6 +1971,16 @@ function enterDiscussion() {
   sec.classList.remove('done');
   $('voteBtn').classList.remove('attn');
   $('discCat').textContent = 'Category · ' + state.round.cat;
+  const ord = state.round.order.map(i => state.session.names[i]);
+  $('orderLine').textContent = state.mods.scramble
+    ? '\u{1F500} Order: ' + ord.join(' \u2192 ')
+    : '\u{1F3B2} ' + ord[0] + ' starts \u2014 then go clockwise';
+  const cb = $('clueBoard');
+  if (state.round.clues) {
+    cb.classList.add('on');
+    cb.innerHTML = state.round.order.map(i =>
+      `<div class="clue-row"><b>${esc(state.session.names[i])}</b><span>${esc(state.round.clues[i] || '\u2026')}</span></div>`).join('');
+  } else { cb.classList.remove('on'); cb.innerHTML = ''; }
   const onT = state.session.timerOn;
   $('discTimerWrap').style.display = onT ? '' : 'none';
   $('discOpenWrap').style.display = onT ? 'none' : '';
@@ -1621,7 +1999,10 @@ function startTimer(total) {
 }
 function tickTimer() {
   if (!timer.running) return;
+  const prev = Math.ceil(timer.remaining);
   timer.remaining = Math.max(0, (timer.endAt - Date.now()) / 1000);
+  const now = Math.ceil(timer.remaining);
+  if (now < prev && now > 0 && now <= 5) { sndTick(); buzz(25); }
   renderTimer();
   if (timer.remaining <= 0) finishTimer();
 }
@@ -1652,6 +2033,87 @@ $('pauseBtn').addEventListener('click', () => {
   }
 });
 $('voteBtn').addEventListener('click', () => { stopTimer(); enterVoting(); });
+
+/* ---------- blitz ---------- */
+let blitzT = [];
+function stopBlitz() { blitzT.forEach(clearInterval); blitzT.forEach(clearTimeout); blitzT = []; }
+function runBlitz() {
+  stopBlitz();
+  $('blitzCat').textContent = 'Category · ' + state.round.cat;
+  show('blitz');
+  const ord = state.round.order;
+  let idx = 0;
+  const step = () => {
+    if (state.screen !== 'blitz') return;
+    if (idx >= ord.length) { enterVoting(); return; }
+    $('blitzName').textContent = state.session.names[ord[idx]];
+    let n = 5;
+    $('blitzCount').textContent = n;
+    sndDing(); buzz(40);
+    const iv = setInterval(() => {
+      n--;
+      if (n <= 0) {
+        clearInterval(iv);
+        idx++;
+        sndThud(); buzz(70);
+        blitzT.push(setTimeout(step, 420));
+      } else { $('blitzCount').textContent = n; sndTick(); }
+    }, 1000);
+    blitzT.push(iv);
+  };
+  step();
+}
+$('blitzAbort').addEventListener('click', () => {
+  confirmDlg('Scrap this round?', 'No points. A fresh word is dealt to the same players.', 'Scrap It', () => {
+    stopBlitz(); state.roundNo--; newRound();
+  });
+});
+
+/* ---------- written clues ---------- */
+function enterClues() {
+  const grid = $('clueGrid');
+  grid.innerHTML = '';
+  state.session.names.forEach((name, i) => {
+    const b = document.createElement('button');
+    b.className = 'pbtn' + (state.round.clues[i] != null ? ' done' : '');
+    b.innerHTML = `<span class="tick">${ICON.check}</span>${esc(name)}`;
+    b.addEventListener('click', () => {
+      state.cur = i;
+      $('clueName').textContent = name;
+      $('clueInput').value = state.round.clues[i] || '';
+      show('clueentry');
+      setTimeout(() => $('clueInput').focus(), 120);
+    });
+    grid.appendChild(b);
+  });
+  $('clueCTA').classList.toggle('show', state.round.clues.every(c => c != null));
+  show('clues');
+}
+$('clueSave').addEventListener('click', () => {
+  state.round.clues[state.cur] = $('clueInput').value.trim() || '\u2014';
+  sndTick(); enterClues();
+});
+$('clueBack').addEventListener('click', () => enterClues());
+$('clueCTA').addEventListener('click', () => {
+  if (state.mods.blitz) runBlitz(); else enterDiscussion();
+});
+$('scrapBtn1').addEventListener('click', () => {
+  confirmDlg('Scrap this round?', 'No points. A fresh word is dealt to the same players.', 'Scrap It', () => {
+    stopTimer(); state.roundNo--; newRound();
+  });
+});
+$('scrapBtn2').addEventListener('click', () => {
+  confirmDlg('Scrap this round?', 'No points. A fresh word is dealt to the same players.', 'Scrap It', () => {
+    state.roundNo--; newRound();
+  });
+});
+$('hungBtn').addEventListener('click', () => {
+  confirmDlg('Hung jury?', 'The table can\u2019t agree. Every impostor escapes with 1 point.', 'Call It', () => {
+    applyOutcome([], true);
+    show('results');
+    playResults([]);
+  });
+});
 
 /* ---------- voting ---------- */
 function enterVoting() {
@@ -1686,11 +2148,41 @@ function updateVote() {
   $('voteCount').textContent = `${state.sel.size} of ${K} selected`;
   $('voteSubmit').disabled = state.sel.size !== K;
 }
+function applyOutcome(accused, hung = false) {
+  const r = state.round, imp = r.imp, N = state.session.names.length;
+  ensurePlayers();
+  const escaped = [...imp].filter(i => !accused.includes(i));
+  const jCaught = r.jester >= 0 && accused.includes(r.jester);
+  const deltas = Array(N).fill(0);
+  let outcome;
+  if (hung) {
+    outcome = 'hung';
+    imp.forEach(i => { deltas[i] += 1; });
+  } else if (escaped.length === 0) {
+    outcome = 'innocents';
+    for (let i = 0; i < N; i++) if (!imp.has(i) && i !== r.jester) deltas[i] += 1;
+  } else {
+    outcome = jCaught ? 'jester' : 'impostors';
+    escaped.forEach(i => { deltas[i] += 2; });
+    if (jCaught) deltas[r.jester] += 2;
+  }
+  imp.forEach(i => {
+    state.stats[i].imp++;
+    if (!hung && accused.includes(i)) state.stats[i].caught++; else state.stats[i].esc++;
+  });
+  accused.forEach(i => { if (!imp.has(i) && i !== r.jester) state.stats[i].scape++; });
+  if (jCaught) state.stats[r.jester].jester++;
+  deltas.forEach((d, i) => { state.scores[i] += d; });
+  r.outcome = outcome; r.deltas = deltas; r.accused = accused.slice();
+  state.history.push({ no: state.roundNo, cat: r.cat, word: r.word, decoy: r.decoy,
+    imp: [...imp].sort((a, b) => a - b), jester: r.jester, accused: accused.slice(),
+    outcome, names: state.session.names.slice() });
+}
 $('voteSubmit').addEventListener('click', () => {
   const accused = [...state.sel].sort((a, b) => a - b);
-  const win = accused.length === state.round.imp.size && accused.every(i => state.round.imp.has(i));
+  applyOutcome(accused);
   show('results');
-  playResults(accused, win);
+  playResults(accused);
 });
 
 /* ---------- results choreography ---------- */
@@ -1707,8 +2199,10 @@ function letterize(el, word, base) {
   });
   return base + word.length;
 }
-function playResults(accused, win) {
+function playResults(accused) {
   resultsCleanup();
+  const outcome = state.round.outcome;
+  const win = outcome === 'innocents';
   const sec = $('s-results');
   const RM = reduceMotion();
   const names = state.session.names, imp = state.round.imp, K = state.session.K;
@@ -1716,13 +2210,13 @@ function playResults(accused, win) {
   // accused cards (face-down truth)
   const row = $('accusedRow');
   accused.forEach((i, n) => {
-    const isImp = imp.has(i);
+    const isImp = imp.has(i), isJ = i === state.round.jester;
     const c = document.createElement('div');
     c.className = 'acard rise';
     c.style.setProperty('--i', n);
     c.innerHTML = `<div class="ainner">
         <div class="aface"><span class="aname">${esc(names[i])}</span><span class="arole">Accused</span></div>
-        <div class="aface aback ${isImp ? 'imp' : 'inno'}">${isImp ? maskSVG(30, 23) : ''}<span class="aname">${esc(names[i])}</span><span class="arole">${isImp ? 'Impostor' : 'Innocent'}</span></div>
+        <div class="aface aback ${isImp ? 'imp' : 'inno'}">${isImp ? maskSVG(30, 23) : (isJ ? '<span style="font-size:24px">\u{1F0CF}</span>' : '')}<span class="aname">${esc(names[i])}</span><span class="arole">${isImp ? 'Impostor' : (isJ ? 'Jester' : 'Innocent')}</span></div>
       </div>`;
     row.appendChild(c);
   });
@@ -1731,14 +2225,16 @@ function playResults(accused, win) {
   $('realList').innerHTML = [...imp].sort((a, b) => a - b)
     .map(i => `<div class="real-row">${maskSVG(26, 20)}<span>${esc(names[i])}</span></div>`).join('');
   $('wordLine').innerHTML = `The word was <b>&ldquo;${esc(state.round.word)}&rdquo;</b> &middot; ${esc(state.round.cat)}`;
-  $('accLine').textContent = 'The table accused: ' + accused.map(i => names[i]).join(', ');
+  $('accLine').textContent = accused.length ? ('The table accused: ' + accused.map(i => names[i]).join(', ')) : 'The table couldn\u2019t agree on anyone.';
+  if (state.round.decoy) $('wordLine').innerHTML += ` &middot; decoy was <b>&ldquo;${esc(state.round.decoy)}&rdquo;</b>`;
 
   const hits = accused.filter(i => imp.has(i)).length;
-  const line1 = win ? 'Innocents' : (K > 1 ? 'Impostors' : 'Impostor');
-  const line2 = win ? 'Win' : (K > 1 ? 'Win' : 'Wins');
-  const sub = win ? 'Every impostor, caught.'
-    : hits === 0 ? 'Not one. The table got played.'
-    : 'Some — but not all of them.';
+  let line1, line2, sub;
+  if (outcome === 'innocents') { line1 = 'Innocents'; line2 = 'Win'; sub = 'Every impostor, caught. +1 each.'; }
+  else if (outcome === 'jester') { line1 = 'Jester'; line2 = 'Wins'; sub = `${state.session.names[state.round.jester]} wanted those votes. +2 \u2014 and the impostor walked.`; }
+  else if (outcome === 'hung') { line1 = 'Hung'; line2 = 'Jury'; sub = 'No agreement. The impostors slip away with +1.'; }
+  else { line1 = K > 1 ? 'Impostors' : 'Impostor'; line2 = K > 1 ? 'Win' : 'Wins';
+    sub = hits === 0 ? 'Not one caught. +2 to every impostor.' : 'The ones who got away take +2.'; }
   const washBG = win
     ? 'radial-gradient(130% 130% at 50% 26%, var(--win) 0%, var(--win-deep) 72%)'
     : 'radial-gradient(130% 130% at 50% 26%, var(--lose) 0%, var(--lose-deep) 72%)';
@@ -1806,8 +2302,158 @@ function resultsCleanup() {
   const row = $('accusedRow');
   row.style.cssText = ''; row.innerHTML = '';
 }
-$('againBtn').addEventListener('click', () => { sndTick(); newRound(); });
-$('setupBtn2').addEventListener('click', () => { state.round = null; show('setup'); validateSetup(); });
+$('standBtn').addEventListener('click', () => { sndTick(); enterStandings(); });
+
+/* ---------- standings ---------- */
+function rankOrder() {
+  const s = state.scores, st = state.stats, nm = state.session ? state.session.names : state.cfg.names;
+  return [...Array(nm.length).keys()].sort((a, b) =>
+    (s[b] || 0) - (s[a] || 0) ||
+    ((st[b].esc + st[b].jester) - (st[a].esc + st[a].jester)) ||
+    (st[a].scape - st[b].scape) ||
+    String(nm[a]).localeCompare(String(nm[b])));
+}
+function standRow(pi, pos, delta, move) {
+  const nm = state.session.names[pi];
+  const mv = move > 0 ? `<span class="mv up">\u2191${move}</span>` : move < 0 ? `<span class="mv dn">\u2193${-move}</span>` : '<span class="mv eq">\u2013</span>';
+  const dl = delta ? `<span class="dl">+${delta}</span>` : '';
+  return `<span class="rk">${pos + 1}</span><span class="nm">${esc(nm)}</span>${dl}${mv}<span class="pts">${state.scores[pi]}</span>`;
+}
+function enterStandings() {
+  const ord = rankOrder();
+  const prev = state.prevRank || ord;
+  $('standChip').textContent = 'After Round ' + state.roundNo;
+  const list = $('standList');
+  list.innerHTML = '';
+  const rows = [];
+  ord.forEach((pi, pos) => {
+    const row = document.createElement('div');
+    row.className = 'stand-row' + (pos === 0 ? ' r1' : '');
+    const move = prev.indexOf(pi) - pos;
+    row.innerHTML = standRow(pi, pos, state.round && state.round.deltas ? state.round.deltas[pi] : 0, move);
+    list.appendChild(row); rows.push(row);
+  });
+  show('standings');
+  if (!reduceMotion()) {
+    requestAnimationFrame(() => {
+      const gap = 9, rh = rows[0] ? rows[0].offsetHeight + gap : 0;
+      rows.forEach((row, pos) => {
+        const dy = (prev.indexOf(ord[pos]) - pos) * rh;
+        if (dy) {
+          row.style.transition = 'none';
+          row.style.transform = `translateY(${dy}px)`;
+          requestAnimationFrame(() => {
+            row.style.transition = 'transform .65s var(--ease)';
+            row.style.transform = '';
+          });
+        }
+      });
+    });
+    sndWhoosh();
+  }
+  state.prevRank = ord;
+}
+$('nextRoundBtn').addEventListener('click', () => { sndTick(); newRound(); });
+$('stSetupBtn').addEventListener('click', () => { state.round = null; show('setup'); validateSetup(); });
+$('finishBtn').addEventListener('click', () => { sndTick(); startPodium(); });
+
+/* ---------- podium & finale ---------- */
+function startPodium() {
+  const ord = rankOrder();
+  state.finalOrd = ord;
+  const wrap = $('podiumWrap');
+  const mk = (pi, cls, medal) => `<div class="pod ${cls}">
+      <span class="medal">${medal}</span>
+      <span class="pname">${esc(state.session.names[pi])}</span>
+      <span class="ppts">${state.scores[pi]} pts</span>
+      <div class="bar">${cls === 'p1' ? '1' : cls === 'p2' ? '2' : '3'}</div>
+    </div>`;
+  wrap.innerHTML = mk(ord[1], 'p2', '\u{1F948}') + mk(ord[0], 'p1', '\u{1F3C6}') + mk(ord[2], 'p3', '\u{1F949}');
+  $('podiumNext').classList.remove('show');
+  show('podium');
+  const pods = wrap.querySelectorAll('.pod');
+  const seq = [
+    [600, () => { pods[2].classList.add('in'); sndThud(); buzz(40); }],
+    [1500, () => { pods[0].classList.add('in'); sndThud(); buzz(40); }],
+    [2400, () => sndDrum(6)],
+    [3100, () => { pods[1].classList.add('in'); sndFanfare(); buzz([50, 60, 50, 60, 160]); confettiStart(); }],
+    [3800, () => $('podiumNext').classList.add('show')],
+  ];
+  if (reduceMotion()) { pods.forEach(p2 => p2.classList.add('in')); $('podiumNext').classList.add('show'); return; }
+  seq.forEach(([ms, fn]) => rT(fn, ms));
+}
+$('podiumNext').addEventListener('click', () => {
+  confettiStop();
+  const list = $('finalList');
+  list.innerHTML = '';
+  state.finalOrd.forEach((pi, pos) => {
+    const row = document.createElement('div');
+    row.className = 'stand-row rise' + (pos === 0 ? ' r1' : '');
+    row.style.setProperty('--i', Math.min(pos, 10));
+    row.innerHTML = standRow(pi, pos, 0, 0).replace(/<span class="mv[^<]*<\/span>/, '');
+    list.appendChild(row);
+  });
+  show('final');
+});
+$('awardsBtn').addEventListener('click', () => { renderAwards(); show('awards'); });
+
+/* ---------- awards ---------- */
+function computeAwards() {
+  const S = state.stats, N = state.session.names, out = [];
+  const top = (fn, icon, label, desc) => {
+    let best = 0, bi = -1;
+    N.forEach((_, i) => { const v = fn(i); if (v > best) { best = v; bi = i; } });
+    if (bi >= 0) out.push({ icon, label, name: N[bi], desc: desc(best) });
+  };
+  top(i => S[i].imp, '\u{1F576}\uFE0F', 'Most Wanted', v => `Drew the impostor card ${v}\u00d7`);
+  let mn = 1e9, mi = -1;
+  N.forEach((_, i) => { if (S[i].imp < mn) { mn = S[i].imp; mi = i; } });
+  if (mi >= 0) out.push({ icon: '\u{1F607}', label: 'Pure of Heart', name: N[mi], desc: mn ? `Impostor only ${mn}\u00d7` : 'Never once the impostor' });
+  top(i => S[i].esc, '\u{1F3C3}', 'Escape Artist', v => `Slipped the vote ${v}\u00d7`);
+  top(i => S[i].scape, '\u{1F3AF}', 'The Scapegoat', v => `Wrongly voted out ${v}\u00d7`);
+  top(i => S[i].caught, '\u{1F6A8}', 'Caught Red-Handed', v => `Busted ${v}\u00d7`);
+  top(i => S[i].jester, '\u{1F0CF}', 'Agent of Chaos', v => `Jester wins: ${v}`);
+  return out;
+}
+function renderAwards() {
+  const list = $('awardList');
+  list.innerHTML = '';
+  computeAwards().forEach((a, i) => {
+    const c = document.createElement('div');
+    c.className = 'award-card rise';
+    c.style.setProperty('--i', Math.min(i, 8));
+    c.innerHTML = `<span class="aico">${a.icon}</span><div><div class="at">${a.label}</div><div class="an">${esc(a.name)}</div><div class="ad">${a.desc}</div></div>`;
+    list.appendChild(c);
+  });
+}
+$('newGameBtn').addEventListener('click', () => {
+  confirmDlg('Start a new game?', 'Scores, stats, and history reset. The roster stays.', 'New Game', () => {
+    state.scores = state.scores.map(() => 0);
+    state.stats = state.stats.map(() => ({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0 }));
+    state.history = []; state.prevRank = null; state.roundNo = 0; state.round = null;
+    show('setup'); validateSetup();
+  });
+});
+
+/* ---------- history ---------- */
+const OUT_ICON = { innocents: '\u2705', impostors: '\u{1F576}\uFE0F', jester: '\u{1F0CF}', hung: '\u2696\uFE0F' };
+$('histBtn').addEventListener('click', () => {
+  const list = $('histList');
+  list.innerHTML = state.history.length ? '' : '<p class="sub-lead">No rounds on record yet.</p>';
+  [...state.history].reverse().forEach(hh => {
+    const row = document.createElement('div');
+    row.className = 'hist-row';
+    const jn = hh.jester >= 0 ? ` &middot; \u{1F0CF} ${esc(hh.names[hh.jester])}` : '';
+    const dec = hh.decoy ? ` <span class="hd">(decoy: ${esc(hh.decoy)})</span>` : '';
+    row.innerHTML = `<div class="hw">${OUT_ICON[hh.outcome] || ''} Round ${hh.no} &middot; &ldquo;${esc(hh.word)}&rdquo;${dec}</div>
+      <div class="hd">${esc(hh.cat)}</div>
+      <div>Impostor${hh.imp.length > 1 ? 's' : ''}: ${hh.imp.map(i => esc(hh.names[i])).join(', ')}${jn}</div>
+      <div class="hd">Voted: ${hh.accused.length ? hh.accused.map(i => esc(hh.names[i])).join(', ') : '\u2014 (hung jury)'}</div>`;
+    list.appendChild(row);
+  });
+  show('history');
+});
+$('histBack').addEventListener('click', () => show('awards'));
 
 /* ---------- confetti ---------- */
 let fxRaf = null;
@@ -1857,14 +2503,25 @@ function confettiStop() {
 /* ---------- modal / settings ---------- */
 function openModal() { $('modal').classList.add('open'); }
 function closeModal() { $('modal').classList.remove('open'); }
-$('gearBtn').addEventListener('click', openModal);
+$('gearBtn').addEventListener('click', () => {
+  confirmDlg('End this round?', 'You\u2019ll head back to setup. This round\u2019s word and roles are tossed \u2014 scores stay.', 'End Round', () => {
+    stopBlitz(); state.round = null; show('setup'); validateSetup();
+  });
+});
 $('mCancel').addEventListener('click', closeModal);
 $('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+let modalCb = null;
+function confirmDlg(title, body, ok, cb) {
+  $('mTitle').textContent = title;
+  $('mBody').textContent = body;
+  $('mOk').textContent = ok;
+  modalCb = cb;
+  openModal();
+}
 $('mOk').addEventListener('click', () => {
   closeModal();
-  state.round = null;
-  show('setup');
-  validateSetup();
+  const cb = modalCb; modalCb = null;
+  if (cb) cb();
 });
 
 /* ---------- theme popover ---------- */
@@ -1892,6 +2549,23 @@ $('introShare').addEventListener('click', async () => {
     } catch (e) {}
   }
 });
+$('rulesBtn').addEventListener('click', () => $('rulesPop').classList.add('open'));
+$('rulesClose').addEventListener('click', () => $('rulesPop').classList.remove('open'));
+[...$('soundSeg').children].forEach(b => b.addEventListener('click', () => {
+  state.sound = b.dataset.snd === 'on';
+  [...$('soundSeg').children].forEach(x => x.classList.toggle('on', x === b));
+  try { localStorage.setItem('impostor.sound', state.sound ? '1' : '0'); } catch (e) {}
+  sndTick();
+}));
+$('modsHead').addEventListener('click', () => {
+  const open = $('modsBody').classList.toggle('open');
+  $('modsHead').classList.toggle('open', open);
+  $('modsHead').setAttribute('aria-expanded', open);
+});
+Object.keys(state.mods).forEach(id => {
+  const el = $('mod_' + id);
+  if (el) el.addEventListener('change', () => { setMod(id, el.checked); sndTick(); });
+});
 $('startBtn').addEventListener('click', () => {
   const P = state.cfg.players;
   state.session = {
@@ -1900,10 +2574,20 @@ $('startBtn').addEventListener('click', () => {
     timerOn: state.cfg.timerOn,
     dur: state.cfg.dur,
   };
-  state.roundNo = 0;
+  ensurePlayers();
+  saveRoster();
   newRound();
 });
-$('rosterCTA').addEventListener('click', enterDiscussion);
+$('rosterCTA').addEventListener('click', () => {
+  if (state.mods.written) enterClues();
+  else if (state.mods.blitz) runBlitz();
+  else enterDiscussion();
+});
+$('skipWordBtn').addEventListener('click', () => {
+  confirmDlg('Swap the word?', 'A fresh word is drawn and roles are re-dealt. Reveals start over.', 'Swap It', () => {
+    state.roundNo--; newRound();
+  });
+});
 $('timerSwitch').addEventListener('change', () => {
   state.cfg.timerOn = $('timerSwitch').checked;
   $('durField').classList.toggle('open', state.cfg.timerOn);
@@ -1919,9 +2603,27 @@ $('durRange').addEventListener('input', syncDur);
   } catch (e) {}
   if (!THEMES[th]) th = 'parlor';
   if (!['auto', 'light', 'dark'].includes(md)) md = 'auto';
+  try {
+    state.sound = localStorage.getItem('impostor.sound') !== '0';
+    const ro = JSON.parse(localStorage.getItem('impostor.roster') || 'null');
+    if (Array.isArray(ro) && ro.length >= 3) {
+      state.cfg.names = ro.slice(0, 16);
+      state.cfg.players = state.cfg.names.length;
+      $('pCount').value = state.cfg.players;
+    }
+  } catch (e) {}
+  [...$('soundSeg').children].forEach(x => x.classList.toggle('on', (x.dataset.snd === 'on') === state.sound));
   applyTheme(th, md, { first: true });
-  bindStepper('pMinus', 'pCount', 'pPlus', () => state.cfg.players, v => { state.cfg.players = v; renderNames(); }, 3);
-  bindStepper('iMinus', 'iCount', 'iPlus', () => state.cfg.impostors, v => { state.cfg.impostors = v; });
+  ensurePlayers(); syncMods();
+  bindStepper('pMinus', 'pCount', 'pPlus', () => state.cfg.players, v => {
+    state.cfg.players = v;
+    state.prevRank = null;
+    state.cfg.impostors = Math.min(state.cfg.impostors, v - 1);
+    $('iCount').value = state.cfg.impostors;
+    ensurePlayers(); renderNames(); syncMods();
+  }, 3, () => 16);
+  bindStepper('iMinus', 'iCount', 'iPlus', () => state.cfg.impostors,
+    v => { state.cfg.impostors = v; syncMods(); }, 1, () => state.cfg.players - 1);
   renderNames();
   syncDur();
   $('ringFg').style.strokeDasharray = RING_C;

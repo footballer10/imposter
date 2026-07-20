@@ -32,6 +32,34 @@ and 3,300+ words keep the game fresh.
 
 6. **Play again.** New word, new imposter, same phone.
 
+## Scoring
+
+- Innocents catch every imposter: each innocent gets **+1**.
+- An imposter escapes the vote: that imposter gets **+2** (only the ones
+  who got away score).
+- Hung jury (the table can't agree): every imposter gets **+1**.
+- Jester voted out: the jester gets **+2**.
+- Ties are broken by most imposter escapes, then fewest wrongful
+  accusations, then name.
+
+Hit **Finish Game** after any round for the podium, final leaderboard,
+awards, and full round history.
+
+## Mods
+
+Open the **Mods** panel in setup and stack as many as you like
+(incompatible ones switch each other off automatically):
+
+- **Decoy Words** — the imposter gets a close-but-wrong word and has no
+  idea they're the imposter.
+- **Kid Mode** — only categories and words kids can connect to.
+- **Jester** — a secret third role that wins only by getting voted out.
+- **Accomplices** — imposters learn each other's names (needs 2+).
+- **Blackout** — the imposter sees nothing, not even the category.
+- **Written Clues** — everyone types a secret clue; all reveal at once.
+- **Blitz** — 5 seconds each, then straight to the vote.
+- **Scramble Order** — the whole speaking order gets shuffled.
+
 ## Tips
 
 - Vague clues make you look suspicious. Too obvious, and the imposter
