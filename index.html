@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="description" content="Impostor — a pass-and-play party game for one phone. Somebody here doesn't know the word.">
+<meta name="description" content="Impostor. A pass-and-play party game for one phone. Somebody here doesn't know the word.">
 <title>Impostor</title>
 
 <!-- PWA: installable + offline (manifest.json, sw.js, icons/) -->
@@ -22,7 +22,7 @@
 /* ================================================================
    IMPOSTOR · design system
    All colors/type/motion come from CSS variables set by the THEME
-   ENGINE in the script below. Add or edit themes there — not here.
+   ENGINE in the script below. Add or edit themes there, not here.
    ================================================================ */
 
 /* ---- default tokens (Parlor · light) so first paint is clean ---- */
@@ -66,10 +66,10 @@ body.theming, body.theming *{
 .screen{
   position:absolute; inset:0; z-index:1; display:flex; flex-direction:column;
   padding-top:calc(env(safe-area-inset-top) + 10px);
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .3s ease, visibility .3s ease;
+  opacity:0; visibility:hidden; pointer-events:none; transform:translateY(12px);
+  transition:opacity .26s ease, transform .34s var(--ease), visibility .34s;
 }
-.screen.active{opacity:1; visibility:visible; pointer-events:auto}
+.screen.active{opacity:1; visibility:visible; pointer-events:auto; transform:none}
 .scrollarea{
   flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch;
   width:100%; max-width:520px; margin:0 auto; padding:4px 20px 24px;
@@ -185,7 +185,7 @@ body.theming, body.theming *{
 .switch .thumb{
   position:absolute; top:50%; left:4px; width:26px; height:26px; margin-top:-13px; border-radius:50%;
   background:var(--elev); box-shadow:0 2px 6px rgba(0,0,0,.25);
-  transition:transform .25s var(--ease-pop), background-color .25s; pointer-events:none;
+  transition:transform .32s cubic-bezier(.34,1.72,.5,1), background-color .25s; pointer-events:none;
 }
 .switch input:checked + .track{background:var(--accent); border-color:transparent}
 .switch input:checked ~ .thumb{transform:translateX(19px); background:var(--accent-contrast)}
@@ -233,11 +233,11 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 }
 .theme-row.on{border-color:var(--accent); background:var(--accent-soft)}
 .swatches{display:flex; flex:none}
-.dot{width:20px; height:20px; border-radius:50%; margin-left:-7px; border:2px solid var(--elev)}
+.dot{width:18px; height:18px; border-radius:50%; margin-left:-6px; border:2px solid var(--elev)}
 .dot:first-child{margin-left:0}
 .t-meta{flex:1; min-width:0}
 .t-name{font-weight:750; font-size:14.5px}
-.t-blurb{font-size:12px; color:var(--dim)}
+.t-blurb{font-size:12px; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .t-check{flex:none; color:var(--accent); opacity:0; transition:opacity .15s}
 .theme-row.on .t-check{opacity:1}
 
@@ -284,17 +284,20 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 }
 .flip.revealed .face.front::after{animation:none}
 @keyframes cardPulse{50%{transform:scale(1.02); opacity:.45}}
-.face.back{transform:rotateY(180deg); gap:8px}
-.cat{font-size:11.5px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--dim)}
+.face.back{transform:rotateY(180deg); gap:5px}
+.cat{font-size:10.5px; font-weight:800; letter-spacing:.19em; text-transform:uppercase; color:var(--dim); opacity:.7}
 .word{
   font-family:var(--font-display); font-weight:var(--display-weight); letter-spacing:var(--display-track);
-  text-transform:var(--display-case); font-size:clamp(28px,8.6vw,42px); line-height:1.05; overflow-wrap:anywhere;
+  text-transform:var(--display-case); font-size:clamp(32px,11vw,52px); line-height:1.02; overflow-wrap:anywhere;
+  margin:3px 0 2px;
 }
+.face.back .word::before{content:""; display:block; width:24px; height:2px; margin:0 auto 9px;
+  background:var(--accent); opacity:.45; border-radius:2px}
 .imp-title{
   font-family:var(--font-display); font-weight:var(--display-weight); letter-spacing:var(--display-track);
   text-transform:var(--display-case); font-size:clamp(22px,6.6vw,30px); line-height:1.1; color:var(--accent);
 }
-.tip{font-size:13px; color:var(--dim); max-width:230px}
+.tip{font-size:11.5px; line-height:1.35; color:var(--dim); max-width:230px; opacity:.7}
 
 /* ---- discussion ---- */
 .ringbox{position:relative; width:230px; height:230px; margin:14px auto 6px}
@@ -383,9 +386,16 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
   font-family:var(--font-display); font-weight:var(--display-weight); letter-spacing:var(--display-track);
   text-transform:uppercase; font-size:clamp(42px,12.5vw,96px); line-height:1; white-space:nowrap; color:var(--wash-ink,#fff);
 }
-.v-line span{display:inline-block; animation:letterDrop .5s var(--ease-pop) both; animation-delay:calc(var(--i)*45ms)}
+.v-line span{display:inline-block}
 .v-line span.sp{width:.34em}
-@keyframes letterDrop{from{opacity:0; transform:translateY(-44px) scale(1.25)} 60%{opacity:1} to{opacity:1; transform:none}}
+.v-stamp{display:inline-block; animation:stampIn .62s cubic-bezier(.2,1.35,.35,1) both}
+@keyframes stampIn{
+  0%{opacity:0; transform:scale(1.3) rotate(3.5deg)}
+  45%{opacity:1}
+  58%{transform:scale(.965) rotate(-1.8deg)}
+  79%{transform:scale(1.018) rotate(.9deg)}
+  100%{opacity:1; transform:scale(1) rotate(0)}
+}
 .v-sub{margin-top:14px; font-size:17px; font-weight:600; color:var(--wash-ink,#fff); opacity:0; animation:fadeIn .6s ease .55s forwards}
 @keyframes fadeIn{to{opacity:.92}}
 .v-mask{position:absolute; left:50%; top:50%; z-index:-1; transform:translate(-50%,-54%) scale(.6); opacity:0; color:var(--wash-ink,#fff)}
@@ -483,13 +493,16 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 .stand-row .rk{flex:none; width:26px; font-family:var(--font-display); font-weight:800; color:var(--dim); font-size:17px}
 .stand-row.r1 .rk{color:var(--accent)}
 .stand-row .nm{flex:1; font-weight:650; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+#standList .stand-row .nm{cursor:pointer; text-decoration:underline; text-decoration-style:dotted;
+  text-decoration-color:var(--line); text-underline-offset:3px}
+#standList .stand-row .nm:active{opacity:.55}
 .stand-row .pts{font-family:var(--font-display); font-weight:800; font-size:19px}
 .stand-row .dl{flex:none; font-size:12.5px; font-weight:700; padding:3px 8px; border-radius:999px; background:var(--accent-soft); color:var(--accent)}
 .stand-row .mv{flex:none; font-size:12.5px; font-weight:700; width:34px; text-align:right}
 .stand-row .mv.up{color:var(--win)} .stand-row .mv.dn{color:var(--lose)} .stand-row .mv.eq{color:var(--dim)}
 /* ---- podium ---- */
 .podium{display:flex; align-items:flex-end; justify-content:center; gap:12px; width:100%; max-width:360px; height:290px; margin-top:12px}
-.pod{flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; transform:translateY(26px); transition:opacity .5s ease, transform .6s var(--ease-pop)}
+.pod{flex:1; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; transform:translateY(26px); transition:opacity .5s ease, transform .6s var(--ease-pop)}
 .pod.in{opacity:1; transform:none}
 .pod .pname{font-weight:700; font-size:14.5px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .pod .ppts{font-size:12.5px; color:var(--dim)}
@@ -536,8 +549,14 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 .tally-row{display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--elev);
   border:var(--bw,1px) var(--bstyle) var(--line); border-radius:var(--radius); margin-bottom:8px}
 .tally-row .tn{flex:none; width:34%; font-weight:650; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14.5px}
-.tally-row .tbwrap{flex:1; height:14px; background:var(--sunken); border-radius:999px; overflow:hidden}
-.tally-row .tbar{height:100%; width:0%; background:var(--accent); border-radius:999px; transition:width .7s var(--ease)}
+.tally-row .tmarks{flex:1; display:flex; align-items:center; flex-wrap:wrap; gap:0; min-height:24px; color:var(--accent)}
+.tally-row .tmark{display:inline-block; width:3px; height:21px; background:currentColor; border-radius:2px; margin-right:4px;
+  animation:markIn .26s var(--ease-pop) both}
+.tally-row .tmark.five{transform:rotate(-64deg); margin-left:-20px; margin-right:11px; width:3px; height:25px}
+@keyframes markIn{from{opacity:0; transform:scaleY(.2)}to{opacity:1}}
+.tally-row .tmark.five{animation:markIn5 .26s var(--ease-pop) both}
+@keyframes markIn5{from{opacity:0}to{opacity:1; transform:rotate(-64deg)}}
+.tally-row.pulse{border-color:var(--accent)}
 .tally-row .tc{flex:none; width:26px; text-align:right; font-family:var(--font-display); font-weight:800}
 /* ---- reveal clue input ---- */
 #revClueWrap{display:none; width:100%; max-width:320px; margin-top:12px}
@@ -548,7 +567,7 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 #ptsField.open,#timeField.open,#rndField.open{display:block}
 /* ---- categories picker ---- */
 .cat-tools{display:flex; gap:7px; margin:8px 0 8px}
-.cat-tools .btn{flex:1; padding:8px 4px; font-size:12.5px}
+.cat-tools .btn{flex:1; padding:8px 2px; font-size:11.5px; white-space:nowrap}
 .cat-links{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 2px 10px}
 .linkbtn{appearance:none; background:none; border:none; padding:4px 0; font:inherit; font-size:12.5px;
   font-weight:650; color:var(--dim); cursor:pointer; display:flex; align-items:center; gap:5px}
@@ -600,11 +619,206 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 #nameWrap{display:none; margin-bottom:10px}
 #nameWrap.open{display:block}
 #nameWrap .btn-row2{margin-top:8px}
+.btn[disabled],.btn:disabled{opacity:.4; box-shadow:none; cursor:default}
 /* ---- noscript ---- */
 noscript .ns{
   position:fixed; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
   padding:32px; background:#F4EEE1; color:#20291F; font-family:Georgia,serif; font-size:17px; line-height:1.5;
 }
+
+
+/* ════════════════════════════════════════════════════════════════
+   v13 LAYER · summary strip, banned words, volume, motion polish
+   ════════════════════════════════════════════════════════════════ */
+
+/* ---- setup: sticky summary strip ---- */
+.sumstrip{
+  flex:none; position:relative; z-index:5; width:100%; max-width:520px; margin:0 auto;
+  display:flex; align-items:center; gap:6px; padding:0 14px 9px;
+  overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; white-space:nowrap;
+  border-bottom:1px solid var(--line);
+}
+.sumstrip::-webkit-scrollbar{display:none}
+.sumstrip:empty{display:none}
+.sum-chip{
+  flex:none; display:inline-flex; align-items:center; gap:5px; padding:6px 11px; border-radius:99px;
+  background:var(--sunken); color:var(--dim); font-size:11.5px; font-weight:700; line-height:1;
+  animation:chipIn .32s var(--ease-pop) both;
+}
+.sum-chip b{color:var(--text); font-weight:800; font-variant-numeric:tabular-nums}
+.sum-chip.hot{background:var(--accent-soft); color:var(--accent)}
+.sum-chip.hot b{color:var(--accent)}
+@keyframes chipIn{from{opacity:0; transform:translateY(-7px) scale(.93)}to{opacity:1; transform:none}}
+
+/* ---- generic collapse ---- */
+.collapse{overflow:hidden; max-height:0; opacity:0; transition:max-height .4s var(--ease), opacity .28s ease}
+.collapse.open{max-height:1400px; opacity:1}
+
+/* ---- roster progress ---- */
+.prog{width:100%; margin:0 0 14px}
+.prog-track{height:4px; border-radius:99px; background:var(--sunken); overflow:hidden}
+.prog-track span{display:block; height:100%; width:0; border-radius:99px; background:var(--accent);
+  transition:width .45s var(--ease)}
+.prog-txt{margin-top:7px; font-size:12.5px; font-weight:700; color:var(--dim); text-align:center;
+  font-variant-numeric:tabular-nums}
+
+/* ---- roster: cards dealt like a hand ---- */
+@keyframes deal{
+  from{opacity:0; transform:translate(var(--dx,0px),68px) rotate(var(--dr,0deg)) scale(.8)}
+  to{opacity:1; transform:translate(0,0) rotate(0deg) scale(1)}
+}
+.grid-names.dealt .pbtn{animation:deal .54s var(--ease-pop) backwards; animation-delay:calc(var(--i,0)*62ms)}
+
+/* ---- reveal: mods line and chip pulled back ---- */
+#revMods{font-size:11px; letter-spacing:.05em; opacity:.55; margin-bottom:2px}
+#revChip{font-size:12px; padding:6px 13px}
+
+/* ---- voting: collapsed clue board ---- */
+.cluewrap{width:100%; margin:6px 0 10px}
+.cluewrap .linkbtn{margin-bottom:4px}
+.cluewrap.open .clueboard{display:block}
+.cluewrap.open .lchev{transform:rotate(180deg)}
+
+/* ---- discussion: ring pulse on the last ten seconds ---- */
+.ringbox.tick{animation:ringPulse .5s var(--ease-pop)}
+@keyframes ringPulse{0%{transform:scale(1)}30%{transform:scale(1.055)}100%{transform:scale(1)}}
+
+/* ---- results: screen tint flash on an impostor win ---- */
+#tint{position:fixed; inset:0; z-index:78; pointer-events:none; opacity:0; background:var(--lose)}
+#tint.flash{animation:tintFlash .78s ease-out}
+@keyframes tintFlash{0%{opacity:0}9%{opacity:.5}100%{opacity:0}}
+
+/* ---- podium: light sweep across first place ---- */
+.pod.p1::after{
+  content:""; position:absolute; top:0; bottom:0; left:-60%; width:55%; z-index:2; pointer-events:none; opacity:0;
+  background:linear-gradient(104deg, transparent, rgba(255,255,255,.62), transparent);
+}
+.pod.p1.sweep::after{animation:podSweep 1s ease-out both}
+@keyframes podSweep{0%{left:-60%; opacity:0}18%{opacity:1}82%{opacity:1}100%{left:112%; opacity:0}}
+
+/* ---- awards: hero flips in, the rest follow ---- */
+.award-card.hero{
+  background:var(--accent-soft); border-color:var(--accent); box-shadow:var(--shadow);
+  padding:18px; margin-bottom:14px; transform-origin:top center;
+  animation:heroFlip .85s var(--ease) both;
+}
+.award-card.hero .aico{font-size:34px}
+.award-card.hero .at{font-size:19px; color:var(--accent)}
+.award-card.hero .an{font-size:17px; font-weight:800}
+.award-card.hero .ad{color:var(--dim); opacity:.9}
+@keyframes heroFlip{
+  0%{opacity:0; transform:perspective(900px) rotateX(-92deg)}
+  55%{opacity:1; transform:perspective(900px) rotateX(11deg)}
+  78%{transform:perspective(900px) rotateX(-4.5deg)}
+  100%{opacity:1; transform:perspective(900px) rotateX(0)}
+}
+.award-card.rest{opacity:0}
+.award-card.rest.in{animation:rise .5s var(--ease) both; animation-delay:calc(var(--i,0)*80ms)}
+
+/* ---- round splash: mods stagger in ---- */
+#roundSplash .sm2 span{display:inline-block; animation:rise .45s var(--ease) both;
+  animation-delay:calc(var(--i,0)*115ms)}
+
+/* ---- theme picker: button-shape sample ---- */
+.t-sample{
+  flex:none; display:grid; place-items:center; min-width:46px; height:26px; padding:0 10px; line-height:1;
+  font-size:10px; font-weight:800; letter-spacing:.05em; font-family:var(--sfont, inherit);
+  background:var(--sb); color:var(--sf); border:var(--sbw,1px) var(--sbs,solid) transparent;
+  border-radius:var(--srad,4px);
+}
+.t-sample[data-t="heist"]{text-transform:uppercase; letter-spacing:.12em}
+.t-sample[data-t="arcade"]{text-transform:uppercase; box-shadow:0 3px 0 var(--sd); margin-bottom:3px}
+.t-sample[data-t="headline"]{text-transform:uppercase; background:var(--st); color:var(--sbg);
+  box-shadow:inset 0 -3px 0 var(--sb)}
+.t-sample[data-t="doodle"]{transform:rotate(-4.5deg); box-shadow:2px 2px 0 var(--sl)}
+.t-sample[data-t="bubble"]{box-shadow:0 3px 9px var(--sg)}
+
+/* ---- micro-feedback ---- */
+.stepper.bump{animation:bump .38s var(--ease-pop)}
+@keyframes bump{0%,100%{transform:scale(1)}30%{transform:scale(1.07)}62%{transform:scale(.985)}}
+.btn.off{opacity:.42; cursor:default}
+.btn.off, [data-theme] .btn.off{box-shadow:none}
+.btn.off:active{transform:none}
+[data-theme="doodle"] .btn.off:active{transform:rotate(-.6deg)}
+.btn.shk{animation:shake .42s ease}
+
+/* ---- volume ---- */
+.volrow{display:flex; align-items:center; gap:10px; margin-top:12px; padding:2px 4px 0}
+.volrow input[type=range]{flex:1; height:30px}
+.volicon{flex:none; width:30px; height:30px; padding:0; border:0; border-radius:50%; cursor:pointer;
+  background:var(--sunken); color:var(--dim); display:grid; place-items:center}
+.volicon:active{transform:scale(.92)}
+.volicon.muted{background:var(--accent-soft); color:var(--accent)}
+.volval{flex:none; width:24px; text-align:right; font-size:11.5px; font-weight:800; color:var(--dim);
+  font-variant-numeric:tabular-nums}
+.mute-flag{
+  position:absolute; top:calc(env(safe-area-inset-top) + 14px); right:16px; z-index:6;
+  display:inline-flex; align-items:center; gap:6px; padding:6px 11px; border-radius:99px;
+  background:var(--sunken); color:var(--dim); font-size:10.5px; font-weight:800; letter-spacing:.09em;
+  text-transform:uppercase;
+}
+
+/* ---- toast ---- */
+.toast{
+  position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom)); z-index:90;
+  max-width:min(430px, calc(100% - 32px)); padding:13px 18px; text-align:center;
+  background:var(--text); color:var(--bg); border-radius:var(--btn-radius-lg, 10px);
+  font-size:13.5px; font-weight:700; box-shadow:var(--shadow);
+  opacity:0; pointer-events:none; transform:translate(-50%,20px);
+  transition:opacity .25s ease, transform .38s var(--ease-pop);
+}
+.toast.on{opacity:1; transform:translate(-50%,0); pointer-events:auto}
+
+/* ---- big popup (banned words, import) ---- */
+.bigpop{
+  position:fixed; inset:0; z-index:75; display:flex; align-items:center; justify-content:center;
+  padding:calc(16px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom));
+  background:rgba(8,8,6,.55); opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .22s ease, visibility .22s;
+}
+.bigpop.open{opacity:1; visibility:visible; pointer-events:auto}
+.bigcard{
+  display:flex; flex-direction:column; width:min(460px,100%); height:min(86vh,760px);
+  background:var(--bg); border:var(--bw,1px) var(--bstyle) var(--line); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow); overflow:hidden;
+  transform:scale(.94) translateY(12px); transition:transform .3s var(--ease-pop);
+}
+.bigcard.short{height:auto; max-height:86vh}
+.bigpop.open .bigcard{transform:none}
+.b-head{flex:none; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:12px 14px 11px; border-bottom:var(--bw,1px) var(--bstyle) var(--line)}
+.b-search{flex:none; position:relative; padding:13px 14px 8px}
+.b-search .input{width:100%}
+.b-search textarea.input{resize:none; line-height:1.4; font-size:14px}
+.matchlist{
+  position:absolute; left:14px; right:14px; top:calc(100% - 4px); z-index:3; display:none; overflow:hidden;
+  background:var(--elev); border:var(--bw,1px) var(--bstyle) var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.matchlist.on{display:block}
+.match-row{
+  display:flex; align-items:baseline; gap:8px; width:100%; text-align:left; cursor:pointer;
+  background:none; border:0; border-top:1px dashed var(--line); color:var(--text);
+  font:inherit; font-size:14px; font-weight:650; padding:11px 13px;
+}
+.match-row:first-child{border-top:0}
+.match-row:active{background:var(--accent-soft)}
+.match-row em{font-style:normal; font-size:11.5px; font-weight:600; color:var(--dim); margin-left:auto}
+.b-list{flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:8px 14px 12px}
+.b-foot{flex:none; padding:11px 14px calc(13px + env(safe-area-inset-bottom));
+  border-top:var(--bw,1px) var(--bstyle) var(--line); font-size:12.5px; color:var(--dim); text-align:center}
+.ban-row{
+  display:flex; align-items:center; gap:10px; padding:10px 12px; margin-bottom:7px;
+  background:var(--elev); border:var(--bw,1px) var(--bstyle) var(--line); border-radius:var(--radius);
+  animation:rise .3s var(--ease) both;
+}
+.ban-row .bw{flex:1; min-width:0; font-weight:650; font-size:14.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.ban-row .bc{flex:none; font-size:11px; font-weight:650; color:var(--dim)}
+.b-empty{padding:30px 14px; text-align:center; color:var(--dim); font-size:13.5px; line-height:1.5}
+
+/* ---- rules quickstart ---- */
+#rulesPop ol.qs{padding-left:22px; margin:8px 0 4px}
+#rulesPop ol.qs li{margin-bottom:7px; font-weight:600}
 
 /* ---- reduced motion ---- */
 #s-results.instant *, #s-results.instant{transition:none !important; animation:none !important}
@@ -619,6 +833,7 @@ noscript .ns{
 
   <!-- ═══════════ INTRO · how to play ═══════════ -->
   <section class="screen active" id="s-intro">
+    <div id="muteFlag" class="mute-flag" hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>Sound off</div>
     <div class="scrollarea center-col">
       <h1 class="wordmark big rise" style="--i:1">Impostor</h1>
       <p class="tagline rise" style="--i:2">Somebody here doesn&rsquo;t know the word.</p>
@@ -642,6 +857,7 @@ noscript .ns{
       </div>
     </div>
     <div class="bottombar">
+      <button id="introResume" class="btn primary lg" hidden>Resume Game</button>
       <button id="introStart" class="btn primary lg">Let&rsquo;s Play</button>
       <button id="introShare" class="btn quiet lg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:7px"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share with Friends</button>
       <button id="rulesBtn" class="btn quiet">Read the Full Rules</button>
@@ -658,23 +874,27 @@ noscript .ns{
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="8.6" cy="9.8" r="1.4" fill="currentColor" stroke="none"/><circle cx="14.2" cy="7.9" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.4" cy="13.6" r="1.4" fill="currentColor" stroke="none"/><path d="M12 21c0-3.2 2.2-4.1 4.6-3.6"/></svg>
       </button>
     </header>
+    <div id="setupSummary" class="sumstrip" aria-live="polite"></div>
     <div class="scrollarea">
       <div class="field rise" style="--i:0">
         <div class="frow">
-          <div><div class="label">Players</div><div class="sub">Everyone at the table</div></div>
-          <div class="stepper">
+          <div><div class="label">Players</div><div class="sub">3 to 16</div></div>
+          <div class="stepper" id="pStep">
             <button id="pMinus" aria-label="Fewer players"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
             <input id="pCount" inputmode="numeric" autocomplete="off" value="4" aria-label="Number of players">
             <button id="pPlus" aria-label="More players"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
           </div>
         </div>
-        <div id="nameList"></div>
+        <div class="cat-links" style="margin:10px 2px 0">
+          <button class="linkbtn" id="namesToggle" type="button"><svg class="lchev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><span id="namesToggleTxt">Edit names</span></button>
+        </div>
+        <div id="nameWrapper" class="collapse"><div id="nameList"></div></div>
       </div>
 
       <div class="field rise" style="--i:1">
         <div class="frow">
-          <div><div class="label">Impostors</div><div class="sub">They&rsquo;ll only see the category</div></div>
-          <div class="stepper">
+          <div><div class="label">Impostors</div><div class="sub">They only see the category</div></div>
+          <div class="stepper" id="iStep">
             <button id="iMinus" aria-label="Fewer impostors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
             <input id="iCount" inputmode="numeric" autocomplete="off" value="1" aria-label="Number of impostors">
             <button id="iPlus" aria-label="More impostors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -683,22 +903,29 @@ noscript .ns{
       </div>
 
       <div class="field rise" style="--i:2">
-        <div class="frow">
-          <div><div class="label">Discussion timer</div><div class="sub">Countdown before the vote</div></div>
-          <label class="switch">
-            <input type="checkbox" id="timerSwitch" checked>
-            <span class="track"></span><span class="thumb"></span>
-          </label>
+        <button class="frow mods-head" id="timerHead" type="button" aria-expanded="false">
+          <div><div class="label">Timer &amp; order</div><div class="sub" id="timerSub">3:00</div></div>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div id="timerBody" class="modsbody">
+        <div class="mod-row" style="border-top:none">
+          <div class="mlab">Discussion timer</div>
+          <label class="switch"><input type="checkbox" id="timerSwitch" checked><span class="track"></span><span class="thumb"></span></label>
         </div>
         <div class="durwrap open" id="durField">
           <input type="range" id="durRange" min="30" max="600" step="15" value="180" aria-label="Timer length">
           <div class="durrow"><span class="sub">Length</span><span class="durval" id="durLabel">3:00</span></div>
         </div>
+        <div class="mod-row">
+          <div class="mlab">Scramble speaking order</div>
+          <label class="switch"><input type="checkbox" id="scrSwitch"><span class="track"></span><span class="thumb"></span></label>
+        </div>
+        </div>
       </div>
 
       <div class="field rise" style="--i:3">
         <button class="frow mods-head" id="glHead" type="button" aria-expanded="false">
-          <div><div class="label">Game Length</div><div class="sub" id="glSub">Play forever &middot; tap to set a finish line</div></div>
+          <div><div class="label">Game Length</div><div class="sub" id="glSub">No finish line</div></div>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div id="glBody" class="modsbody">
@@ -722,19 +949,18 @@ noscript .ns{
 
       <div class="field rise" style="--i:5">
         <button class="frow mods-head" id="modsHead" type="button" aria-expanded="false">
-          <div><div class="label">Mods</div><div class="sub" id="modsSub">Tap to open</div></div>
+          <div><div class="label">Mods</div><div class="sub" id="modsSub">None on</div></div>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div id="modsBody" class="modsbody">
-          <div class="mod-row" id="row_decoy"><div><div class="mlab">Decoy Words</div><div class="msub">Impostor gets a close-but-wrong word &mdash; and has no idea</div></div><label class="switch"><input type="checkbox" id="mod_decoy"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_jester"><div><div class="mlab">Jester</div><div class="msub">One player wins only by getting voted out</div></div><label class="switch"><input type="checkbox" id="mod_jester"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_accomplices"><div><div class="mlab">Accomplices</div><div class="msub">Impostors know each other (needs 2+)</div></div><label class="switch"><input type="checkbox" id="mod_accomplices"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_blackout"><div><div class="mlab">Blackout</div><div class="msub">Impostor gets nothing &mdash; not even the category</div></div><label class="switch"><input type="checkbox" id="mod_blackout"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_written"><div><div class="mlab">Written Clues</div><div class="msub">Type your clue at reveal &mdash; all shown at once</div></div><label class="switch"><input type="checkbox" id="mod_written"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_blitz"><div><div class="mlab">Blitz</div><div class="msub">5 seconds each, then straight to the vote</div></div><label class="switch"><input type="checkbox" id="mod_blitz"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_scramble"><div><div class="mlab">Scramble Order</div><div class="msub">Whole speaking order gets shuffled</div></div><label class="switch"><input type="checkbox" id="mod_scramble"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_secret"><div><div class="mlab">Secret Voting</div><div class="msub">Everyone votes privately &mdash; ties hang the jury</div></div><label class="switch"><input type="checkbox" id="mod_secret"><span class="track"></span><span class="thumb"></span></label></div>
-          <div class="mod-row" id="row_roulette"><div><div class="mlab">Mod Roulette</div><div class="msub">A surprise mod each round &mdash; sometimes more&hellip;</div></div><label class="switch"><input type="checkbox" id="mod_roulette"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_decoy"><div><div class="mlab">Decoy Words</div><div class="msub">Swaps in a lookalike word</div></div><label class="switch"><input type="checkbox" id="mod_decoy"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_jester"><div><div class="mlab">Jester</div><div class="msub">Adds a role wanting votes</div></div><label class="switch"><input type="checkbox" id="mod_jester"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_accomplices"><div><div class="mlab">Accomplices</div><div class="msub">Introduces impostors to each other</div></div><label class="switch"><input type="checkbox" id="mod_accomplices"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_blackout"><div><div class="mlab">Blackout</div><div class="msub">Takes away the category too</div></div><label class="switch"><input type="checkbox" id="mod_blackout"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_written"><div><div class="mlab">Written Clues</div><div class="msub">Collects typed clues, reveals together</div></div><label class="switch"><input type="checkbox" id="mod_written"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_blitz"><div><div class="mlab">Blitz</div><div class="msub">Gives everyone five seconds flat</div></div><label class="switch"><input type="checkbox" id="mod_blitz"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_secret"><div><div class="mlab">Secret Voting</div><div class="msub">Moves the vote to ballots</div></div><label class="switch"><input type="checkbox" id="mod_secret"><span class="track"></span><span class="thumb"></span></label></div>
+          <div class="mod-row" id="row_roulette"><div><div class="mlab">Mod Roulette</div><div class="msub">Rolls surprise mods each round</div></div><label class="switch"><input type="checkbox" id="mod_roulette"><span class="track"></span><span class="thumb"></span></label></div>
         </div>
       </div>
 
@@ -748,6 +974,7 @@ noscript .ns{
             <button class="btn quiet" id="catAll" type="button">All</button>
             <button class="btn quiet" id="catNone" type="button">None</button>
             <button class="btn quiet" id="catKids" type="button">Kids</button>
+            <button class="btn quiet" id="catBanned" type="button">Drop Banned</button>
           </div>
           <div class="cat-links">
             <button class="linkbtn" id="catToggle" type="button">
@@ -765,12 +992,17 @@ noscript .ns{
           </div>
           <div id="setRow"></div>
           <div id="catList"></div>
+          <div class="cat-links" style="margin-top:14px">
+            <button class="linkbtn" id="setExport" type="button">Export sets</button>
+            <button class="linkbtn" id="setImport" type="button">Import sets</button>
+          </div>
+          <button class="btn quiet" id="banEdit" type="button" style="width:100%">Edit banned words</button>
         </div>
       </div>
     </div>
     <div class="bottombar">
       <div id="setupHint" class="hint"></div>
-      <button id="startBtn" class="btn primary lg" disabled>Start Game</button>
+      <button id="startBtn" class="btn primary lg off" aria-disabled="true">Start Game</button>
     </div>
 
     <div id="popCatch" hidden></div>
@@ -781,9 +1013,10 @@ noscript .ns{
         <button data-mode="dark">Dark</button>
       </div>
       <div id="themeList"></div>
-      <div class="seg" id="soundSeg" style="margin-top:10px">
-        <button data-snd="on" class="on">Sound On</button>
-        <button data-snd="off">Sound Off</button>
+      <div class="volrow">
+        <button id="volIcon" class="volicon" type="button" aria-label="Mute or unmute"></button>
+        <input type="range" id="volRange" min="0" max="100" step="5" value="80" aria-label="Volume">
+        <span class="volval" id="volLabel">80</span>
       </div>
     </div>
   </section>
@@ -798,6 +1031,11 @@ noscript .ns{
     <div class="scrollarea">
       <h2 class="h-display rise" style="--i:0">Pass the phone</h2>
       <p class="sub-lead rise" style="--i:1">Tap your name. Only you should peek.</p>
+      <div id="rosterProg" class="prog rise" style="--i:2">
+        <div class="prog-track"><span id="rosterProgFill"></span></div>
+        <div class="prog-txt" id="rosterProgTxt"></div>
+      </div>
+      <div id="rosterMods" class="order-line" style="display:none; margin-bottom:4px"></div>
       <div id="rosterGrid" class="grid-names"></div>
     </div>
     <div class="bottombar">
@@ -823,12 +1061,12 @@ noscript .ns{
       </div>
       <div id="revChip" class="chip rise" style="--i:3"></div>
       <div id="revClueWrap">
-        <div class="sub">Type your clue &mdash; one word:</div>
+        <div class="sub">Your clue. One word.</div>
         <input id="revClue" class="input" type="text" maxlength="30" autocomplete="off" autocapitalize="none" placeholder="Your clue&hellip;">
       </div>
     </div>
     <div class="bottombar">
-      <button id="revContinue" class="btn primary lg cta-hide">Got It &mdash; Pass It On</button>
+      <button id="revContinue" class="btn primary lg cta-hide">Got it. Pass it on.</button>
       <button id="revBack" class="btn quiet">Not you? Go back</button>
     </div>
   </section>
@@ -866,13 +1104,18 @@ noscript .ns{
   <!-- ═══════════ VOTING ═══════════ -->
   <section class="screen" id="s-voting">
     <div class="scrollarea pt">
-      <h2 class="h-display rise" style="--i:0">Point fingers.</h2>
-      <p class="sub-lead rise" style="--i:1" id="voteSub"></p>
+      <div id="voteCat" class="chip rise" style="--i:0"></div>
+      <div id="voteClues" class="cluewrap rise" style="--i:1" hidden>
+        <button class="linkbtn" id="voteCluesHead" type="button"><svg class="lchev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><span id="voteCluesTxt">Show the clues</span></button>
+        <div id="voteClueBoard" class="clueboard"></div>
+      </div>
+      <h2 class="h-display rise" style="--i:2">Point fingers.</h2>
+      <p class="sub-lead rise" style="--i:3" id="voteSub"></p>
       <div id="voteList"></div>
     </div>
     <div class="bottombar">
       <div class="hint" id="voteCount"></div>
-      <button id="voteSubmit" class="btn primary lg" disabled>Lock In the Vote</button>
+      <button id="voteSubmit" class="btn primary lg off" aria-disabled="true">Lock In the Vote</button>
       <div class="btn-row2">
         <button id="hungBtn" class="btn quiet">Hung Jury</button>
         <button id="scrapBtn2" class="btn quiet danger-quiet">Scrap Round</button>
@@ -889,7 +1132,7 @@ noscript .ns{
       <div id="accusedRow" class="acc-row"></div>
       <div id="verdictBlock" class="verdict">
         <svg class="v-mask" width="340" height="255" viewBox="0 0 64 48" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M16 2h32l5 16H11L16 2zM6 20h52a3 3 0 0 1 0 6H6a3 3 0 0 1 0-6zM21 28a9 9 0 1 0 0 18 9 9 0 1 0 0-18zM43 28a9 9 0 1 0 0 18 9 9 0 1 0 0-18zM21 32.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 1 1 0-9zM43 32.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 1 1 0-9zM30 35h4v4h-4z"/></svg>
-        <div class="v-wrap"><div class="v-line" id="vLine1"></div><div class="v-line" id="vLine2"></div></div>
+        <div class="v-stamp"><div class="v-wrap"><div class="v-line" id="vLine1"></div><div class="v-line" id="vLine2"></div></div></div>
         <div id="verdictSub" class="v-sub"></div>
       </div>
       <div id="detailCard" class="detail">
@@ -923,7 +1166,7 @@ noscript .ns{
     </div>
     <div class="bottombar">
       <div class="hint" id="svCount"></div>
-      <button id="svLock" class="btn primary lg" disabled>Lock My Votes</button>
+      <button id="svLock" class="btn primary lg off" aria-disabled="true">Lock My Votes</button>
     </div>
   </section>
 
@@ -946,8 +1189,9 @@ noscript .ns{
     <div class="bottombar">
       <button id="nextRoundBtn" class="btn primary lg">Next Round</button>
       <div class="btn-row2">
-        <button id="stSetupBtn" class="btn quiet">Change Setup</button>
-        <button id="finishBtn" class="btn quiet">Finish Game</button>
+        <button id="stSetupBtn" class="btn quiet">Setup</button>
+        <button id="undoBtn" class="btn quiet">Undo Round</button>
+        <button id="finishBtn" class="btn quiet">Finish</button>
       </div>
     </div>
   </section>
@@ -1032,16 +1276,25 @@ noscript .ns{
       <button id="rulesClose" class="icon-btn" aria-label="Close rules"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="r-body">
+      <h3>Quickstart</h3>
+      <ol class="qs">
+        <li>Set the player count. Type everyone&rsquo;s name.</li>
+        <li>Tap Start Game. Pass the phone around the table.</li>
+        <li>Everyone taps their own name and peeks at the card.</li>
+        <li>Most people see the word. The impostor sees only the category.</li>
+        <li>Go around the table. Each player says one word about the secret word.</li>
+        <li>Vote together. Catch every impostor and the innocents win.</li>
+      </ol>
       <h3>The Game</h3>
-      <p>Everyone secretly gets the same word from a category &mdash; except the impostor, who only sees the category. Take turns saying one word that hints at the secret word. Innocents want to prove they know it without giving it away. Impostors bluff and blend in. Then the table votes. Catch every impostor and the innocents win; if even one slips through, the impostors take it.</p>
+      <p>Everyone secretly gets the same word from a category. The impostor gets the category and nothing else. Take turns saying one word that hints at the secret word. Innocents want to prove they know it without giving it away. Impostors bluff and blend in. Then the table votes. Catch every impostor and the innocents win. Let one slip through and the impostors take it.</p>
       <h3>A Round</h3>
       <ul>
         <li><b>Pass the phone.</b> Each player taps their name and privately reveals their role.</li>
-        <li><b>Clues.</b> The timer screen names who starts &mdash; then go clockwise around the table. Vague clues look guilty; obvious clues teach the impostor the word.</li>
+        <li><b>Clues.</b> The timer screen names who starts. Go clockwise from there. Vague clues look guilty. Obvious clues teach the impostor the word.</li>
         <li><b>Vote together.</b> Pick exactly as many people as there are impostors. With one impostor, tapping a new name simply moves the vote.</li>
         <li><b>Hung Jury.</b> Table can&rsquo;t agree? Every impostor escapes with 1 point.</li>
-        <li><b>Scrap Round.</b> Someone blurted the word? Scrap it &mdash; no points, fresh word.</li>
-        <li><b>Swap the Word.</b> On the pass-the-phone screen you can swap for a new word (roles get re-dealt).</li>
+        <li><b>Scrap Round.</b> Someone blurted the word? Scrap it. No points, fresh word.</li>
+        <li><b>Swap the Word.</b> On the pass-the-phone screen you can swap for a new word. Roles get re-dealt, and the app offers to ban the old word on the way out.</li>
       </ul>
       <h3>Scoring</h3>
       <ul>
@@ -1053,33 +1306,69 @@ noscript .ns{
       <p><b>Tiebreaker:</b> equal points are settled by most impostor escapes (jester wins count), then fewest times wrongly voted out, then name.</p>
       <h3>The Mods</h3>
       <ul>
-        <li><b>Decoy Words</b> &mdash; the impostor gets a similar-but-wrong word and has no idea they&rsquo;re the impostor. Their clue lands slightly off&hellip; Can&rsquo;t combine with Blackout or Accomplices.</li>
-        
-        <li><b>Jester</b> &mdash; one extra secret role. The jester knows the word but only wins by getting voted out (+2). House rule: the jester may never point the vote at themselves. Needs at least 2 more players than impostors.</li>
-        <li><b>Accomplices</b> &mdash; impostors learn each other&rsquo;s names. Needs 2+ impostors.</li>
-        <li><b>Blackout</b> &mdash; the impostor sees nothing, not even the category. Pure bluff.</li>
-        <li><b>Written Clues</b> &mdash; each player types a one-line clue right when they see their word (you can&rsquo;t pass the phone until you&rsquo;ve typed one); all clues reveal at once on the discussion screen. Can&rsquo;t combine with Blitz or Scramble Order.</li>
-        <li><b>Blitz</b> &mdash; each player gets 5 seconds to say one word, in order, then straight to the vote. No discussion, ignores the timer setting.</li>
-        <li><b>Scramble Order</b> &mdash; instead of clockwise-from-a-random-start, the entire speaking order is shuffled and shown.</li>
-        <li><b>Secret Voting</b> &mdash; everyone taps their own name and votes in private, in any order (as many votes as there are impostors; your own name never appears, so the jester can&rsquo;t self-vote). The tally is revealed one ballot at a time. One impostor: most votes is accused, a tie hangs the jury. Multiple: there must be a clear top group of exactly that size &mdash; 5-4-4 with two impostors hangs, 5-5-4 convicts both 5s.</li>
-        <li><b>Mod Roulette</b> &mdash; every round secretly rolls a surprise set of mods (usually one, sometimes two, rarely a wild stack &mdash; never incompatible ones) and announces them on a round splash. Switching it on clears every manual mod &mdash; roulette does the picking.</li>
+        <li><b>Decoy Words.</b> The impostor gets a similar-but-wrong word and has no idea they&rsquo;re the impostor. Their clue lands slightly off. Can&rsquo;t combine with Blackout or Accomplices.</li>
+        <li><b>Jester.</b> One extra secret role. The jester knows the word but only wins by getting voted out (+2). House rule: the jester may never point the vote at themselves. Needs at least 2 more players than impostors.</li>
+        <li><b>Accomplices.</b> Impostors learn each other&rsquo;s names. Needs 2+ impostors.</li>
+        <li><b>Blackout.</b> The impostor sees nothing, not even the category. Pure bluff.</li>
+        <li><b>Written Clues.</b> Each player types a one-line clue right when they see their word, and can&rsquo;t pass the phone until they have. All clues reveal at once on the discussion screen. Can&rsquo;t combine with Blitz or Scramble Order.</li>
+        <li><b>Blitz.</b> Each player gets 5 seconds to say one word, in order, then straight to the vote. No discussion, ignores the timer setting.</li>
+        <li><b>Secret Voting.</b> Everyone taps their own name and votes in private, in any order. You cast as many votes as there are impostors, and your own name never appears, so the jester can&rsquo;t self-vote. The tally is revealed one ballot at a time. With one impostor, most votes is accused and a tie hangs the jury. With more, there has to be a clear top group of exactly that size. 5-4-4 with two impostors hangs the jury. 5-5-4 convicts both 5s.</li>
+        <li><b>Mod Roulette.</b> Every round secretly rolls a surprise set of mods and announces them on a round splash you dismiss with a tap. Usually one, sometimes two, rarely a wild stack, never incompatible ones. Switching it on clears every manual mod. Roulette does the picking.</li>
       </ul>
+      <h3>Speaking Order</h3>
+      <p>By default a random player starts and the clue phase goes clockwise from them. Flip <b>Scramble speaking order</b> in setup to shuffle the whole order and print it on the timer screen instead. It has no effect with Written Clues, where everyone answers at once.</p>
       <h3>Game Length</h3>
-      <p>The <b>Game Length</b> panel holds three finish lines you can mix freely: <b>points</b> (1&ndash;100), <b>time</b> (1&ndash;100 min), and <b>rounds</b> (1&ndash;100). The round in progress always finishes; the first target reached triggers a popup with Continue or Finish. Choosing Continue silences all targets for the rest of the game. Active targets show as small chips on the standings screen &mdash; the point goal, minutes left, and rounds left.</p>
-      <h3>Categories</h3>
-      <p>The <b>Categories</b> panel goes down to the word. Each category has a checkbox on the left &mdash; blank means nothing from it is in play, colored-in means some words are, a check means all of them. Tapping the box selects everything (or clears everything when it&rsquo;s already checked). Tap the category name to expand its full word list and tick words one by one. <b>All</b> and <b>None</b> tick or clear everything, <b>Expand all</b> opens every word list at once, and the <b>Kids</b> button selects every kid-friendly category and quietly un-ticks the handful of tricky words inside them.</p>
-      <p><b>Save Set</b> stores your exact selection under a name and adds a button next to Kids &mdash; tap it any time to snap right back to that set. Sets are kept on your phone between sessions. <b>Press and hold</b> a set button to delete it.</p>
+      <p>The <b>Game Length</b> panel holds three finish lines you can mix freely: <b>points</b> (1&ndash;100), <b>time</b> (1&ndash;100 min), and <b>rounds</b> (1&ndash;100). The round in progress always finishes. The first target reached triggers a popup with Continue or Finish. Choosing Continue silences all targets for the rest of the game. Active targets show as small chips on the standings screen.</p>
+      <h3>Categories &amp; Words</h3>
+      <p>The <b>Categories</b> panel goes all the way down to the word. Each category has a checkbox on the left. Blank means nothing from it is in play, colored-in means some words are, a check means all of them. Tapping the box selects everything, or clears everything when it&rsquo;s already checked. Tap the category name to expand its full word list and tick words one by one. <b>All</b> and <b>None</b> tick or clear everything. <b>Expand all</b> opens every word list at once. <b>Kids</b> selects every kid-friendly category and quietly un-ticks the handful of tricky words inside them.</p>
+      <p><b>Save Set</b> stores your exact selection under a name and adds a button next to Kids. Tap it any time to snap right back to that set. Sets are kept on your phone between sessions. <b>Press and hold</b> a set button to delete it. <b>Export sets</b> hands you a block of text you can send to another phone, and <b>Import sets</b> takes it from the other end.</p>
+      <h3>Banned Words</h3>
+      <p>Swap a word on the pass-the-phone screen and the app offers to ban it. Banned words are remembered on this phone. <b>Drop Banned</b> un-ticks every banned word from whatever you have selected and leaves the rest of the selection alone. It never runs on its own, so you can still choose to play with them. <b>Edit banned words</b> sits at the bottom of the Categories panel. Search any word in the library to ban it, or tap the X to let one back in.</p>
+      <h3>Your Setup Is Saved</h3>
+      <p>Players, mods, timer, finish lines, and your exact word selection are all remembered between sessions. A game in progress is saved after every round, so if the app gets closed mid-night you&rsquo;ll see <b>Resume Game</b> on the way back in. <b>Undo Round</b> on the standings screen takes back the last result if it got scored wrong. Tap any name on the standings to rename that player without touching their score.</p>
       <h3>Results Card</h3>
       <p>On the Awards screen, <b>Results Card</b> builds a printable, shareable page with the podium, full standings, and every award from the night.</p>
       <h3>Sound</h3>
-      <p>If you hear nothing, flip your phone&rsquo;s ring/silent switch &mdash; iPhones mute game audio in silent mode. You can also toggle sound off in the theme menu.</p>
+      <p>If you hear nothing, flip your phone&rsquo;s ring/silent switch. iPhones mute game audio in silent mode. Volume lives in the theme menu on the setup screen.</p>
     </div>
   </div>
+
+  <div id="banPop" class="bigpop" role="dialog" aria-label="Banned words">
+    <div class="bigcard">
+      <div class="b-head">
+        <span class="wordmark sm">Banned words</span>
+        <button id="banClose" class="icon-btn" aria-label="Close banned words"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="b-search">
+        <input id="banSearch" class="input" type="text" autocomplete="off" autocapitalize="none" placeholder="Search every word&hellip;">
+        <div id="banMatches" class="matchlist"></div>
+      </div>
+      <div id="banList" class="b-list"></div>
+      <div class="b-foot" id="banFoot"></div>
+    </div>
+  </div>
+
+  <div id="importPop" class="bigpop" role="dialog" aria-label="Import saved sets">
+    <div class="bigcard short">
+      <div class="b-head">
+        <span class="wordmark sm">Import sets</span>
+        <button id="impClose" class="icon-btn" aria-label="Close import"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="b-search">
+        <textarea id="impText" class="input" rows="7" autocomplete="off" autocapitalize="none" placeholder="Paste the exported text here&hellip;"></textarea>
+      </div>
+      <div class="b-foot"><button id="impGo" class="btn primary lg">Import Sets</button></div>
+    </div>
+  </div>
+
+  <div id="tint" aria-hidden="true"></div>
+  <div id="toast" class="toast" role="status"></div>
 
   <div id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
     <div class="m-card">
       <h3 id="mTitle">End this round?</h3>
       <p id="mBody" class="sub">You&rsquo;ll head back to setup. This round&rsquo;s word and roles will be tossed.</p>
+      <input id="mInput" class="input" type="text" maxlength="18" autocomplete="off" autocapitalize="words" hidden style="width:100%;margin-bottom:14px">
       <div class="m-row">
         <button id="mCancel" class="btn">Keep Playing</button>
         <button id="mOk" class="btn primary">End Round</button>
@@ -1119,7 +1408,7 @@ const ICON = {
    ➕ TO ADD A THEME: add one entry to THEMES below. Give it a name,
    a blurb, shared `tokens` (type, radius, motion), and a full
    `light` + `dark` palette. It appears in the switcher automatically
-   — no other code or CSS needs to change.
+   Nothing else in the code or CSS needs to change.
    ════════════════════════════════════════════════════════════════ */
 const SANS  = "-apple-system,BlinkMacSystemFont,'Segoe UI Variable','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif";
 const SERIF = "ui-serif,'New York',Georgia,'Iowan Old Style','Times New Roman',serif";
@@ -1129,7 +1418,7 @@ const CHALK = "'Chalkboard SE','Comic Sans MS','Marker Felt'," + ROUND;
 
 const THEMES = {
   heist: {
-    name: 'Heist', blurb: 'Case files \u00b7 stamped classified',
+    name: 'Heist', blurb: 'Case files, stamped',
     tokens: { 'font-display': MONO, 'font-body': MONO, 'display-weight': '700', 'display-case': 'uppercase', 'display-track': '.07em',
       radius: '4px', 'radius-lg': '8px', bstyle: 'solid', bw: '2px', 'btn-radius': '4px', 'btn-radius-lg': '6px',
       ease: 'cubic-bezier(.3,.9,.3,1)', 'ease-pop': 'cubic-bezier(.2,.95,.25,1)' },
@@ -1147,7 +1436,7 @@ const THEMES = {
       ambient: 'repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, rgba(0,0,0,0) 1px 28px)' },
   },
   arcade: {
-    name: 'Arcade', blurb: 'Neon cabinet \u00b7 buttons that press',
+    name: 'Arcade', blurb: 'Neon cabinet, pressable',
     tokens: { 'font-display': SANS, 'font-body': SANS, 'display-weight': '800', 'display-case': 'uppercase', 'display-track': '.05em',
       radius: '12px', 'radius-lg': '16px', bstyle: 'solid', bw: '1px', 'btn-radius': '12px', 'btn-radius-lg': '14px',
       ease: 'cubic-bezier(.33,1,.4,1)', 'ease-pop': 'cubic-bezier(.16,1.1,.3,1)' },
@@ -1165,7 +1454,7 @@ const THEMES = {
       ambient: 'radial-gradient(80% 50% at 80% -10%, rgba(255,61,129,.16), rgba(255,61,129,0) 60%), radial-gradient(80% 55% at 10% 110%, rgba(139,61,255,.14), rgba(139,61,255,0) 60%)' },
   },
   bubble: {
-    name: 'Bubble', blurb: 'Candy pills \u00b7 soft & bouncy',
+    name: 'Bubble', blurb: 'Candy pills, bouncy',
     tokens: { 'font-display': ROUND, 'font-body': ROUND, 'display-weight': '800', 'display-case': 'none', 'display-track': '.002em',
       radius: '24px', 'radius-lg': '32px', bstyle: 'solid', bw: '2.5px', 'btn-radius': '999px', 'btn-radius-lg': '999px',
       ease: 'cubic-bezier(.33,1,.4,1)', 'ease-pop': 'cubic-bezier(.3,1.55,.4,1)' },
@@ -1183,7 +1472,7 @@ const THEMES = {
       ambient: 'radial-gradient(70% 45% at 12% -5%, rgba(255,139,119,.13), rgba(255,139,119,0) 60%), radial-gradient(70% 50% at 100% 110%, rgba(255,183,77,.08), rgba(255,183,77,0) 55%)' },
   },
   headline: {
-    name: 'Headline', blurb: 'Front page \u00b7 ink & scandal',
+    name: 'Headline', blurb: 'Front page, all ink',
     tokens: { 'font-display': SERIF, 'font-body': SANS, 'display-weight': '900', 'display-case': 'uppercase', 'display-track': '.015em',
       radius: '2px', 'radius-lg': '6px', bstyle: 'double', bw: '3px', 'btn-radius': '2px', 'btn-radius-lg': '4px',
       ease: 'cubic-bezier(.3,.9,.3,1)', 'ease-pop': 'cubic-bezier(.22,1.1,.3,1)' },
@@ -1201,7 +1490,7 @@ const THEMES = {
       ambient: 'repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, rgba(0,0,0,0) 1px 88px), linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,0) 120px)' },
   },
   doodle: {
-    name: 'Doodle', blurb: 'Notebook & chalkboard \u00b7 hand-drawn',
+    name: 'Doodle', blurb: 'Notebook, hand-drawn',
     tokens: { 'font-display': CHALK, 'font-body': CHALK, 'display-weight': '700', 'display-case': 'none', 'display-track': '.01em',
       radius: '16px', 'radius-lg': '22px', bstyle: 'dashed', bw: '2px', 'btn-radius': '16px', 'btn-radius-lg': '20px',
       ease: 'cubic-bezier(.33,1,.4,1)', 'ease-pop': 'cubic-bezier(.3,1.5,.4,1)' },
@@ -1223,7 +1512,7 @@ const THEMES = {
 /* ════════════════════════════════════════════════════════════════
    WORD LIBRARY  (full library)
    ─────────────────────────────────────────────────────────────────
-   ➕ TO ADD CONTENT: just extend this object —
+   ➕ TO ADD CONTENT: just extend this object:
         'Category Name': ['Word', 'Word', ...],
    New categories and words are picked up automatically; nothing
    else in the code needs to change. Rounds draw a random category
@@ -1795,25 +2084,25 @@ const KID_HARD = new Set(['Acai Bowl', 'Accountant', 'Algebra', 'Ambidextrous', 
 
 /* ---------- state ---------- */
 const state = {
-  themeId: 'parlor', mode: 'auto', screen: 'intro', sound: true,
-  cfg: { players: 4, names: ['', '', '', ''], impostors: 1, timerOn: true, dur: 180, toPointsOn: false, toPoints: 15, toTimeOn: false, toTime: 20, toRoundsOn: false, toRounds: 10 },
-  mods: { decoy: false, jester: false, accomplices: false, blackout: false, written: false, blitz: false, scramble: false, secret: false, roulette: false },
-  modPts: {}, sv: null, gameStart: null, targetDismissed: false, sel: {},
+  themeId: 'heist', mode: 'auto', screen: 'intro', sound: true, volume: .8,
+  cfg: { players: 4, names: ['', '', '', ''], impostors: 1, timerOn: true, dur: 180, toPointsOn: false, toPoints: 15, toTimeOn: false, toTime: 20, toRoundsOn: false, toRounds: 10, scramble: false },
+  mods: { decoy: false, jester: false, accomplices: false, blackout: false, written: false, blitz: false, secret: false, roulette: false },
+  modPts: {}, sv: null, gameStart: null, targetDismissed: false, catSel: {},
   session: null,
   round: null,        // { cat, word, decoy, imp:Set, jester, order[], viewed:Set, clues, outcome, deltas, accused }
   roundNo: 0,
   scores: [], stats: [], history: [], prevRank: null,
   used: new Set(), lastKey: null,
-  cur: 0, sel: new Set(),
+  cur: 0, sel: new Set(), undo: null, finished: false,
 };
 const INCOMPAT = { decoy: ['blackout', 'accomplices'], blackout: ['decoy'], accomplices: ['decoy'],
-  written: ['blitz', 'scramble'], blitz: ['written'], scramble: ['written'] };
-['decoy', 'jester', 'accomplices', 'blackout', 'written', 'blitz', 'scramble', 'secret'].forEach(m => {
+  written: ['blitz'], blitz: ['written'] };
+['decoy', 'jester', 'accomplices', 'blackout', 'written', 'blitz', 'secret'].forEach(m => {
   INCOMPAT.roulette = (INCOMPAT.roulette || []).concat(m);
   INCOMPAT[m] = (INCOMPAT[m] || []).concat('roulette');
 });
 const MOD_NAME = { decoy: 'Decoy Words', kid: 'Kid Mode', jester: 'Jester', accomplices: 'Accomplices',
-  blackout: 'Blackout', written: 'Written Clues', blitz: 'Blitz', scramble: 'Scramble Order', secret: 'Secret Voting' };
+  blackout: 'Blackout', written: 'Written Clues', blitz: 'Blitz', secret: 'Secret Voting' };
 const SCREENS = ['intro', 'setup', 'roster', 'reveal', 'discussion', 'voting', 'results',
   'standings', 'podium', 'final', 'awards', 'history', 'blitz', 'svhand', 'svote', 'svreveal'];
 const RING_C = 2 * Math.PI * 104;
@@ -1825,7 +2114,8 @@ document.addEventListener('pointerdown', () => {
   if (AC && AC.state === 'suspended') AC.resume();
 }, { passive: true });
 function tone(f, type, dur, gain, at = 0) {
-  if (!AC || !state.sound) return;
+  if (!AC || !state.sound || state.volume <= 0) return;
+  gain = Math.max(0.0005, gain * state.volume);
   try {
     const t0 = AC.currentTime + at;
     const o = AC.createOscillator(), g = AC.createGain();
@@ -1874,10 +2164,14 @@ function applyTheme(id, mode, opts = {}) {
 function renderThemeRows() {
   const m = resolvedMode();
   $('themeList').innerHTML = Object.entries(THEMES).map(([id, t]) => {
-    const p = t[m];
+    const p = t[m], k = t.tokens;
+    const sv = `--sb:${p.accent};--sf:${p['accent-contrast']};--sl:${p.line};--st:${p.text};--sbg:${p.bg};`
+      + `--sd:${p['accent-deep'] || p.line};--sg:${p['glow-c']};--srad:${k['btn-radius']};`
+      + `--sbw:${k.bw};--sbs:${k.bstyle};--sfont:${k['font-display']}`;
     return `<button class="theme-row${id === state.themeId ? ' on' : ''}" data-id="${id}">
-      <span class="swatches"><span class="dot" style="background:${p.bg}"></span><span class="dot" style="background:${p.accent}"></span><span class="dot" style="background:${p.text}"></span></span>
+      <span class="swatches"><span class="dot" style="background:${p.bg}"></span><span class="dot" style="background:${p.accent}"></span><span class="dot" style="background:${p.win}"></span><span class="dot" style="background:${p.lose}"></span></span>
       <span class="t-meta"><span class="t-name">${t.name}</span><br><span class="t-blurb">${t.blurb}</span></span>
+      <span class="t-sample" data-t="${id}" style="${sv}">Play</span>
       <span class="t-check">${ICON.check}</span>
     </button>`;
   }).join('');
@@ -1952,6 +2246,7 @@ function ensurePlayers() {
 }
 function saveRoster() {
   try { localStorage.setItem('impostor.roster', JSON.stringify(state.cfg.names.slice(0, state.cfg.players))); } catch (e) {}
+  saveSetup();
 }
 /* ---------- mods ---------- */
 function setMod(id, on) {
@@ -1967,13 +2262,14 @@ function syncMods() {
   if (!jOk && state.mods.jester) { state.mods.jester = false; $('mod_jester').checked = false; }
   $('row_jester').classList.toggle('off', !jOk);
   const roul = state.mods.roulette;
-  ['decoy', 'jester', 'accomplices', 'blackout', 'written', 'blitz', 'scramble', 'secret'].forEach(m2 => {
+  ['decoy', 'jester', 'accomplices', 'blackout', 'written', 'blitz', 'secret'].forEach(m2 => {
     const row = $('row_' + m2);
     if (row) row.classList.toggle('off', roul || (m2 === 'accomplices' && state.cfg.impostors < 2)
       || (m2 === 'jester' && state.cfg.players < state.cfg.impostors + 2));
   });
   const n = Object.values(state.mods).filter(Boolean).length;
-  $('modsSub').textContent = roul ? 'Roulette \u2014 surprise each round' : (n ? n + ' active' : 'Tap to open');
+  $('modsSub').textContent = roul ? 'Roulette. Surprise each round.' : (n ? n + ' on' : 'None on');
+  updSummary(); saveSetup();
 }
 /* ---------- wake lock ---------- */
 let wl = null;
@@ -1990,14 +2286,25 @@ function validateSetup() {
   if (!msg && !anyWordSelected()) msg = 'Select at least one word to play with.';
   if (!msg && state.mods.decoy && !hasPair()) msg = 'Decoy Words needs at least one full pair ticked.';
   $('setupHint').textContent = msg;
-  $('startBtn').disabled = !!msg;
+  setOff($('startBtn'), !!msg);
+  const label = midGame() ? 'Resume Game' : 'Start Game';
+  if ($('startBtn').textContent !== label) $('startBtn').textContent = label;
+  updSummary();
+}
+function midGame() {
+  return !!(state.session && state.roundNo > 0 && !state.finished);
 }
 function bindStepper(minusId, inputId, plusId, get, set, min = 1, maxFn = null) {
   const inp = $(inputId);
+  const box = inp.closest('.stepper');
   const cap = v => maxFn ? Math.min(maxFn(), v) : v;
-  const sync = () => { inp.value = get(); validateSetup(); };
-  $(minusId).addEventListener('click', () => { set(Math.max(min, get() - 1)); sync(); });
-  $(plusId).addEventListener('click', () => { set(cap(get() + 1)); sync(); });
+  const sync = () => { inp.value = get(); validateSetup(); saveSetup(); };
+  const bump = () => {
+    if (!box) return;
+    box.classList.remove('bump'); void box.offsetWidth; box.classList.add('bump'); buzz(35);
+  };
+  $(minusId).addEventListener('click', () => { const b = get(); set(Math.max(min, b - 1)); sync(); if (get() === b) bump(); });
+  $(plusId).addEventListener('click', () => { const b = get(); set(cap(b + 1)); sync(); if (get() === b) bump(); });
   inp.addEventListener('input', () => {
     const digits = inp.value.replace(/\D/g, '');
     if (digits !== inp.value) inp.value = digits;
@@ -2011,6 +2318,7 @@ function syncDur() {
   state.cfg.dur = v;
   $('durLabel').textContent = fmt(v);
   r.style.setProperty('--fill', ((v - +r.min) / (+r.max - +r.min) * 100) + '%');
+  updTimerSub(); updSummary(); saveSetup();
 }
 
 /* ---------- round engine ---------- */
@@ -2018,7 +2326,7 @@ function pickRound() {
   const decoy = state.mods.decoy;
   const pool = [];
   for (const cat in WORDS) {
-    const sel = state.sel[cat];
+    const sel = state.catSel[cat];
     if (!sel || !sel.size) continue;
     const ws = WORDS[cat];
     if (decoy) {
@@ -2033,6 +2341,10 @@ function pickRound() {
       }
     }
   }
+  if (!pool.length) {                       // selection can't fill this mode, fall back
+    for (const cat in WORDS) for (const w of WORDS[cat]) pool.push({ cat, a: w, b: null, key: cat + '\u00a6' + w });
+    state.mods.decoy = false;
+  }
   let avail = pool.filter(q => !state.used.has(q.key));
   if (!avail.length) {
     state.used.clear();
@@ -2046,20 +2358,28 @@ function pickRound() {
   return { cat: q.cat, word: a, decoy: b };
 }
 function rollMods() {
-  const all2 = ['decoy', 'jester', 'accomplices', 'blackout', 'written', 'blitz', 'scramble', 'secret'];
+  const all2 = ['decoy', 'jester', 'accomplices', 'blackout', 'written', 'blitz', 'secret'];
   const elig = all2.filter(m2 => {
     if (m2 === 'decoy' && !hasPair()) return false;
     if (m2 === 'accomplices' && state.cfg.impostors < 2) return false;
     if (m2 === 'jester' && state.cfg.players < state.cfg.impostors + 2) return false;
     return true;
   });
-  const r3 = Math.random();
-  const want = r3 < .62 ? 1 : r3 < .87 ? 2 : r3 < .96 ? 3 : 4;
-  const picked = [];
-  for (const m2 of shuffle(elig.slice())) {
-    if (picked.length >= want) break;
-    if (picked.some(p2 => (INCOMPAT[m2] || []).includes(p2))) continue;
-    picked.push(m2);
+  if (!elig.length) { all2.forEach(m2 => { state.mods[m2] = false; }); return; }
+  const prev = all2.filter(m2 => state.mods[m2]).sort().join('|');
+  let picked = [];
+  for (let attempt = 0; attempt < 8; attempt++) {
+    const r3 = Math.random();
+    const want = r3 < .62 ? 1 : r3 < .87 ? 2 : r3 < .96 ? 3 : 4;
+    const bag = shuffle(elig.slice());
+    picked = [];
+    for (const m2 of bag) {
+      if (picked.length >= want) break;
+      if (picked.some(p2 => (INCOMPAT[m2] || []).includes(p2))) continue;
+      picked.push(m2);
+    }
+    if (picked.length && picked.slice().sort().join('|') !== prev && elig.length > 1) break;
+    if (elig.length <= 1) break;
   }
   all2.forEach(m2 => { state.mods[m2] = picked.includes(m2); });
 }
@@ -2069,25 +2389,31 @@ function activeModNames() {
 function showSplash() {
   $('splashRound').textContent = 'Round ' + state.roundNo;
   const a2 = activeModNames();
-  $('splashMods').textContent = a2.length ? a2.join(' \u00b7 ') : 'No mods \u2014 classic round';
+  const parts = a2.length ? a2 : ['Classic round. No mods.'];
+  $('splashMods').innerHTML = parts.map((n2, i2) =>
+    `<span style="--i:${i2}">${i2 ? ' \u00b7 ' : ''}${esc(n2)}</span>`).join('');
   const sp = $('roundSplash');
   sp.classList.add('open');
   sndDing();
-  const off = () => sp.classList.remove('open');
-  sp.onclick = off;
-  setTimeout(off, 2600);
+  sp.onclick = () => { sp.classList.remove('open'); sndTick(); };
 }
-function newRound() {
+function safeNewRound(keepMods) {
+  try { newRound(keepMods); }
+  catch (err) {
+    confirmDlg('Couldn\u2019t start the round', String((err && err.message) || err), 'OK', () => {});
+  }
+}
+function newRound(keepMods) {
   state.roundNo++;
   ensurePlayers();
-  if (state.mods.roulette) rollMods();
+  if (state.mods.roulette && !keepMods) rollMods();
   const p = pickRound();
   const N = state.session.names.length, K = state.session.K;
   const deal = shuffle([...Array(N).keys()]);
   const imp = new Set(deal.slice(0, K));
   const jester = (state.mods.jester && N >= K + 2) ? deal[K] : -1;
   const startAt = Math.floor(Math.random() * N);
-  const order = state.mods.scramble
+  const order = (state.cfg.scramble && !state.mods.written)
     ? shuffle([...Array(N).keys()])
     : [...Array(N).keys()].map(i => (startAt + i) % N);
   state.round = { cat: p.cat, word: p.word, decoy: p.decoy, imp, jester, order,
@@ -2096,31 +2422,45 @@ function newRound() {
   renderRoster();
   show('roster');
   wakeLock();
-  if (state.mods.roulette) showSplash();
+  saveSession();
+  if (state.mods.roulette && !keepMods) showSplash();
 }
 
 /* ---------- roster (pass the phone) ---------- */
 function renderRoster() {
   $('roundChip').textContent = 'Round ' + state.roundNo;
+  const rm = activeModNames();
+  $('rosterMods').textContent = rm.length ? 'Mods: ' + rm.join(' \u00b7 ') : '';
+  $('rosterMods').style.display = rm.length ? 'block' : 'none';
   const grid = $('rosterGrid');
+  const dealing = !state.round.rosterAnim;
   grid.innerHTML = '';
+  grid.classList.toggle('dealt', dealing);
   state.session.names.forEach((name, i) => {
     const b = document.createElement('button');
-    b.className = 'pbtn' + (state.round.rosterAnim ? '' : ' rise') + (state.round.viewed.has(i) ? ' done' : '');
+    b.className = 'pbtn' + (state.round.viewed.has(i) ? ' done' : '');
     b.style.setProperty('--i', Math.min(i, 10));
+    if (dealing) {
+      const s2 = (i % 2) ? 1 : -1;
+      b.style.setProperty('--dx', (s2 * (14 + (i % 3) * 5)) + 'px');
+      b.style.setProperty('--dr', (s2 * (3 + (i % 2) * 1.5)) + 'deg');
+    }
     b.innerHTML = `<span class="tick">${ICON.check}</span>${esc(name)}`;
     b.addEventListener('click', () => openReveal(i));
     grid.appendChild(b);
   });
   state.round.rosterAnim = true;
-  $('rosterCTA').classList.toggle('show', state.round.viewed.size === state.session.names.length);
+  const N2 = state.session.names.length, seen = state.round.viewed.size;
+  $('rosterProgFill').style.width = (seen / N2 * 100) + '%';
+  $('rosterProgTxt').textContent = seen === N2 ? 'Everyone has looked.' : seen + ' of ' + N2 + ' have looked.';
+  $('rosterCTA').classList.toggle('show', seen === N2);
 }
 
 /* ---------- reveal (eyes only) ---------- */
 function openReveal(i) {
   $('revClueWrap').classList.remove('on');
   $('revClue').value = '';
-  $('revContinue').disabled = false;
+  setOff($('revContinue'), false);
   const am = activeModNames();
   $('revMods').textContent = am.length ? 'Mods: ' + am.join(' \u00b7 ') : '';
   $('revMods').style.display = am.length ? 'block' : 'none';
@@ -2132,13 +2472,13 @@ function openReveal(i) {
   const r = state.round;
   const innocentCard = w => `<div class="cat">Category &middot; ${esc(r.cat)}</div>
       <div class="word">${esc(w)}</div>
-      <div class="tip">Hint at it carefully &mdash; never say it.</div>`;
+      <div class="tip">Hint at it carefully. Never say it.</div>`;
   if (i === r.jester) {
     body.innerHTML = `<div class="imp-title" style="font-size:26px">\u{1F0CF}</div>
       <div class="imp-title">You&rsquo;re the Jester</div>
       <div class="cat">Category &middot; ${esc(r.cat)}</div>
       <div class="word">${esc(r.word)}</div>
-      <div class="tip">Win by getting voted out (+2). Draw suspicion &mdash; but never vote for yourself.</div>`;
+      <div class="tip">Win by getting voted out (+2). Draw suspicion, but never vote for yourself.</div>`;
   } else if (r.imp.has(i)) {
     if (r.decoy) {
       body.innerHTML = innocentCard(r.decoy);   // decoy: looks exactly like an innocent card
@@ -2147,7 +2487,7 @@ function openReveal(i) {
         ? `<div class="cat">With you &middot; ${[...r.imp].filter(x => x !== i).map(x => esc(state.session.names[x])).join(', ')}</div>` : '';
       body.innerHTML = `${maskSVG(56, 42).replace('<svg', '<svg style="color:var(--accent)"')}
         <div class="imp-title">You&rsquo;re the impostor</div>${pals}
-        <div class="tip">No category. No word. Pure bluff &mdash; good luck.</div>`;
+        <div class="tip">No category. No word. Pure bluff.</div>`;
     } else {
       const pals = state.mods.accomplices && r.imp.size > 1
         ? `<div class="cat">With you &middot; ${[...r.imp].filter(x => x !== i).map(x => esc(state.session.names[x])).join(', ')}</div>` : '';
@@ -2174,10 +2514,11 @@ $('flipCard').addEventListener('click', () => {
   card.classList.add('revealed');
   state.round.viewed.add(state.cur);
   sndTick(); buzz(12);
-  setTimeout(() => { $('revContinue').classList.add('show'); $('revBack').hidden = true; if (state.round.clues) { $('revClueWrap').classList.add('on'); $('revContinue').disabled = !$('revClue').value.trim(); } }, 430);
+  setTimeout(() => { $('revContinue').classList.add('show'); $('revBack').hidden = true; if (state.round.clues) { $('revClueWrap').classList.add('on'); setOff($('revContinue'), !$('revClue').value.trim()); } }, 430);
 });
 $('revContinue').addEventListener('click', () => {
-  if (state.round.clues) state.round.clues[state.cur] = $('revClue').value.trim() || '\u2014';
+  if (offGuard($('revContinue'))) return;
+  if (state.round.clues) state.round.clues[state.cur] = $('revClue').value.trim() || '\u2026';
   renderRoster(); show('roster');
 });
 $('revBack').addEventListener('click', () => show('roster'));
@@ -2190,9 +2531,15 @@ function enterDiscussion() {
   $('voteBtn').classList.remove('attn');
   $('discCat').textContent = 'Category · ' + state.round.cat;
   const ord = state.round.order.map(i => state.session.names[i]);
-  $('orderLine').textContent = state.mods.scramble
-    ? '\u{1F500} Order: ' + ord.join(' \u2192 ')
-    : '\u{1F3B2} ' + ord[0] + ' starts \u2014 then go clockwise';
+  if (state.mods.written) {
+    $('orderLine').textContent = '';
+    $('orderLine').style.display = 'none';
+  } else {
+    $('orderLine').style.display = 'block';
+    $('orderLine').textContent = state.cfg.scramble
+      ? '\u{1F500} Order: ' + ord.join(' \u2192 ')
+      : '\u{1F3B2} ' + ord[0] + ' starts. Clockwise from there.';
+  }
   const cb = $('clueBoard');
   if (state.round.clues) {
     cb.classList.add('on');
@@ -2210,6 +2557,7 @@ function startTimer(total) {
   timer.total = total; timer.remaining = total; timer.running = true;
   timer.endAt = Date.now() + total * 1000;
   $('ringFg').style.strokeDasharray = RING_C;
+  $('ringFg').style.stroke = '';
   $('pauseBtn').innerHTML = ICON.pause;
   $('pauseBtn').setAttribute('aria-label', 'Pause timer');
   renderTimer();
@@ -2220,13 +2568,25 @@ function tickTimer() {
   const prev = Math.ceil(timer.remaining);
   timer.remaining = Math.max(0, (timer.endAt - Date.now()) / 1000);
   const now = Math.ceil(timer.remaining);
-  if (now < prev && now > 0 && now <= 5) { sndTick(); buzz(25); }
+  if (now < prev && now > 0 && now <= 10) {
+    pulseRing();
+    if (now <= 5) { sndTick(); buzz(25); }
+  }
   renderTimer();
   if (timer.remaining <= 0) finishTimer();
 }
+function pulseRing() {
+  const b = $('s-discussion').querySelector('.ringbox');
+  if (!b || reduceMotion()) return;
+  b.classList.remove('tick'); void b.offsetWidth; b.classList.add('tick');
+}
 function renderTimer() {
+  const p = timer.total ? Math.max(0, Math.min(1, timer.remaining / timer.total)) : 0;
   $('timeText').textContent = fmt(Math.ceil(timer.remaining));
-  $('ringFg').style.strokeDashoffset = RING_C * (1 - timer.remaining / timer.total);
+  const ring = $('ringFg');
+  ring.style.strokeDashoffset = RING_C * (1 - p);
+  const bleed = Math.round(Math.max(0, Math.min(1, (1 - p - .35) / .65)) * 100);
+  ring.style.stroke = bleed > 0 ? `color-mix(in srgb, var(--lose) ${bleed}%, var(--accent))` : '';
 }
 function finishTimer() {
   timer.running = false;
@@ -2283,18 +2643,18 @@ function runBlitz() {
 }
 $('blitzAbort').addEventListener('click', () => {
   confirmDlg('Scrap this round?', 'No points. A fresh word is dealt to the same players.', 'Scrap It', () => {
-    stopBlitz(); state.roundNo--; newRound();
+    stopBlitz(); state.roundNo--; safeNewRound();
   });
 });
 
 $('scrapBtn1').addEventListener('click', () => {
   confirmDlg('Scrap this round?', 'No points. A fresh word is dealt to the same players.', 'Scrap It', () => {
-    stopTimer(); state.roundNo--; newRound();
+    stopTimer(); state.roundNo--; safeNewRound();
   });
 });
 $('scrapBtn2').addEventListener('click', () => {
   confirmDlg('Scrap this round?', 'No points. A fresh word is dealt to the same players.', 'Scrap It', () => {
-    state.roundNo--; newRound();
+    state.roundNo--; safeNewRound();
   });
 });
 $('hungBtn').addEventListener('click', () => {
@@ -2309,6 +2669,18 @@ $('hungBtn').addEventListener('click', () => {
 function enterVoting() {
   const K = state.session.K;
   state.sel = new Set();
+  $('voteCat').textContent = 'Category \u00b7 ' + state.round.cat;
+  const cw = $('voteClues');
+  if (state.round.clues) {
+    cw.hidden = false;
+    cw.classList.remove('open');
+    $('voteCluesTxt').textContent = 'Show the clues';
+    $('voteClueBoard').innerHTML = state.round.order.map(i =>
+      `<div class="clue-row"><b>${esc(state.session.names[i])}</b><span>${esc(state.round.clues[i] || '\u2026')}</span></div>`).join('');
+  } else {
+    cw.hidden = true;
+    $('voteClueBoard').innerHTML = '';
+  }
   $('voteSub').textContent = `Select exactly ${K} player${K === 1 ? '' : 's'}, then lock it in.`;
   const list = $('voteList');
   list.innerHTML = '';
@@ -2336,7 +2708,7 @@ function enterVoting() {
 function updateVote() {
   const K = state.session.K;
   $('voteCount').textContent = `${state.sel.size} of ${K} selected`;
-  $('voteSubmit').disabled = state.sel.size !== K;
+  setOff($('voteSubmit'), state.sel.size !== K);
 }
 function startVotePhase() {
   if (state.mods.secret) svStart(); else enterVoting();
@@ -2388,9 +2760,10 @@ function svBallot() {
 function svUpdate() {
   const K = state.session.K, n = state.sv.sel.size;
   $('svCount').textContent = n + ' / ' + K + ' selected';
-  $('svLock').disabled = n !== K;
+  setOff($('svLock'), n !== K);
 }
 $('svLock').addEventListener('click', () => {
+  if (offGuard($('svLock'))) return;
   state.sv.ballots[state.sv.i] = [...state.sv.sel];
   sndTick(); buzz(20);
   if (state.sv.ballots.every(b3 => b3 != null)) svReveal();
@@ -2407,10 +2780,17 @@ function svReveal() {
   shuffle(votes);
   const list = $('svTallyList');
   list.innerHTML = '';
-  show('svreveal');
   const rows = {};
-  let vi = 0, mx = 1;
-  const stepMs = votes.length > 20 ? 150 : 240;
+  state.session.names.forEach((nm, i2) => {
+    const row = document.createElement('div');
+    row.className = 'tally-row';
+    row.innerHTML = `<span class="tn">${esc(nm)}</span><span class="tmarks"></span><span class="tc">0</span>`;
+    list.appendChild(row);
+    rows[i2] = { row, marks: row.querySelector('.tmarks'), tc: row.querySelector('.tc') };
+  });
+  show('svreveal');
+  let vi = 0;
+  const stepMs = votes.length > 16 ? 230 : 340;
   const iv = setInterval(() => {
     if (state.screen !== 'svreveal') { clearInterval(iv); return; }
     if (vi >= votes.length) {
@@ -2423,27 +2803,32 @@ function svReveal() {
         applyOutcome(accused, !clear);
         show('results');
         playResults(accused);
-      }, 1400);
+      }, 1500);
       return;
     }
     const t = votes[vi++];
     tally[t]++;
-    mx = Math.max(mx, tally[t]);
-    if (!rows[t]) {
-      const row = document.createElement('div');
-      row.className = 'tally-row';
-      row.innerHTML = `<span class="tn">${esc(state.session.names[t])}</span><span class="tbwrap"><span class="tbar"></span></span><span class="tc">0</span>`;
-      list.appendChild(row);
-      rows[t] = { tc: row.querySelector('.tc'), bar: row.querySelector('.tbar') };
-    }
+    const m = document.createElement('span');
+    m.className = 'tmark' + (tally[t] % 5 === 0 ? ' five' : '');
+    rows[t].marks.appendChild(m);
     rows[t].tc.textContent = tally[t];
-    for (const k2 in rows) rows[k2].bar.style.width = (tally[k2] / mx * 100) + '%';
+    rows[t].row.classList.add('pulse');
+    setTimeout(() => rows[t].row.classList.remove('pulse'), 280);
     sndTick(); buzz(12);
   }, stepMs);
 }
 function applyOutcome(accused, hung = false) {
   const r = state.round, imp = r.imp, N = state.session.names.length;
   ensurePlayers();
+  state.undo = {
+    scores: state.scores.slice(),
+    stats: state.stats.map(s2 => Object.assign({}, s2)),
+    modPts: JSON.parse(JSON.stringify(state.modPts || {})),
+    histLen: state.history.length,
+    roundNo: state.roundNo,
+    prevRank: state.prevRank ? state.prevRank.slice() : null,
+    word: r.word,
+  };
   const escaped = [...imp].filter(i => !accused.includes(i));
   const jCaught = r.jester >= 0 && accused.includes(r.jester);
   const deltas = Array(N).fill(0);
@@ -2475,8 +2860,10 @@ function applyOutcome(accused, hung = false) {
   state.history.push({ no: state.roundNo, cat: r.cat, word: r.word, decoy: r.decoy,
     imp: [...imp].sort((a, b) => a - b), jester: r.jester, accused: accused.slice(),
     outcome, names: state.session.names.slice(), deltas: deltas.slice(), mods: act });
+  saveSession();
 }
 $('voteSubmit').addEventListener('click', () => {
+  if (offGuard($('voteSubmit'))) return;
   const accused = [...state.sel].sort((a, b) => a - b);
   applyOutcome(accused);
   show('results');
@@ -2529,7 +2916,7 @@ function playResults(accused) {
   const hits = accused.filter(i => imp.has(i)).length;
   let line1, line2, sub;
   if (outcome === 'innocents') { line1 = 'Innocents'; line2 = 'Win'; sub = 'Every impostor, caught. +1 each.'; }
-  else if (outcome === 'jester') { line1 = 'Jester'; line2 = 'Wins'; sub = `${state.session.names[state.round.jester]} wanted those votes. +2 \u2014 and the impostor walked.`; }
+  else if (outcome === 'jester') { line1 = 'Jester'; line2 = 'Wins'; sub = `${state.session.names[state.round.jester]} wanted those votes. +2, and the impostor walked.`; }
   else if (outcome === 'hung') { line1 = 'Hung'; line2 = 'Jury'; sub = 'No agreement. The impostors slip away with +1.'; }
   else { line1 = K > 1 ? 'Impostors' : 'Impostor'; line2 = K > 1 ? 'Win' : 'Wins';
     sub = hits === 0 ? 'Not one caught. +2 to every impostor.' : 'The ones who got away take +2.'; }
@@ -2553,7 +2940,7 @@ function playResults(accused) {
     $('verdictSub').textContent = sub;
     win ? sndWin() : sndLose();
     buzz(win ? [40, 60, 40, 60, 120] : 240);
-    if (win) confettiStart();
+    if (win) confettiStart(); else flashTint();
   };
   const details = () => {
     $('suspense').style.display = 'none';
@@ -2617,9 +3004,10 @@ function standRow(pi, pos, delta, move) {
   const dl = delta ? `<span class="dl">+${delta}</span>` : '';
   return `<span class="rk">${pos + 1}</span><span class="nm">${esc(nm)}</span>${dl}${mv}<span class="pts">${state.scores[pi]}</span>`;
 }
-function enterStandings() {
+function enterStandings(quiet) {
   const ord = rankOrder();
   const prev = state.prevRank || ord;
+  const dl = (!quiet && state.round && state.round.deltas) ? state.round.deltas : null;
   $('standChip').textContent = 'After Round ' + state.roundNo;
   const list = $('standList');
   list.innerHTML = '';
@@ -2627,12 +3015,15 @@ function enterStandings() {
   ord.forEach((pi, pos) => {
     const row = document.createElement('div');
     row.className = 'stand-row' + (pos === 0 ? ' r1' : '');
-    const move = prev.indexOf(pi) - pos;
-    row.innerHTML = standRow(pi, pos, state.round && state.round.deltas ? state.round.deltas[pi] : 0, move);
+    const move = quiet ? 0 : prev.indexOf(pi) - pos;
+    row.innerHTML = standRow(pi, pos, dl ? dl[pi] : 0, move);
+    const nmEl = row.querySelector('.nm');
+    if (nmEl) nmEl.addEventListener('click', () => renamePlayer(pi));
     list.appendChild(row); rows.push(row);
   });
+  setOff($('undoBtn'), !state.undo);
   show('standings');
-  if (!reduceMotion()) {
+  if (!quiet && !reduceMotion()) {
     requestAnimationFrame(() => {
       const gap = 9, rh = rows[0] ? rows[0].offsetHeight + gap : 0;
       rows.forEach((row, pos) => {
@@ -2646,12 +3037,18 @@ function enterStandings() {
           });
         }
       });
+      rows.forEach((row, pos) => {
+        const pi = ord[pos], d = dl ? (dl[pi] || 0) : 0;
+        if (!d) return;
+        const el = row.querySelector('.pts');
+        if (el) countUp(el, (state.scores[pi] || 0) - d, state.scores[pi] || 0, 640);
+      });
     });
     sndWhoosh();
   }
   state.prevRank = ord;
   targetChips();
-  setTimeout(checkTargets, 900);
+  if (!quiet) setTimeout(checkTargets, 900);
 }
 function checkTargets() {
   if (state.screen !== 'standings' || state.targetDismissed) return;
@@ -2690,14 +3087,19 @@ function targetChips() {
   el.innerHTML = bits.map(b2 => `<span class="mini-chip">${b2}</span>`).join('');
   el.style.display = bits.length ? 'flex' : 'none';
 }
-$('nextRoundBtn').addEventListener('click', () => { sndTick(); newRound(); });
+$('nextRoundBtn').addEventListener('click', () => { sndTick(); safeNewRound(); });
 $('stSetupBtn').addEventListener('click', () => { state.round = null; show('setup'); validateSetup(); });
-$('finishBtn').addEventListener('click', () => { sndTick(); startPodium(); });
+$('finishBtn').addEventListener('click', () => {
+  sndTick();
+  confirmDlg('Finish the game?', 'Scores are locked in and you\u2019ll head to the podium, awards, and history.', 'Finish', () => startPodium());
+});
 
 /* ---------- podium & finale ---------- */
 function startPodium() {
   const ord = rankOrder();
   state.finalOrd = ord;
+  state.finished = true;        // reached the podium, so there is nothing to resume
+  saveSession();
   const wrap = $('podiumWrap');
   const mk = (pi, cls, medal) => `<div class="pod ${cls}">
       <span class="medal">${medal}</span>
@@ -2714,6 +3116,7 @@ function startPodium() {
     [1500, () => { pods[0].classList.add('in'); sndThud(); buzz(40); }],
     [2400, () => sndDrum(6)],
     [3100, () => { pods[1].classList.add('in'); sndFanfare(); buzz([50, 60, 50, 60, 160]); confettiStart(); }],
+    [3260, () => pods[1].classList.add('sweep')],
     [3800, () => $('podiumNext').classList.add('show')],
   ];
   if (reduceMotion()) { pods.forEach(p2 => p2.classList.add('in')); $('podiumNext').classList.add('show'); return; }
@@ -2738,7 +3141,7 @@ $('awardsBtn').addEventListener('click', () => { renderAwards(); show('awards');
 const MOD_AWARD = { decoy: ['\u{1FA9E}', 'Decoy Champion'],
   jester: ['\u{1F3AA}', 'Ringmaster'], accomplices: ['\u{1F91D}', 'Partner in Crime'],
   blackout: ['\u{1F311}', 'Blackout Boss'], written: ['\u270D\uFE0F', 'Wordsmith'],
-  blitz: ['\u{1F3CE}\uFE0F', 'Speed Demon'], scramble: ['\u{1F500}', 'Out of Order'],
+  blitz: ['\u{1F3CE}\uFE0F', 'Speed Demon'],
   secret: ['\u{1F92B}', 'Poker Face'] };
 function computeAwards() {
   const S = state.stats, N = state.session.names, out = [];
@@ -2790,16 +3193,43 @@ function computeAwards() {
   });
   return out;
 }
+/* The hero slot goes to the award with the best story, not the one that
+   happens to be computed first. Anything unlisted (the per-mod awards)
+   ranks just behind the named ones. */
+const HERO_RANK = ['Hot Streak', 'Escape Artist', 'Agent of Chaos', 'Master Detective',
+  'Most Wanted', 'Caught Red-Handed', 'The Scapegoat', 'Iron Alibi', 'Way Off', 'Pure of Heart'];
+function heroIndex(aw) {
+  let best = 0, bestRank = 1e9;
+  aw.forEach((a, i) => {
+    let r = HERO_RANK.indexOf(a.label);
+    if (r < 0) r = HERO_RANK.length;
+    if (r < bestRank) { bestRank = r; best = i; }
+  });
+  return best;
+}
+let awardsT = null;
 function renderAwards() {
   const list = $('awardList');
   list.innerHTML = '';
-  computeAwards().forEach((a, i) => {
+  clearTimeout(awardsT);
+  const aw = computeAwards();
+  if (!aw.length) {
+    list.innerHTML = '<p class="sub-lead">No awards this time. Play a few more rounds.</p>';
+    return;
+  }
+  const card = (a, cls, i) => {
     const c = document.createElement('div');
-    c.className = 'award-card rise';
-    c.style.setProperty('--i', Math.min(i, 8));
+    c.className = 'award-card ' + cls;
+    if (i != null) c.style.setProperty('--i', Math.min(i, 8));
     c.innerHTML = `<span class="aico">${a.icon}</span><div><div class="at">${a.label}</div><div class="an">${esc(a.name)}</div><div class="ad">${a.desc}</div></div>`;
-    list.appendChild(c);
-  });
+    return c;
+  };
+  const hi = heroIndex(aw);
+  list.appendChild(card(aw[hi], 'hero'));
+  const rest = aw.filter((_, i) => i !== hi).map((a, i) => card(a, 'rest', i));
+  rest.forEach(c => list.appendChild(c));
+  if (reduceMotion()) rest.forEach(c => c.classList.add('in'));
+  else awardsT = setTimeout(() => rest.forEach(c => c.classList.add('in')), 950);
 }
 $('newGameBtn').addEventListener('click', () => {
   confirmDlg('Start a new game?', 'Scores, stats, and history reset. The roster stays.', 'New Game', () => {
@@ -2807,6 +3237,7 @@ $('newGameBtn').addEventListener('click', () => {
     state.stats = state.stats.map(() => ({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0, svCorrect: 0, svWrong: 0 }));
     state.history = []; state.prevRank = null; state.roundNo = 0; state.round = null;
     state.modPts = {}; state.gameStart = null; state.targetDismissed = false;
+    state.undo = null; state.finished = false; clearSession();
     show('setup'); validateSetup();
   });
 });
@@ -2824,7 +3255,7 @@ $('histBtn').addEventListener('click', () => {
     row.innerHTML = `<div class="hw">${OUT_ICON[hh.outcome] || ''} Round ${hh.no} &middot; &ldquo;${esc(hh.word)}&rdquo;${dec}</div>
       <div class="hd">${esc(hh.cat)}</div>
       <div>Impostor${hh.imp.length > 1 ? 's' : ''}: ${hh.imp.map(i => esc(hh.names[i])).join(', ')}${jn}</div>
-      <div class="hd">Voted: ${hh.accused.length ? hh.accused.map(i => esc(hh.names[i])).join(', ') : '\u2014 (hung jury)'}</div>
+      <div class="hd">Voted: ${hh.accused.length ? hh.accused.map(i => esc(hh.names[i])).join(', ') : 'nobody (hung jury)'}</div>
       ${hh.mods && hh.mods.length ? `<div class="hd">Mods: ${hh.mods.map(m2 => MOD_NAME[m2] || m2).join(', ')}</div>` : ''}`;
     list.appendChild(row);
   });
@@ -2859,7 +3290,7 @@ function shareResultsCard() {
   for (let i = 0; i < Math.min(3, ord.length); i++) {
     x.font = (i === 0 ? '800 56px ' : '700 44px ') + fb;
     x.fillStyle = i === 0 ? ac : tx;
-    x.fillText(meds[i] + '  ' + clip(state.session.names[ord[i]], 16) + ' \u2014 ' + (state.scores[ord[i]] || 0) + ' pts', W2 / 2, y);
+    x.fillText(meds[i] + '  ' + clip(state.session.names[ord[i]], 16) + ' \u00b7 ' + (state.scores[ord[i]] || 0) + ' pts', W2 / 2, y);
     y += i === 0 ? 80 : 64;
   }
   y += 26;
@@ -2883,7 +3314,7 @@ function shareResultsCard() {
   for (const a2 of aw) {
     if (y > H2 - 150) break;
     x.font = '400 34px ' + fb; x.fillStyle = tx;
-    x.fillText(a2.icon + '  ' + a2.label + ' \u2014 ' + clip(a2.name, 24), 170, y);
+    x.fillText(a2.icon + '  ' + a2.label + ' \u00b7 ' + clip(a2.name, 24), 170, y);
     x.fillStyle = dm; x.font = '400 27px ' + fb;
     x.fillText(clip(a2.desc, 62), 220, y + 34);
     y += 86;
@@ -2894,7 +3325,7 @@ function shareResultsCard() {
     if (!blob) return;
     const file = new File([blob], 'impostor-results.png', { type: 'image/png' });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file], title: 'Impostor \u2014 game results' }); return; } catch (e) {}
+      try { await navigator.share({ files: [file], title: 'Impostor game results' }); return; } catch (e) {}
     }
     const a3 = document.createElement('a');
     a3.href = URL.createObjectURL(blob);
@@ -2954,25 +3385,43 @@ function confettiStop() {
 function openModal() { $('modal').classList.add('open'); }
 function closeModal() { $('modal').classList.remove('open'); }
 $('gearBtn').addEventListener('click', () => {
-  confirmDlg('End this round?', 'You\u2019ll head back to setup. This round\u2019s word and roles are tossed \u2014 scores stay.', 'End Round', () => {
+  confirmDlg('End this round?', 'You\u2019ll head back to setup. This round\u2019s word and roles get tossed. Scores stay.', 'End Round', () => {
     stopBlitz(); state.round = null; show('setup'); validateSetup();
   });
 });
-$('mCancel').addEventListener('click', closeModal);
-$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
-let modalCb = null;
-function confirmDlg(title, body, ok, cb, cancel = 'Cancel') {
+let modalCb = null, modalCancelCb = null, modalInput = false;
+function dismissModal() {
+  closeModal();
+  const cb = modalCancelCb;
+  modalCb = null; modalCancelCb = null;
+  if (cb) cb();
+}
+$('mCancel').addEventListener('click', dismissModal);
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) dismissModal(); });
+function confirmDlg(title, body, ok, cb, cancel = 'Cancel', cancelCb = null) {
   $('mTitle').textContent = title;
-  $('mBody').textContent = body;
+  $('mBody').textContent = body || '';
+  $('mBody').style.display = body ? '' : 'none';
   $('mOk').textContent = ok;
   $('mCancel').textContent = cancel;
-  modalCb = cb;
+  $('mInput').hidden = true;
+  modalInput = false;
+  modalCb = cb; modalCancelCb = cancelCb;
   openModal();
 }
+function promptDlg(title, body, value, ok, cb) {
+  confirmDlg(title, body, ok, cb);
+  const inp = $('mInput');
+  inp.hidden = false;
+  inp.value = value || '';
+  modalInput = true;
+  setTimeout(() => { inp.focus(); inp.select(); }, 130);
+}
 $('mOk').addEventListener('click', () => {
+  const val = modalInput ? $('mInput').value : null;
   closeModal();
-  const cb = modalCb; modalCb = null;
-  if (cb) cb();
+  const cb = modalCb; modalCb = null; modalCancelCb = null;
+  if (cb) cb(val);
 });
 
 /* ---------- theme popover ---------- */
@@ -2984,7 +3433,7 @@ $('popCatch').addEventListener('click', closePop);
   b.addEventListener('click', () => { sndTick(); applyTheme(state.themeId, b.dataset.mode); }));
 
 /* ---------- top-level wiring ---------- */
-$('introStart').addEventListener('click', () => { show('setup'); });
+$('introStart').addEventListener('click', () => { show('setup'); validateSetup(); });
 $('introShare').addEventListener('click', async () => {
   const msg = 'Imposter\n\n' +
     'Play it: https://footballer10.github.io/imposter/\n\n' +
@@ -3002,12 +3451,36 @@ $('introShare').addEventListener('click', async () => {
 });
 $('rulesBtn').addEventListener('click', () => $('rulesPop').classList.add('open'));
 $('rulesClose').addEventListener('click', () => $('rulesPop').classList.remove('open'));
-[...$('soundSeg').children].forEach(b => b.addEventListener('click', () => {
-  state.sound = b.dataset.snd === 'on';
-  [...$('soundSeg').children].forEach(x => x.classList.toggle('on', x === b));
-  try { localStorage.setItem('impostor.sound', state.sound ? '1' : '0'); } catch (e) {}
-  sndTick();
-}));
+const VOL_ICON = on => on
+  ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>'
+  : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>';
+let lastVol = .8;
+function applyVolume(v, quiet) {
+  v = Math.max(0, Math.min(1, isNaN(v) ? .8 : v));
+  state.volume = v;
+  state.sound = v > 0;
+  const pct = Math.round(v * 100);
+  const r = $('volRange');
+  r.value = pct;
+  r.style.setProperty('--fill', pct + '%');
+  $('volLabel').textContent = pct;
+  $('volIcon').innerHTML = VOL_ICON(v > 0);
+  $('volIcon').classList.toggle('muted', v === 0);
+  $('muteFlag').hidden = v > 0;
+  if (v > 0) lastVol = v;
+  if (!quiet) {
+    try {
+      localStorage.setItem('impostor.vol', String(pct));
+      localStorage.setItem('impostor.sound', v > 0 ? '1' : '0');
+    } catch (e) {}
+  }
+}
+$('volRange').addEventListener('input', () => applyVolume(+$('volRange').value / 100));
+$('volRange').addEventListener('change', sndTick);
+$('volIcon').addEventListener('click', () => {
+  if (state.volume > 0) { applyVolume(0); buzz(20); }
+  else { applyVolume(lastVol || .8); sndTick(); }
+});
 function syncPts() {
   const v = +$('ptsRange').value;
   state.cfg.toPoints = v;
@@ -3018,7 +3491,7 @@ function syncTime() {
   const v = +$('timeRange').value;
   state.cfg.toTime = v;
   $('timeLabel').textContent = v + ' min';
-  $('timeRange').style.setProperty('--fill', ((v - 1) / 59 * 100) + '%');
+  $('timeRange').style.setProperty('--fill', ((v - 1) / 99 * 100) + '%');
 }
 $('ptsRange').addEventListener('input', syncPts);
 $('timeRange').addEventListener('input', syncTime);
@@ -3030,38 +3503,55 @@ function syncRnd() {
 }
 function updGL() {
   const n = (state.cfg.toPointsOn ? 1 : 0) + (state.cfg.toTimeOn ? 1 : 0) + (state.cfg.toRoundsOn ? 1 : 0);
-  $('glSub').textContent = n ? (n + ' finish line' + (n > 1 ? 's' : '') + ' set') : 'Play forever \u00b7 tap to set a finish line';
+  $('glSub').textContent = n ? (n + ' finish line' + (n > 1 ? 's' : '') + ' set') : 'No finish line';
+  updSummary(); saveSetup();
 }
 $('ptsSwitch').addEventListener('change', () => { state.cfg.toPointsOn = $('ptsSwitch').checked; $('ptsField').classList.toggle('open', state.cfg.toPointsOn); sndTick(); updGL(); });
 $('timeSwitch').addEventListener('change', () => { state.cfg.toTimeOn = $('timeSwitch').checked; $('timeField').classList.toggle('open', state.cfg.toTimeOn); sndTick(); updGL(); });
 $('rndSwitch').addEventListener('change', () => { state.cfg.toRoundsOn = $('rndSwitch').checked; $('rndField').classList.toggle('open', state.cfg.toRoundsOn); sndTick(); updGL(); });
+$('timerHead').addEventListener('click', () => {
+  const open = $('timerBody').classList.toggle('open');
+  $('timerHead').classList.toggle('open', open);
+  $('timerHead').setAttribute('aria-expanded', open);
+});
+$('namesToggle').addEventListener('click', () => {
+  const open = $('nameWrapper').classList.toggle('open');
+  $('namesToggle').classList.toggle('open', open);
+  $('namesToggleTxt').textContent = open ? 'Hide names' : 'Edit names';
+  sndTick();
+});
+$('voteCluesHead').addEventListener('click', () => {
+  const open = $('voteClues').classList.toggle('open');
+  $('voteCluesTxt').textContent = open ? 'Hide the clues' : 'Show the clues';
+  sndTick();
+});
 $('rndRange').addEventListener('input', syncRnd);
 $('glHead').addEventListener('click', () => { const o = $('glBody').classList.toggle('open'); $('glHead').classList.toggle('open', o); });
 $('catsHead').addEventListener('click', () => { const o = $('catsBody').classList.toggle('open'); $('catsHead').classList.toggle('open', o); });
 const TOTAL_WORDS = Object.values(WORDS).reduce((a2, b2) => a2 + b2.length, 0);
 const catUI = {};
 function anyWordSelected() {
-  for (const c2 in WORDS) if (state.sel[c2] && state.sel[c2].size) return true;
+  for (const c2 in WORDS) if (state.catSel[c2] && state.catSel[c2].size) return true;
   return false;
 }
 function hasPair() {
   for (const c2 in WORDS) {
-    const s2 = state.sel[c2]; if (!s2 || !s2.size) continue;
+    const s2 = state.catSel[c2]; if (!s2 || !s2.size) continue;
     const ws = WORDS[c2];
     for (let i = 0; i + 1 < ws.length; i += 2) if (s2.has(ws[i]) && s2.has(ws[i + 1])) return true;
   }
   return false;
 }
 function catStateOf(cat) {
-  const s2 = state.sel[cat], t2 = WORDS[cat].length;
+  const s2 = state.catSel[cat], t2 = WORDS[cat].length;
   return !s2.size ? 'none' : (s2.size === t2 ? 'full' : 'part');
 }
 function refreshCatRow(cat) {
   const u = catUI[cat]; if (!u) return;
   const st = catStateOf(cat);
   u.check.className = 'cat-check' + (st === 'full' ? ' full' : st === 'part' ? ' part' : '');
-  u.count.textContent = state.sel[cat].size + '/' + WORDS[cat].length;
-  if (u.built) u.wordsWrap.querySelectorAll('.w-chip').forEach(ch => ch.classList.toggle('sel', state.sel[cat].has(ch.dataset.w)));
+  u.count.textContent = state.catSel[cat].size + '/' + WORDS[cat].length;
+  if (u.built) u.wordsWrap.querySelectorAll('.w-chip').forEach(ch => ch.classList.toggle('sel', state.catSel[cat].has(ch.dataset.w)));
 }
 function buildWords(cat) {
   const u = catUI[cat]; if (u.built) return;
@@ -3069,12 +3559,12 @@ function buildWords(cat) {
   WORDS[cat].forEach(w => {
     const ch = document.createElement('button');
     ch.type = 'button';
-    ch.className = 'w-chip' + (state.sel[cat].has(w) ? ' sel' : '');
+    ch.className = 'w-chip' + (state.catSel[cat].has(w) ? ' sel' : '');
     ch.dataset.w = w;
     ch.textContent = w;
     ch.addEventListener('click', () => {
-      if (state.sel[cat].has(w)) state.sel[cat].delete(w); else state.sel[cat].add(w);
-      ch.classList.toggle('sel', state.sel[cat].has(w));
+      if (state.catSel[cat].has(w)) state.catSel[cat].delete(w); else state.catSel[cat].add(w);
+      ch.classList.toggle('sel', state.catSel[cat].has(w));
       refreshCatRow(cat); updCats();
     });
     u.wordsWrap.appendChild(ch);
@@ -3088,7 +3578,7 @@ function renderCats() {
     const check = document.createElement('button'); check.type = 'button'; check.className = 'cat-check';
     check.setAttribute('aria-label', 'Toggle ' + cat);
     check.addEventListener('click', () => {
-      state.sel[cat] = catStateOf(cat) === 'full' ? new Set() : new Set(WORDS[cat]);
+      state.catSel[cat] = catStateOf(cat) === 'full' ? new Set() : new Set(WORDS[cat]);
       refreshCatRow(cat); updCats(); sndTick();
     });
     const nb = document.createElement('button'); nb.type = 'button'; nb.className = 'cat-nbtn';
@@ -3112,22 +3602,24 @@ function refreshAllCats() { Object.keys(WORDS).forEach(refreshCatRow); updCats()
 function updCats() {
   const t = Object.keys(WORDS).length;
   let inPlay = 0, wsel = 0;
-  for (const c2 in WORDS) { if (state.sel[c2].size) inPlay++; wsel += state.sel[c2].size; }
+  for (const c2 in WORDS) { if (state.catSel[c2].size) inPlay++; wsel += state.catSel[c2].size; }
+  wordCount = wsel;
   $('catsSub').textContent = (inPlay === t && wsel === TOTAL_WORDS) ? 'All ' + t + ' in play'
     : inPlay + ' of ' + t + ' \u00b7 ' + wsel + ' words';
   validateSetup();
+  saveSetup();
 }
 $('catAll').addEventListener('click', () => {
-  Object.keys(WORDS).forEach(c2 => { state.sel[c2] = new Set(WORDS[c2]); });
+  Object.keys(WORDS).forEach(c2 => { state.catSel[c2] = new Set(WORDS[c2]); });
   refreshAllCats(); sndTick();
 });
 $('catNone').addEventListener('click', () => {
-  Object.keys(WORDS).forEach(c2 => { state.sel[c2] = new Set(); });
+  Object.keys(WORDS).forEach(c2 => { state.catSel[c2] = new Set(); });
   refreshAllCats(); sndTick();
 });
 $('catKids').addEventListener('click', () => {
   Object.keys(WORDS).forEach(c2 => {
-    state.sel[c2] = NON_KID_CATS.has(c2) ? new Set() : new Set(WORDS[c2].filter(w => !KID_HARD.has(w)));
+    state.catSel[c2] = NON_KID_CATS.has(c2) ? new Set() : new Set(WORDS[c2].filter(w => !KID_HARD.has(w)));
   });
   refreshAllCats(); sndTick();
 });
@@ -3144,7 +3636,7 @@ function applySet(nm) {
   const data = SETS[nm]; if (!data) return;
   Object.keys(WORDS).forEach(c2 => {
     const keep = data[c2];
-    state.sel[c2] = new Set(Array.isArray(keep) ? keep.filter(w => WORDS[c2].includes(w)) : []);
+    state.catSel[c2] = new Set(Array.isArray(keep) ? keep.filter(w => WORDS[c2].includes(w)) : []);
   });
   refreshAllCats(); sndTick();
 }
@@ -3186,7 +3678,7 @@ $('setConfirm').addEventListener('click', () => {
   if (!nm) { $('setName').focus(); return; }
   const save = () => {
     const data = {};
-    Object.keys(WORDS).forEach(c2 => { if (state.sel[c2].size) data[c2] = [...state.sel[c2]]; });
+    Object.keys(WORDS).forEach(c2 => { if (state.catSel[c2].size) data[c2] = [...state.catSel[c2]]; });
     SETS[nm] = data; persistSets(); renderSets();
     $('nameWrap').classList.remove('open');
     sndDing();
@@ -3208,9 +3700,12 @@ function setCatsOpen(open) {
 }
 $('catToggle').addEventListener('click', () => { setCatsOpen(!catsOpen); sndTick(); });
 $('revClue').addEventListener('input', () => {
-  if (state.round && state.round.clues) $('revContinue').disabled = !$('revClue').value.trim();
+  if (state.round && state.round.clues) setOff($('revContinue'), !$('revClue').value.trim());
 });
 syncPts(); syncTime(); syncRnd(); updGL();
+$('scrSwitch').addEventListener('change', () => {
+  state.cfg.scramble = $('scrSwitch').checked; sndTick(); updTimerSub(); updSummary(); saveSetup();
+});
 $('modsHead').addEventListener('click', () => {
   const open = $('modsBody').classList.toggle('open');
   $('modsHead').classList.toggle('open', open);
@@ -3221,6 +3716,7 @@ Object.keys(state.mods).forEach(id => {
   if (el) el.addEventListener('change', () => { setMod(id, el.checked); sndTick(); });
 });
 $('startBtn').addEventListener('click', () => {
+  if (offGuard($('startBtn'))) return;
   const P = state.cfg.players;
   state.session = {
     names: state.cfg.names.slice(0, P).map((s, i) => (s || '').trim() || ('Player ' + (i + 1))),
@@ -3230,8 +3726,8 @@ $('startBtn').addEventListener('click', () => {
   };
   ensurePlayers();
   saveRoster();
-  if (state.roundNo === 0) { state.gameStart = Date.now(); state.targetDismissed = false; }
-  newRound();
+  if (state.roundNo === 0) { state.gameStart = Date.now(); state.targetDismissed = false; state.finished = false; }
+  safeNewRound();
 });
 $('rosterCTA').addEventListener('click', () => {
   if (state.mods.blitz) runBlitz();
@@ -3239,39 +3735,558 @@ $('rosterCTA').addEventListener('click', () => {
 });
 $('skipWordBtn').addEventListener('click', () => {
   confirmDlg('Swap the word?', 'A fresh word is drawn and roles are re-dealt. Reveals start over.', 'Swap It', () => {
-    state.roundNo--; newRound();
+    const old = state.round ? state.round.word : null;
+    state.roundNo--; safeNewRound(true);        // same mods, fresh word and roles
+    if (old && !BANNED.has(old)) setTimeout(() => askBan(old), 280);
   });
 });
 $('timerSwitch').addEventListener('change', () => {
   state.cfg.timerOn = $('timerSwitch').checked;
   $('durField').classList.toggle('open', state.cfg.timerOn);
+  updTimerSub(); updSummary(); saveSetup();
 });
 $('durRange').addEventListener('input', syncDur);
 
+
+/* ════════════════════════════════════════════════════════════════
+   v13 · soft-disable, toasts, persistence, banned words, sharing
+   `var` is deliberate below: a few of these are touched by module
+   level calls that run before this block, and var hoists to
+   undefined instead of throwing.
+   ════════════════════════════════════════════════════════════════ */
+var booted = false;
+var wordCount = 0;
+var RESUME = null;
+var BANNED = new Set();
+var WORD_CAT = {};
+var SELA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+
+/* ---------- soft-disabled buttons (they shake, they don't go dead) ---------- */
+function setOff(el, off) {
+  if (!el) return;
+  el.classList.toggle('off', !!off);
+  el.setAttribute('aria-disabled', off ? 'true' : 'false');
+}
+function offGuard(el) {
+  if (!el || !el.classList.contains('off')) return false;
+  el.classList.remove('shk'); void el.offsetWidth; el.classList.add('shk');
+  buzz(45);
+  return true;
+}
+
+/* ---------- toast ---------- */
+var toastT = null;
+function toast(msg, ms) {
+  const t = $('toast');
+  t.onclick = null;
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('on'), ms || 2600);
+}
+function toastAction(msg, label, fn) {
+  const t = $('toast');
+  t.innerHTML = esc(msg) + ' <u>' + esc(label) + '</u>';
+  t.classList.add('on');
+  t.onclick = () => { t.classList.remove('on'); t.onclick = null; fn(); };
+  clearTimeout(toastT);
+  toastT = setTimeout(() => { t.classList.remove('on'); t.onclick = null; }, 10000);
+}
+
+/* ---------- small motion helpers ---------- */
+function flashTint() {
+  if (reduceMotion()) return;
+  const t = $('tint');
+  t.classList.remove('flash'); void t.offsetWidth; t.classList.add('flash');
+}
+function countUp(el, from, to, ms) {
+  if (from === to) { el.textContent = to; return; }
+  const t0 = performance.now();
+  el.textContent = from;
+  const step = t => {
+    const k = Math.min(1, (t - t0) / ms);
+    el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(step); else el.textContent = to;
+  };
+  requestAnimationFrame(step);
+}
+
+/* ---------- setup headers + sticky summary strip ---------- */
+function updTimerSub() {
+  const c = state.cfg;
+  const el = $('timerSub');
+  if (el) el.textContent = (c.timerOn ? fmt(c.dur) : 'No timer') + ' \u00b7 ' + (c.scramble ? 'scrambled' : 'clockwise');
+}
+function updSummary() {
+  const c = state.cfg, el = $('setupSummary');
+  if (!el) return;
+  const chips = [];
+  chips.push(`<span class="sum-chip"><b>${c.players}</b> players</span>`);
+  chips.push(`<span class="sum-chip"><b>${c.impostors}</b> impostor${c.impostors === 1 ? '' : 's'}</span>`);
+  if (c.timerOn) chips.push(`<span class="sum-chip"><b>${fmt(c.dur)}</b> timer</span>`);
+  if (c.scramble) chips.push('<span class="sum-chip">Scrambled</span>');
+  (state.mods.roulette ? ['Roulette'] : activeModNames())
+    .forEach(m => chips.push(`<span class="sum-chip hot">${esc(m)}</span>`));
+  if (c.toPointsOn) chips.push(`<span class="sum-chip">to <b>${c.toPoints}</b> pts</span>`);
+  if (c.toTimeOn) chips.push(`<span class="sum-chip">to <b>${c.toTime}</b> min</span>`);
+  if (c.toRoundsOn) chips.push(`<span class="sum-chip">to <b>${c.toRounds}</b> ${c.toRounds === 1 ? 'round' : 'rounds'}</span>`);
+  chips.push(`<span class="sum-chip"><b>${(wordCount || 0).toLocaleString()}</b> words</span>`);
+  const html = chips.join('');
+  if (el.dataset.h === html) return;
+  el.dataset.h = html;
+  el.innerHTML = html;
+}
+
+/* ---------- word-selection codec (compact, category-name keyed) ---------- */
+function maskEnc(cat, set) {
+  const ws = WORDS[cat];
+  let out = '';
+  for (let i = 0; i < ws.length; i += 6) {
+    let v = 0;
+    for (let b = 0; b < 6 && i + b < ws.length; b++) if (set.has(ws[i + b])) v |= (1 << b);
+    out += SELA[v];
+  }
+  return out;
+}
+function maskDec(cat, str) {
+  const ws = WORDS[cat], s = new Set();
+  for (let i = 0; i < str.length; i++) {
+    const v = SELA.indexOf(str[i]);
+    if (v < 0) continue;
+    for (let b = 0; b < 6; b++) {
+      if (v & (1 << b)) { const k = i * 6 + b; if (k < ws.length) s.add(ws[k]); }
+    }
+  }
+  return s;
+}
+function encodeSel(sel) {
+  const out = [];
+  Object.keys(WORDS).forEach(c => {
+    const s = sel[c];
+    if (!s || !s.size) return;
+    out.push(c + '=' + (s.size === WORDS[c].length ? '*' : maskEnc(c, s)));
+  });
+  return out.join('\n');
+}
+function decodeSel(txt) {
+  const sel = {};
+  Object.keys(WORDS).forEach(c => { sel[c] = new Set(); });
+  String(txt || '').split('\n').forEach(line => {
+    const i = line.indexOf('=');
+    if (i < 1) return;
+    const c = line.slice(0, i).trim(), v = line.slice(i + 1).trim();
+    if (!WORDS[c]) return;
+    sel[c] = v === '*' ? new Set(WORDS[c]) : maskDec(c, v);
+  });
+  return sel;
+}
+
+/* ---------- the whole setup persists ---------- */
+function saveSetup() {
+  if (!booted) return;
+  try {
+    const c = state.cfg;
+    localStorage.setItem('impostor.setup', JSON.stringify({
+      v: 1, players: c.players, names: c.names.slice(0, c.players), impostors: c.impostors,
+      timerOn: c.timerOn, dur: c.dur, scramble: c.scramble,
+      toPointsOn: c.toPointsOn, toPoints: c.toPoints,
+      toTimeOn: c.toTimeOn, toTime: c.toTime,
+      toRoundsOn: c.toRoundsOn, toRounds: c.toRounds,
+      mods: Object.assign({}, state.mods),
+      sel: encodeSel(state.catSel),
+    }));
+  } catch (e) {}
+}
+function loadSetup() {
+  try { return JSON.parse(localStorage.getItem('impostor.setup') || 'null'); } catch (e) { return null; }
+}
+function applySetup(d) {
+  const c = state.cfg;
+  const cl = (v, lo, hi, dflt) => { v = parseInt(v, 10); return isNaN(v) ? dflt : Math.max(lo, Math.min(hi, v)); };
+  if (Array.isArray(d.names) && d.names.length >= 3) {
+    c.names = d.names.slice(0, 16).map(s => String(s || '').slice(0, 18));
+    c.players = c.names.length;
+  }
+  c.players = cl(d.players, 3, 16, c.players);
+  while (c.names.length < c.players) c.names.push('');
+  c.impostors = Math.min(cl(d.impostors, 1, 15, 1), c.players - 1);
+  c.timerOn = d.timerOn !== false;
+  c.dur = cl(d.dur, 30, 600, 180);
+  c.scramble = !!d.scramble;
+  c.toPointsOn = !!d.toPointsOn; c.toPoints = cl(d.toPoints, 1, 100, 15);
+  c.toTimeOn = !!d.toTimeOn;     c.toTime   = cl(d.toTime, 1, 100, 20);
+  c.toRoundsOn = !!d.toRoundsOn; c.toRounds = cl(d.toRounds, 1, 100, 10);
+  if (d.mods) Object.keys(state.mods).forEach(m => { state.mods[m] = !!d.mods[m]; });
+  if (typeof d.sel === 'string' && d.sel) {
+    const sel = decodeSel(d.sel);
+    let any = 0;
+    Object.keys(WORDS).forEach(c2 => { any += sel[c2].size; });
+    if (any) state.catSel = sel;
+  }
+  $('pCount').value = c.players;
+  $('iCount').value = c.impostors;
+  $('timerSwitch').checked = c.timerOn;
+  $('durField').classList.toggle('open', c.timerOn);
+  $('durRange').value = c.dur;
+  $('scrSwitch').checked = c.scramble;
+  $('ptsSwitch').checked = c.toPointsOn; $('ptsField').classList.toggle('open', c.toPointsOn); $('ptsRange').value = c.toPoints;
+  $('timeSwitch').checked = c.toTimeOn;  $('timeField').classList.toggle('open', c.toTimeOn);  $('timeRange').value = c.toTime;
+  $('rndSwitch').checked = c.toRoundsOn; $('rndField').classList.toggle('open', c.toRoundsOn); $('rndRange').value = c.toRounds;
+  Object.keys(state.mods).forEach(m => { const el = $('mod_' + m); if (el) el.checked = state.mods[m]; });
+}
+
+/* ---------- a game in progress survives the app being killed ---------- */
+function saveSession() {
+  if (!state.session) return;
+  try {
+    localStorage.setItem('impostor.session', JSON.stringify({
+      v: 1, at: Date.now(),
+      names: state.session.names, K: state.session.K,
+      timerOn: state.session.timerOn, dur: state.session.dur,
+      scores: state.scores, stats: state.stats, history: state.history,
+      roundNo: state.roundNo, prevRank: state.prevRank, modPts: state.modPts,
+      gameStart: state.gameStart, targetDismissed: state.targetDismissed,
+      finished: !!state.finished,
+      used: [...state.used], lastKey: state.lastKey,
+    }));
+  } catch (e) {}
+}
+function loadSession() {
+  try { return JSON.parse(localStorage.getItem('impostor.session') || 'null'); } catch (e) { return null; }
+}
+function clearSession() {
+  try { localStorage.removeItem('impostor.session'); } catch (e) {}
+  RESUME = null;
+  $('introResume').hidden = true;
+  $('introStart').classList.add('primary');
+}
+function resumeSession(d) {
+  const blank = { imp: 0, esc: 0, caught: 0, scape: 0, jester: 0, svCorrect: 0, svWrong: 0 };
+  state.session = { names: d.names.slice(), K: d.K, timerOn: d.timerOn, dur: d.dur };
+  state.scores = (d.scores || []).slice();
+  state.stats = (d.stats || []).map(s => Object.assign({}, blank, s));
+  state.history = d.history || [];
+  state.roundNo = d.roundNo || 0;
+  state.prevRank = d.prevRank || null;
+  state.modPts = d.modPts || {};
+  state.gameStart = d.gameStart || Date.now();
+  state.targetDismissed = !!d.targetDismissed;
+  state.used = new Set(d.used || []);
+  state.lastKey = d.lastKey || null;
+  state.round = null;
+  state.undo = null;
+  state.finished = false;
+  state.cfg.players = d.names.length;
+  state.cfg.names = d.names.slice();
+  state.cfg.impostors = Math.min(d.K || 1, d.names.length - 1);
+  $('pCount').value = state.cfg.players;
+  $('iCount').value = state.cfg.impostors;
+  ensurePlayers();
+  renderNames();
+  syncMods();
+  enterStandings(true);
+  toast('Picked up where you left off.');
+}
+
+/* ---------- undo the last round ---------- */
+function undoRound() {
+  const u = state.undo;
+  if (!u) return;
+  confirmDlg('Undo round ' + u.roundNo + '?',
+    '\u201c' + u.word + '\u201d comes off the scores and out of the history.', 'Undo It', () => {
+    state.scores = u.scores.slice();
+    state.stats = u.stats.map(s => Object.assign({}, s));
+    state.modPts = u.modPts;
+    state.history = state.history.slice(0, u.histLen);
+    state.roundNo = Math.max(0, u.roundNo - 1);
+    state.prevRank = u.prevRank;
+    state.round = null;
+    state.undo = null;
+    saveSession();
+    sndTick();
+    if (!state.history.length) {
+      clearSession();
+      show('setup'); validateSetup();
+      toast('Round undone. Back to setup.');
+    } else {
+      enterStandings(true);
+      toast('Round undone.');
+    }
+  });
+}
+
+/* ---------- rename a player without touching their score ---------- */
+function renamePlayer(i) {
+  if (!state.session) return;
+  const old = state.session.names[i];
+  promptDlg('Rename player', 'Points and stats stay with them.', old, 'Save', val => {
+    const nm = String(val || '').trim().slice(0, 18);
+    if (!nm || nm === old) return;
+    state.session.names[i] = nm;
+    if (state.cfg.names.length > i) state.cfg.names[i] = nm;
+    state.history.forEach(h => {
+      if (h.names && h.names.length === state.session.names.length && h.names[i] === old) h.names[i] = nm;
+    });
+    saveRoster(); saveSession(); renderNames();
+    enterStandings(true);
+    sndDing();
+  });
+}
+
+/* ---------- banned words ---------- */
+function buildWordIndex() {
+  Object.keys(WORDS).forEach(c => WORDS[c].forEach(w => { WORD_CAT[w] = c; }));
+}
+function loadBanned() {
+  try {
+    const a = JSON.parse(localStorage.getItem('impostor.banned') || '[]');
+    BANNED = new Set(Array.isArray(a) ? a.filter(w => WORD_CAT[w]) : []);
+  } catch (e) { BANNED = new Set(); }
+}
+function persistBanned() {
+  try { localStorage.setItem('impostor.banned', JSON.stringify([...BANNED])); } catch (e) {}
+}
+function askBan(w) {
+  confirmDlg('Ban \u201c' + w + '\u201d?', 'It comes out of your selection now and stays on the banned list.',
+    'Ban It', () => { addBan(w); toast('\u201c' + w + '\u201d banned.'); }, 'Keep It');
+}
+function addBan(w) {
+  if (!w || BANNED.has(w)) return;
+  BANNED.add(w);
+  persistBanned();
+  const cat = WORD_CAT[w];
+  if (cat && state.catSel[cat] && state.catSel[cat].has(w)) {
+    state.catSel[cat].delete(w);
+    refreshCatRow(cat);
+    updCats();
+  }
+  $('banSearch').value = '';
+  $('banMatches').classList.remove('on');
+  $('banMatches').innerHTML = '';
+  renderBanList();
+  sndDing(); buzz(20);
+}
+function removeBan(w) {
+  BANNED.delete(w);
+  persistBanned();
+  renderBanList();
+  sndTick();
+}
+function banSearch(q) {
+  q = String(q || '').trim().toLowerCase();
+  if (!q) return [];
+  const pre = [], mid = [];
+  for (const w in WORD_CAT) {
+    if (BANNED.has(w)) continue;
+    const i = w.toLowerCase().indexOf(q);
+    if (i === 0) { pre.push(w); if (pre.length >= 5) break; }
+    else if (i > 0 && mid.length < 5) mid.push(w);
+  }
+  return pre.concat(mid).slice(0, 5);
+}
+function renderMatches() {
+  const box = $('banMatches');
+  const res = banSearch($('banSearch').value);
+  if (!res.length) { box.classList.remove('on'); box.innerHTML = ''; return; }
+  box.innerHTML = res.map(w =>
+    `<button class="match-row" type="button" data-w="${esc(w)}">${esc(w)}<em>${esc(WORD_CAT[w])}</em></button>`).join('');
+  box.querySelectorAll('.match-row').forEach(b =>
+    b.addEventListener('click', () => addBan(b.dataset.w)));
+  box.classList.add('on');
+}
+function renderBanList() {
+  const list = $('banList');
+  const arr = [...BANNED].sort((a, b) => a.localeCompare(b));
+  $('banFoot').textContent = arr.length
+    ? arr.length + (arr.length === 1 ? ' word banned. Drop Banned applies it.' : ' words banned. Drop Banned applies it.')
+    : 'Nothing banned yet.';
+  if (!arr.length) {
+    list.innerHTML = '<div class="b-empty">No banned words yet.<br>Search above to ban one, or swap a word mid-game and ban it there.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  arr.forEach((w, i) => {
+    const row = document.createElement('div');
+    row.className = 'ban-row';
+    row.style.animationDelay = Math.min(i, 12) * 22 + 'ms';
+    row.innerHTML = `<span class="bw">${esc(w)}</span><span class="bc">${esc(WORD_CAT[w] || '')}</span>`;
+    const x = document.createElement('button');
+    x.className = 'name-x';
+    x.type = 'button';
+    x.setAttribute('aria-label', 'Unban ' + w);
+    x.textContent = '\u00d7';
+    x.addEventListener('click', () => removeBan(w));
+    row.appendChild(x);
+    list.appendChild(row);
+  });
+}
+
+/* ---------- saved sets travel between phones as text ---------- */
+function exportSets() {
+  const names = Object.keys(SETS);
+  if (!names.length) { toast('No saved sets to export yet.'); return; }
+  let txt = 'IMPOSTOR SETS v1';
+  names.forEach(nm => {
+    txt += '\n## ' + nm;
+    const sel = {};
+    Object.keys(WORDS).forEach(c => { sel[c] = new Set((SETS[nm] && SETS[nm][c]) || []); });
+    const body = encodeSel(sel);
+    if (body) txt += '\n' + body;
+  });
+  shareSetText(txt, names.length);
+}
+async function shareSetText(txt, n) {
+  const msg = n + (n === 1 ? ' set ready to paste.' : ' sets ready to paste.');
+  if (navigator.share) {
+    try { await navigator.share({ text: txt }); return; } catch (e) {}
+  }
+  if (navigator.clipboard) {
+    try { await navigator.clipboard.writeText(txt); toast(msg + ' Copied.'); return; } catch (e) {}
+  }
+  $('impText').value = txt;
+  $('impText').readOnly = true;
+  $('impGo').textContent = 'Done';
+  $('impGo').dataset.mode = 'close';
+  $('importPop').classList.add('open');
+  setTimeout(() => { $('impText').focus(); $('impText').select(); }, 150);
+}
+function importSets(txt) {
+  const lines = String(txt || '').split(/\r?\n/);
+  if (!/^IMPOSTOR SETS/i.test((lines[0] || '').trim())) {
+    toast('That text is not an Impostor set export.');
+    return;
+  }
+  let cur = null, buf = [], added = 0;
+  const flush = () => {
+    if (cur) {
+      const sel = decodeSel(buf.join('\n'));
+      const data = {};
+      let any = 0;
+      Object.keys(WORDS).forEach(c => { if (sel[c].size) { data[c] = [...sel[c]]; any += sel[c].size; } });
+      if (any) {
+        let nm = cur, n2 = 2;
+        while (SETS[nm] && n2 < 40) { nm = (cur + ' ' + n2).slice(0, 18); n2++; }
+        SETS[nm] = data;
+        added++;
+      }
+    }
+    cur = null; buf = [];
+  };
+  for (let i = 1; i < lines.length; i++) {
+    const L = lines[i];
+    if (/^##\s/.test(L)) { flush(); cur = L.replace(/^##\s*/, '').trim().slice(0, 18); }
+    else if (cur && L.indexOf('=') > 0) buf.push(L);
+  }
+  flush();
+  if (!added) { toast('Nothing to import from that text.'); return; }
+  persistSets();
+  renderSets();
+  $('importPop').classList.remove('open');
+  toast(added + (added === 1 ? ' set imported.' : ' sets imported.'));
+  sndDing();
+}
+
+/* ---------- wiring ---------- */
+$('catBanned').addEventListener('click', () => {
+  if (!BANNED.size) { toast('Nothing is banned yet.'); return; }
+  let n = 0;
+  Object.keys(WORDS).forEach(c => {
+    WORDS[c].forEach(w => {
+      if (BANNED.has(w) && state.catSel[c].has(w)) { state.catSel[c].delete(w); n++; }
+    });
+  });
+  refreshAllCats();
+  sndTick();
+  toast(n ? n + (n === 1 ? ' banned word un-ticked.' : ' banned words un-ticked.')
+          : 'None of your banned words were selected.');
+});
+$('banEdit').addEventListener('click', () => {
+  $('banSearch').value = '';
+  $('banMatches').classList.remove('on');
+  $('banMatches').innerHTML = '';
+  renderBanList();
+  $('banPop').classList.add('open');
+  sndTick();
+});
+$('banClose').addEventListener('click', () => { $('banPop').classList.remove('open'); refreshAllCats(); });
+$('banSearch').addEventListener('input', renderMatches);
+$('banPop').addEventListener('pointerdown', e => {
+  if ($('banMatches').classList.contains('on') && !e.target.closest('.b-search')) {
+    $('banMatches').classList.remove('on');
+  }
+  if (e.target === $('banPop')) { $('banPop').classList.remove('open'); refreshAllCats(); }
+});
+$('setExport').addEventListener('click', () => { sndTick(); exportSets(); });
+$('setImport').addEventListener('click', () => {
+  $('impText').value = '';
+  $('impText').readOnly = false;
+  $('impGo').textContent = 'Import Sets';
+  $('impGo').dataset.mode = 'import';
+  $('importPop').classList.add('open');
+  setTimeout(() => $('impText').focus(), 150);
+  sndTick();
+});
+$('impClose').addEventListener('click', () => $('importPop').classList.remove('open'));
+$('importPop').addEventListener('click', e => { if (e.target === $('importPop')) $('importPop').classList.remove('open'); });
+$('impGo').addEventListener('click', () => {
+  if ($('impGo').dataset.mode === 'close') { $('importPop').classList.remove('open'); return; }
+  importSets($('impText').value);
+});
+$('undoBtn').addEventListener('click', () => {
+  if (offGuard($('undoBtn'))) return;
+  sndTick();
+  undoRound();
+});
+$('introResume').addEventListener('click', () => {
+  if (!RESUME) return;
+  sndTick();
+  resumeSession(RESUME);
+});
+window.__toastUpdate = () => toastAction('New version ready.', 'Tap to reload.', () => location.reload());
+
 /* ---------- init ---------- */
 (function init() {
-  let th = 'parlor', md = 'auto';
+  let th = 'heist', md = 'auto';
   try {
     th = localStorage.getItem('impostor.theme') || th;
     md = localStorage.getItem('impostor.mode') || md;
   } catch (e) {}
-  if (!THEMES[th]) th = 'parlor';
+  if (!THEMES[th]) th = 'heist';
   if (!['auto', 'light', 'dark'].includes(md)) md = 'auto';
+
+  buildWordIndex();
+  loadBanned();
+
+  let vol = .8;
   try {
-    state.sound = localStorage.getItem('impostor.sound') !== '0';
-    const ro = JSON.parse(localStorage.getItem('impostor.roster') || 'null');
-    if (Array.isArray(ro) && ro.length >= 3) {
-      state.cfg.names = ro.slice(0, 16);
-      state.cfg.players = state.cfg.names.length;
-      $('pCount').value = state.cfg.players;
-    }
+    const rawV = localStorage.getItem('impostor.vol');
+    if (rawV !== null) vol = Math.max(0, Math.min(100, parseInt(rawV, 10) || 0)) / 100;
+    else if (localStorage.getItem('impostor.sound') === '0') vol = 0;
   } catch (e) {}
-  [...$('soundSeg').children].forEach(x => x.classList.toggle('on', (x.dataset.snd === 'on') === state.sound));
+  applyVolume(vol, true);
+
   applyTheme(th, md, { first: true });
-  Object.keys(WORDS).forEach(c2 => { state.sel[c2] = new Set(WORDS[c2]); });
+
+  Object.keys(WORDS).forEach(c2 => { state.catSel[c2] = new Set(WORDS[c2]); });
+
+  const su = loadSetup();
+  if (su) {
+    applySetup(su);
+  } else {
+    try {
+      const ro = JSON.parse(localStorage.getItem('impostor.roster') || 'null');
+      if (Array.isArray(ro) && ro.length >= 3) {
+        state.cfg.names = ro.slice(0, 16);
+        state.cfg.players = state.cfg.names.length;
+        $('pCount').value = state.cfg.players;
+      }
+    } catch (e) {}
+  }
+
   renderCats();
   loadSets();
-  ensurePlayers(); syncMods();
+  ensurePlayers();
+  syncMods();
   bindStepper('pMinus', 'pCount', 'pPlus', () => state.cfg.players, v => {
     state.cfg.players = v;
     state.prevRank = null;
@@ -3282,17 +4297,46 @@ $('durRange').addEventListener('input', syncDur);
   bindStepper('iMinus', 'iCount', 'iPlus', () => state.cfg.impostors,
     v => { state.cfg.impostors = v; syncMods(); }, 1, () => state.cfg.players - 1);
   renderNames();
-  syncDur();
+  syncDur(); syncPts(); syncTime(); syncRnd(); updGL(); updTimerSub();
+
+  if (!su) {                                    // first run: names are the first job
+    $('nameWrapper').classList.add('open');
+    $('namesToggle').classList.add('open');
+    $('namesToggleTxt').textContent = 'Hide names';
+  }
+
   $('ringFg').style.strokeDasharray = RING_C;
   $('ringFg').style.strokeDashoffset = 0;
+
+  const sd = loadSession();
+  if (sd && !sd.finished && Array.isArray(sd.names) && sd.names.length >= 3 && (sd.history || []).length) {
+    RESUME = sd;
+    $('introResume').hidden = false;
+    $('introResume').textContent = 'Resume Game (Round ' + (sd.roundNo || 1) + ')';
+    $('introStart').classList.remove('primary');
+  }
+
+  updSummary();
   show('intro');
+  booted = true;
 })();
 </script>
 <script>
 /* PWA: register offline service worker */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('./sw.js').then(function (r) { r.update(); }).catch(function () {});
+    navigator.serviceWorker.register('./sw.js').then(function (r) {
+      r.update();
+      r.addEventListener('updatefound', function () {
+        var nw = r.installing;
+        if (!nw) return;
+        nw.addEventListener('statechange', function () {
+          if (nw.state === 'installed' && navigator.serviceWorker.controller && window.__toastUpdate) {
+            window.__toastUpdate();
+          }
+        });
+      });
+    }).catch(function () {});
   });
 }
 </script>
