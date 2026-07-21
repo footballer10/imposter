@@ -1,5 +1,5 @@
 /* Impostor — service worker: offline cache for GitHub Pages */
-const CACHE = 'impostor-v5';
+const CACHE = 'impostor-v10';
 const CORE = ['./', './index.html', './manifest.json'];
 const EXTRAS = [
   './icons/apple-touch-icon.png',

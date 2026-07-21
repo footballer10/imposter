@@ -42,13 +42,25 @@ and 3,300+ words keep the game fresh.
 - Ties are broken by most imposter escapes, then fewest wrongful
   accusations, then name.
 
-In setup you can also set **Play to points** (1–100) or **Play to
-time** (1–60 min) — the round in progress always finishes, then a
-popup offers to continue or head to the podium.
+The **Game Length** panel holds three finish lines you can mix
+freely: points (1–100), time (1–100 min), and rounds (1–100). The
+round in progress always finishes; the first target hit triggers a
+popup with Continue or Finish (Continue silences all targets for the
+rest of the game). Active targets show as small chips on the
+standings screen. The **Categories** panel goes all the way down to
+individual words: each category has a tri-state checkbox (blank /
+partly selected / all selected), and tapping the category name
+expands its full word list so you can tick words one by one. Select
+All, Deselect All, Expand All, Collapse All — plus a **Kids** button
+that selects every kid-friendly category and un-ticks the few tricky
+words inside them. **Save Set** stores your exact selection under a
+name and adds a one-tap button for it (press and hold to delete);
+saved sets stick around between sessions.
 
 Hit **Finish Game** after any round for the podium, final leaderboard,
 awards (ties split them, and mods used for only part of the game earn
-their own awards, like Speed Demon for Blitz), and full round history.
+their own awards, like Speed Demon for Blitz), full round history, and
+a printable **Results Card** you can share with the group.
 
 ## Mods
 
@@ -57,7 +69,6 @@ Open the **Mods** panel in setup and stack as many as you like
 
 - **Decoy Words** — the imposter gets a close-but-wrong word and has no
   idea they're the imposter.
-- **Kid Mode** — only categories and words kids can connect to.
 - **Jester** — a secret third role that wins only by getting voted out.
 - **Accomplices** — imposters learn each other's names (needs 2+).
 - **Blackout** — the imposter sees nothing, not even the category.
@@ -65,9 +76,12 @@ Open the **Mods** panel in setup and stack as many as you like
   see their word; all clues reveal at once on the discussion screen.
 - **Blitz** — 5 seconds each, then straight to the vote.
 - **Scramble Order** — the whole speaking order gets shuffled.
-- **Secret Voting** — the phone goes around and everyone votes
-  privately (you never see your own name). Ties hang the jury; with
-  multiple imposters there must be a clear top group.
+- **Secret Voting** — everyone taps their own name and votes in
+  private, in any order (your own name never appears). The tally
+  reveals one ballot at a time. Ties hang the jury; with multiple
+  imposters there must be a clear top group.
+- **Mod Roulette** — every round rolls a surprise mod (usually one,
+  sometimes two, rarely a wild stack) and announces it on a splash.
 
 ## Tips
 
