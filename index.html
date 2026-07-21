@@ -3486,12 +3486,14 @@ function syncPts() {
   state.cfg.toPoints = v;
   $('ptsLabel').textContent = v + ' pts';
   $('ptsRange').style.setProperty('--fill', ((v - 1) / 99 * 100) + '%');
+  updSummary(); saveSetup();
 }
 function syncTime() {
   const v = +$('timeRange').value;
   state.cfg.toTime = v;
   $('timeLabel').textContent = v + ' min';
   $('timeRange').style.setProperty('--fill', ((v - 1) / 99 * 100) + '%');
+  updSummary(); saveSetup();
 }
 $('ptsRange').addEventListener('input', syncPts);
 $('timeRange').addEventListener('input', syncTime);
@@ -3500,6 +3502,7 @@ function syncRnd() {
   state.cfg.toRounds = v;
   $('rndLabel').textContent = v + (v === 1 ? ' round' : ' rounds');
   $('rndRange').style.setProperty('--fill', ((v - 1) / 99 * 100) + '%');
+  updSummary(); saveSetup();
 }
 function updGL() {
   const n = (state.cfg.toPointsOn ? 1 : 0) + (state.cfg.toTimeOn ? 1 : 0) + (state.cfg.toRoundsOn ? 1 : 0);
