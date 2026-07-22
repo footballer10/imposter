@@ -734,10 +734,10 @@ noscript .ns{
 .volicon.muted{background:var(--accent-soft); color:var(--accent)}
 .volval{flex:none; width:24px; text-align:right; font-size:11.5px; font-weight:800; color:var(--dim);
   font-variant-numeric:tabular-nums}
-.ver-tag{
-  position:absolute; left:14px; bottom:calc(env(safe-area-inset-bottom) + 10px); z-index:6;
-  font-size:10px; font-weight:700; letter-spacing:.04em; color:var(--dim); opacity:.4;
-  font-variant-numeric:tabular-nums; pointer-events:none;
+#rulesPop .r-head .ver-tag{
+  display:inline-block; font-family:var(--font-body); font-weight:400; text-transform:none;
+  text-decoration:none; font-size:11px; letter-spacing:.03em; color:var(--dim); opacity:.35;
+  margin-left:7px; vertical-align:middle; font-variant-numeric:tabular-nums; user-select:none;
 }
 .mute-flag{
   position:absolute; top:calc(env(safe-area-inset-top) + 14px); right:16px; z-index:6;
@@ -833,7 +833,6 @@ noscript .ns{
 
   <!-- ═══════════ INTRO · how to play ═══════════ -->
   <section class="screen active" id="s-intro">
-    <div id="verTag" class="ver-tag"></div>
     <div id="muteFlag" class="mute-flag" hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>Sound off</div>
     <div class="scrollarea center-col">
       <h1 class="wordmark big rise" style="--i:1">Impostor</h1>
@@ -1275,7 +1274,7 @@ noscript .ns{
 
   <div id="rulesPop" role="dialog" aria-label="Full rules">
     <div class="r-head">
-      <span class="wordmark sm">Impostor</span>
+      <span class="wordmark sm">Impostor<span id="verTag" class="ver-tag"></span></span>
       <button id="rulesClose" class="icon-btn" aria-label="Close rules"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="r-body">
@@ -3779,7 +3778,7 @@ $('durRange').addEventListener('input', syncDur);
    undefined instead of throwing.
    ════════════════════════════════════════════════════════════════ */
 var booted = false;
-const APP_VERSION = 'v16';
+const APP_VERSION = 'v17';
 var wordCount = 0;
 var RESUME = null;
 var BANNED = new Set();
