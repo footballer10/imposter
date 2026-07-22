@@ -734,6 +734,11 @@ noscript .ns{
 .volicon.muted{background:var(--accent-soft); color:var(--accent)}
 .volval{flex:none; width:24px; text-align:right; font-size:11.5px; font-weight:800; color:var(--dim);
   font-variant-numeric:tabular-nums}
+.ver-tag{
+  position:absolute; left:14px; bottom:calc(env(safe-area-inset-bottom) + 10px); z-index:6;
+  font-size:10px; font-weight:700; letter-spacing:.04em; color:var(--dim); opacity:.4;
+  font-variant-numeric:tabular-nums; pointer-events:none;
+}
 .mute-flag{
   position:absolute; top:calc(env(safe-area-inset-top) + 14px); right:16px; z-index:6;
   display:inline-flex; align-items:center; gap:6px; padding:6px 11px; border-radius:99px;
@@ -828,6 +833,7 @@ noscript .ns{
 
   <!-- ═══════════ INTRO · how to play ═══════════ -->
   <section class="screen active" id="s-intro">
+    <div id="verTag" class="ver-tag"></div>
     <div id="muteFlag" class="mute-flag" hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>Sound off</div>
     <div class="scrollarea center-col">
       <h1 class="wordmark big rise" style="--i:1">Impostor</h1>
@@ -3773,6 +3779,7 @@ $('durRange').addEventListener('input', syncDur);
    undefined instead of throwing.
    ════════════════════════════════════════════════════════════════ */
 var booted = false;
+const APP_VERSION = 'v15';
 var wordCount = 0;
 var RESUME = null;
 var BANNED = new Set();
@@ -4334,6 +4341,7 @@ window.__toastUpdate = () => toastAction('New version ready.', 'Tap to reload.',
     $('introStart').classList.remove('primary');
   }
 
+  $('verTag').textContent = APP_VERSION;
   updSummary();
   show('intro');
   booted = true;
