@@ -227,8 +227,8 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 }
 .popover.open{opacity:1; transform:none; pointer-events:auto}
 .theme-row{
-  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
-  padding:10px; border:1.5px solid transparent; border-radius:var(--radius);
+  display:flex; align-items:center; gap:9px; width:100%; text-align:left;
+  padding:9px 8px; border:1.5px solid transparent; border-radius:var(--radius);
   background:transparent; color:var(--text); font:inherit; cursor:pointer; transition:.18s;
 }
 .theme-row.on{border-color:var(--accent); background:var(--accent-soft)}
@@ -236,8 +236,10 @@ input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; 
 .dot{width:18px; height:18px; border-radius:50%; margin-left:-6px; border:2px solid var(--elev)}
 .dot:first-child{margin-left:0}
 .t-meta{flex:1; min-width:0}
-.t-name{font-weight:750; font-size:14.5px}
-.t-blurb{font-size:12px; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.t-name{display:block; font-weight:750; font-size:14.3px; line-height:1.25;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.t-blurb{display:block; font-size:11.5px; color:var(--dim); line-height:1.3;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .t-check{flex:none; color:var(--accent); opacity:0; transition:opacity .15s}
 .theme-row.on .t-check{opacity:1}
 
@@ -696,33 +698,14 @@ noscript .ns{
 .pod.p1.sweep::after{animation:podSweep 1s ease-out both}
 @keyframes podSweep{0%{left:-60%; opacity:0}18%{opacity:1}82%{opacity:1}100%{left:112%; opacity:0}}
 
-/* ---- awards: hero flips in, the rest follow ---- */
-.award-card.hero{
-  background:var(--accent-soft); border-color:var(--accent); box-shadow:var(--shadow);
-  padding:18px; margin-bottom:14px; transform-origin:top center;
-  animation:heroFlip .85s var(--ease) both;
-}
-.award-card.hero .aico{font-size:34px}
-.award-card.hero .at{font-size:19px; color:var(--accent)}
-.award-card.hero .an{font-size:17px; font-weight:800}
-.award-card.hero .ad{color:var(--dim); opacity:.9}
-@keyframes heroFlip{
-  0%{opacity:0; transform:perspective(900px) rotateX(-92deg)}
-  55%{opacity:1; transform:perspective(900px) rotateX(11deg)}
-  78%{transform:perspective(900px) rotateX(-4.5deg)}
-  100%{opacity:1; transform:perspective(900px) rotateX(0)}
-}
-.award-card.rest{opacity:0}
-.award-card.rest.in{animation:rise .5s var(--ease) both; animation-delay:calc(var(--i,0)*80ms)}
-
 /* ---- round splash: mods stagger in ---- */
 #roundSplash .sm2 span{display:inline-block; animation:rise .45s var(--ease) both;
   animation-delay:calc(var(--i,0)*115ms)}
 
 /* ---- theme picker: button-shape sample ---- */
 .t-sample{
-  flex:none; display:grid; place-items:center; min-width:46px; height:26px; padding:0 10px; line-height:1;
-  font-size:10px; font-weight:800; letter-spacing:.05em; font-family:var(--sfont, inherit);
+  flex:none; display:grid; place-items:center; min-width:40px; height:25px; padding:0 8px; line-height:1;
+  font-size:9.5px; font-weight:800; letter-spacing:.04em; font-family:var(--sfont, inherit);
   background:var(--sb); color:var(--sf); border:var(--sbw,1px) var(--sbs,solid) transparent;
   border-radius:var(--srad,4px);
 }
@@ -816,6 +799,18 @@ noscript .ns{
 .ban-row .bc{flex:none; font-size:11px; font-weight:650; color:var(--dim)}
 .b-empty{padding:30px 14px; text-align:center; color:var(--dim); font-size:13.5px; line-height:1.5}
 
+/* ---- intro: sized to land on one screen ---- */
+#s-intro .wordmark.big{font-size:clamp(38px,11.5vw,54px); margin:2px 0 2px}
+#s-intro .tagline{font-size:14.5px; margin:2px 0 13px}
+#s-intro .howlist{gap:8px; margin-top:2px}
+#s-intro .howcard{padding:11px 13px; gap:12px}
+#s-intro .how-ic{width:34px; height:34px; border-radius:10px}
+#s-intro .howcard h4{font-size:14.5px; margin:0 0 2px}
+#s-intro .howcard p{font-size:13px; line-height:1.4}
+#s-intro .scrollarea{padding-top:2px; padding-bottom:10px}
+#s-intro .bottombar{gap:7px; padding-top:6px}
+#s-intro .foot{margin:5px 0 0; font-size:11.5px}
+
 /* ---- rules quickstart ---- */
 #rulesPop ol.qs{padding-left:22px; margin:8px 0 4px}
 #rulesPop ol.qs li{margin-bottom:7px; font-weight:600}
@@ -859,8 +854,10 @@ noscript .ns{
     <div class="bottombar">
       <button id="introResume" class="btn primary lg" hidden>Resume Game</button>
       <button id="introStart" class="btn primary lg">Let&rsquo;s Play</button>
-      <button id="introShare" class="btn quiet lg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:7px"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share with Friends</button>
-      <button id="rulesBtn" class="btn quiet">Read the Full Rules</button>
+      <div class="btn-row2">
+        <button id="introShare" class="btn quiet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:7px"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>
+        <button id="rulesBtn" class="btn quiet">Full Rules</button>
+      </div>
       <p class="foot">Pass &amp; play &middot; one phone &middot; no internet needed</p>
     </div>
   </section>
@@ -2170,7 +2167,7 @@ function renderThemeRows() {
       + `--sbw:${k.bw};--sbs:${k.bstyle};--sfont:${k['font-display']}`;
     return `<button class="theme-row${id === state.themeId ? ' on' : ''}" data-id="${id}">
       <span class="swatches"><span class="dot" style="background:${p.bg}"></span><span class="dot" style="background:${p.accent}"></span><span class="dot" style="background:${p.win}"></span><span class="dot" style="background:${p.lose}"></span></span>
-      <span class="t-meta"><span class="t-name">${t.name}</span><br><span class="t-blurb">${t.blurb}</span></span>
+      <span class="t-meta"><span class="t-name">${t.name}</span><span class="t-blurb">${t.blurb}</span></span>
       <span class="t-sample" data-t="${id}" style="${sv}">Play</span>
       <span class="t-check">${ICON.check}</span>
     </button>`;
@@ -3193,53 +3190,30 @@ function computeAwards() {
   });
   return out;
 }
-/* The hero slot goes to the award with the best story, not the one that
-   happens to be computed first. Anything unlisted (the per-mod awards)
-   ranks just behind the named ones. */
-const HERO_RANK = ['Hot Streak', 'Escape Artist', 'Agent of Chaos', 'Master Detective',
-  'Most Wanted', 'Caught Red-Handed', 'The Scapegoat', 'Iron Alibi', 'Way Off', 'Pure of Heart'];
-function heroIndex(aw) {
-  let best = 0, bestRank = 1e9;
-  aw.forEach((a, i) => {
-    let r = HERO_RANK.indexOf(a.label);
-    if (r < 0) r = HERO_RANK.length;
-    if (r < bestRank) { bestRank = r; best = i; }
-  });
-  return best;
-}
-let awardsT = null;
 function renderAwards() {
   const list = $('awardList');
   list.innerHTML = '';
-  clearTimeout(awardsT);
   const aw = computeAwards();
   if (!aw.length) {
     list.innerHTML = '<p class="sub-lead">No awards this time. Play a few more rounds.</p>';
     return;
   }
-  const card = (a, cls, i) => {
+  aw.forEach((a, i) => {
     const c = document.createElement('div');
-    c.className = 'award-card ' + cls;
-    if (i != null) c.style.setProperty('--i', Math.min(i, 8));
+    c.className = 'award-card rise';
+    c.style.setProperty('--i', Math.min(i, 8));
     c.innerHTML = `<span class="aico">${a.icon}</span><div><div class="at">${a.label}</div><div class="an">${esc(a.name)}</div><div class="ad">${a.desc}</div></div>`;
-    return c;
-  };
-  const hi = heroIndex(aw);
-  list.appendChild(card(aw[hi], 'hero'));
-  const rest = aw.filter((_, i) => i !== hi).map((a, i) => card(a, 'rest', i));
-  rest.forEach(c => list.appendChild(c));
-  if (reduceMotion()) rest.forEach(c => c.classList.add('in'));
-  else awardsT = setTimeout(() => rest.forEach(c => c.classList.add('in')), 950);
+    list.appendChild(c);
+  });
 }
 $('newGameBtn').addEventListener('click', () => {
-  confirmDlg('Start a new game?', 'Scores, stats, and history reset. The roster stays.', 'New Game', () => {
-    state.scores = state.scores.map(() => 0);
-    state.stats = state.stats.map(() => ({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0, svCorrect: 0, svWrong: 0 }));
-    state.history = []; state.prevRank = null; state.roundNo = 0; state.round = null;
-    state.modPts = {}; state.gameStart = null; state.targetDismissed = false;
-    state.undo = null; state.finished = false; clearSession();
-    show('setup'); validateSetup();
-  });
+  sndTick();
+  state.scores = state.scores.map(() => 0);
+  state.stats = state.stats.map(() => ({ imp: 0, esc: 0, caught: 0, scape: 0, jester: 0, svCorrect: 0, svWrong: 0 }));
+  state.history = []; state.prevRank = null; state.roundNo = 0; state.round = null;
+  state.modPts = {}; state.gameStart = null; state.targetDismissed = false;
+  state.undo = null; state.finished = false; clearSession();
+  show('setup'); validateSetup();
 });
 
 /* ---------- history ---------- */
@@ -3265,16 +3239,47 @@ $('histBack').addEventListener('click', () => show('awards'));
 
 /* ---------- shareable results card ---------- */
 function shareResultsCard() {
-  const W2 = 1240, H2 = 1754;
-  const cnv = document.createElement('canvas');
-  cnv.width = W2; cnv.height = H2;
-  const x = cnv.getContext('2d');
+  const W2 = 1240;
   const cs = getComputedStyle(document.body);
   const col = v => cs.getPropertyValue(v).trim() || '#000';
   const bg = col('--bg'), tx = col('--text'), dm = col('--dim'), ac = col('--accent'), ln = col('--line');
   const fd = cs.getPropertyValue('--font-display').trim() || 'serif';
   const fb = cs.getPropertyValue('--font-body').trim() || 'sans-serif';
+
+  const ord = state.finalOrd || rankOrder();
+  const aw = computeAwards();
+  const nPod = Math.min(3, ord.length);
+  const nStand = Math.min(ord.length, 14);
+
+  /* Awards go in as many columns as it takes to keep the card a sane shape.
+     Every string is measured against its own column, so a long name is
+     ellipsised rather than running into the next column. */
+  const M = 110, GUT = 46, AB = 104;
+  const cols = aw.length > 12 ? 3 : aw.length > 5 ? 2 : 1;
+  const rows = Math.ceil(aw.length / cols);
+  const colW = (W2 - 2 * M - (cols - 1) * GUT) / cols;
+
+  let need = 300 + 76;
+  for (let k = 0; k < nPod; k++) need += (k === 0 ? 80 : 64);
+  need += 26 + 66 + 60 + nStand * 48 + 28 + 66 + 62 + rows * AB + 110;
+  const H2 = Math.max(1754, Math.ceil(need));
+
+  const cnv = document.createElement('canvas');
+  cnv.width = W2; cnv.height = H2;
+  const x = cnv.getContext('2d');
   const clip = (s2, n2) => s2.length > n2 ? s2.slice(0, n2 - 1) + '\u2026' : s2;
+  // trim to fit an exact pixel width using the font currently set on the context
+  const fit = (s2, maxW) => {
+    s2 = String(s2);
+    if (x.measureText(s2).width <= maxW) return s2;
+    let lo = 0, hi = s2.length;
+    while (lo < hi) {
+      const mid = (lo + hi + 1) >> 1;
+      if (x.measureText(s2.slice(0, mid) + '\u2026').width <= maxW) lo = mid; else hi = mid - 1;
+    }
+    return s2.slice(0, Math.max(1, lo)) + '\u2026';
+  };
+
   x.fillStyle = bg; x.fillRect(0, 0, W2, H2);
   x.fillStyle = ac; x.fillRect(0, 0, W2, 14); x.fillRect(0, H2 - 14, W2, 14);
   x.textAlign = 'center';
@@ -3283,25 +3288,26 @@ function shareResultsCard() {
   const d2 = new Date();
   x.fillText(d2.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })
     + ' \u00b7 ' + state.history.length + ' rounds \u00b7 ' + state.session.names.length + ' players', W2 / 2, 196);
-  const ord = state.finalOrd || rankOrder();
+
   let y = 300;
   x.font = '700 46px ' + fd; x.fillStyle = tx; x.fillText('The Podium', W2 / 2, y); y += 76;
   const meds = ['\u{1F3C6}', '\u{1F948}', '\u{1F949}'];
-  for (let i = 0; i < Math.min(3, ord.length); i++) {
-    x.font = (i === 0 ? '800 56px ' : '700 44px ') + fb;
-    x.fillStyle = i === 0 ? ac : tx;
-    x.fillText(meds[i] + '  ' + clip(state.session.names[ord[i]], 16) + ' \u00b7 ' + (state.scores[ord[i]] || 0) + ' pts', W2 / 2, y);
-    y += i === 0 ? 80 : 64;
+  for (let k = 0; k < nPod; k++) {
+    x.font = (k === 0 ? '800 56px ' : '700 44px ') + fb;
+    x.fillStyle = k === 0 ? ac : tx;
+    x.fillText(meds[k] + '  ' + clip(state.session.names[ord[k]], 16) + ' \u00b7 ' + (state.scores[ord[k]] || 0) + ' pts', W2 / 2, y);
+    y += k === 0 ? 80 : 64;
   }
   y += 26;
   x.strokeStyle = ln; x.lineWidth = 2;
   x.beginPath(); x.moveTo(120, y); x.lineTo(W2 - 120, y); x.stroke(); y += 66;
+
   x.font = '700 46px ' + fd; x.fillStyle = tx; x.fillText('Final Standings', W2 / 2, y); y += 60;
   x.font = '400 34px ' + fb; x.textAlign = 'left';
-  for (let i = 0; i < Math.min(ord.length, 14); i++) {
-    x.fillStyle = dm; x.fillText((i + 1) + '.', 205, y);
-    x.fillStyle = i === 0 ? ac : tx; x.fillText(clip(state.session.names[ord[i]], 20), 275, y);
-    x.textAlign = 'right'; x.fillText((state.scores[ord[i]] || 0) + ' pts', W2 - 205, y);
+  for (let k = 0; k < nStand; k++) {
+    x.fillStyle = dm; x.fillText((k + 1) + '.', 205, y);
+    x.fillStyle = k === 0 ? ac : tx; x.fillText(clip(state.session.names[ord[k]], 20), 275, y);
+    x.textAlign = 'right'; x.fillText((state.scores[ord[k]] || 0) + ' pts', W2 - 205, y);
     x.textAlign = 'left';
     y += 48;
   }
@@ -3309,16 +3315,22 @@ function shareResultsCard() {
   x.textAlign = 'center';
   x.beginPath(); x.moveTo(120, y); x.lineTo(W2 - 120, y); x.stroke(); y += 66;
   x.font = '700 46px ' + fd; x.fillStyle = tx; x.fillText('Awards', W2 / 2, y); y += 62;
+
   x.textAlign = 'left';
-  const aw = computeAwards();
-  for (const a2 of aw) {
-    if (y > H2 - 150) break;
-    x.font = '400 34px ' + fb; x.fillStyle = tx;
-    x.fillText(a2.icon + '  ' + a2.label + ' \u00b7 ' + clip(a2.name, 24), 170, y);
-    x.fillStyle = dm; x.font = '400 27px ' + fb;
-    x.fillText(clip(a2.desc, 62), 220, y + 34);
-    y += 86;
-  }
+  const y0 = y;
+  aw.forEach((a2, k) => {
+    const c = Math.floor(k / rows), r = k % rows;
+    const cx = M + c * (colW + GUT);
+    const cy = y0 + r * AB;
+    x.font = '700 30px ' + fb; x.fillStyle = tx;
+    x.fillText(fit(a2.icon + '  ' + a2.label, colW), cx, cy);
+    x.font = '600 27px ' + fb; x.fillStyle = ac;
+    x.fillText(fit(a2.name, colW), cx, cy + 36);
+    x.font = '400 23px ' + fb; x.fillStyle = dm;
+    x.fillText(fit(a2.desc, colW), cx, cy + 68);
+  });
+  y = y0 + rows * AB;
+
   x.textAlign = 'center'; x.fillStyle = dm; x.font = '400 28px ' + fb;
   x.fillText('footballer10.github.io/imposter', W2 / 2, H2 - 54);
   cnv.toBlob(async blob => {
