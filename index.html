@@ -2354,6 +2354,17 @@ function pickRound() {
   if (b && Math.random() < .5) { const t = a; a = b; b = t; }
   return { cat: q.cat, word: a, decoy: b };
 }
+/* Every legal combination of the eligible mods, no-mods included, gets
+   exactly the same chance. Nothing is weighted toward fewer or more mods. */
+function allModCombos(elig) {
+  const out = [[]];
+  elig.forEach(m2 => {
+    const grown = out.map(c2 => c2.concat(m2))
+      .filter(c2 => !c2.some(a2 => (INCOMPAT[a2] || []).includes(m2) && a2 !== m2));
+    out.push(...grown);
+  });
+  return out;
+}
 function rollMods() {
   const all2 = ['decoy', 'jester', 'accomplices', 'blackout', 'written', 'blitz', 'secret'];
   const elig = all2.filter(m2 => {
@@ -2362,21 +2373,13 @@ function rollMods() {
     if (m2 === 'jester' && state.cfg.players < state.cfg.impostors + 2) return false;
     return true;
   });
-  if (!elig.length) { all2.forEach(m2 => { state.mods[m2] = false; }); return; }
+  const pool = allModCombos(elig);
   const prev = all2.filter(m2 => state.mods[m2]).sort().join('|');
-  let picked = [];
-  for (let attempt = 0; attempt < 8; attempt++) {
-    const r3 = Math.random();
-    const want = r3 < .62 ? 1 : r3 < .87 ? 2 : r3 < .96 ? 3 : 4;
-    const bag = shuffle(elig.slice());
-    picked = [];
-    for (const m2 of bag) {
-      if (picked.length >= want) break;
-      if (picked.some(p2 => (INCOMPAT[m2] || []).includes(p2))) continue;
-      picked.push(m2);
+  let picked = pool[Math.floor(Math.random() * pool.length)];
+  if (pool.length > 1) {
+    for (let attempt = 0; attempt < 8 && picked.slice().sort().join('|') === prev; attempt++) {
+      picked = pool[Math.floor(Math.random() * pool.length)];
     }
-    if (picked.length && picked.slice().sort().join('|') !== prev && elig.length > 1) break;
-    if (elig.length <= 1) break;
   }
   all2.forEach(m2 => { state.mods[m2] = picked.includes(m2); });
 }
